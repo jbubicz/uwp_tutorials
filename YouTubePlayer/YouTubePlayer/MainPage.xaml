@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="YouTubePlayer.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YouTubePlayer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <MediaElement Name="Player" Height="500" Width="800"/>
+        <Button Name="btn1" Content="Play" Margin="438,322,155,6" HorizontalAlignment="Center" Click="btn1_Click"/>
+        <Button Name="pause" Content="Pause" HorizontalAlignment="Center" Click="pause_Click" Margin="488,322,94,6" />
+    </Grid>
+</Page>
