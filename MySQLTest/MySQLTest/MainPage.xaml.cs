@@ -25,6 +25,7 @@ namespace MySQLTest
         public MainPage()
         {
             this.InitializeComponent();
+            DBconnector.test();
         }
     }
 }

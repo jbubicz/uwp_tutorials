@@ -63,7 +63,7 @@
 
         <SplitView Name="MySpliView"
                    Grid.Row="1"
-                   DisplayMode="CompactOverlay"
+                   DisplayMode="Overlay"
                    OpenPaneLength="150"
                    CompactPaneLength="45">
 
