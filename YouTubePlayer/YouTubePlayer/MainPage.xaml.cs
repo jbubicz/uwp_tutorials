@@ -14,14 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MyToolkit.Multimedia;
 
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace YouTubePlayer
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         public MainPage()
@@ -29,17 +23,28 @@ namespace YouTubePlayer
             this.InitializeComponent();
         }
 
-        private async void btn1_Click(object sender, RoutedEventArgs e)
+        private void btn1_Click(object sender, RoutedEventArgs e)
         {
-            var url = await YouTube.GetVideoUriAsync("rjVqGEGhD9c", YouTubeQuality.Quality1080P);
-            Player.Source = url.Uri;
+            //var url = await YouTube.GetVideoUriAsync("rjVqGEGhD9c", YouTubeQuality.Quality1080P);
+            //Player.Source = url.Uri;
             Player.Play();
+          
            
         }
 
         private void pause_Click(object sender, RoutedEventArgs e)
         {
             Player.Pause();
+        }
+
+        private void Player_BufferingProgressChanged(object sender, RoutedEventArgs e)
+        {
+            dupa.Visibility = Visibility.Visible;
+        }
+
+        private void Player_Loading(FrameworkElement sender, object args)
+        {
+          //  dupa.Visibility = Visibility.Visible;
         }
     }
 }

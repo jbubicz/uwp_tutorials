@@ -1,0 +1,120 @@
+﻿<Page
+    x:Class="TrainingPlatform.CoursesList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TrainingPlatform"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot x:Name="MainPivot" SelectionChanged="MainPivot_SelectionChanged">
+            <PivotItem Header="All Courses">
+                <Grid>
+                    <ListView x:Name="lstGroup" Margin="8"
+                                      ItemClick="lstGroup_ItemClick"
+                                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                      IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
+                                    <Grid >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="100"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" />
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ListView x:Name="lstAlphaBetic" Margin="8"
+                                      Visibility="Collapsed"
+                                      ItemClick="lstAlphaBetic_ItemClick"
+                                      IsItemClickEnabled="True"
+                                      SelectionChanged="lstAlphaBetic_SelectionChanged"
+                                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
+                                    <Grid Margin="8">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Text="{Binding}" FontWeight="Bold"
+                                                           TextWrapping="Wrap" Foreground="#494949" FontSize="16"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                </Grid>
+            </PivotItem>
+
+            <PivotItem Header="Video">
+                <ListView x:Name="lstVideo" Margin="8" ItemClick="lstVideo_ItemClick"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                  IsItemClickEnabled="True">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
+                                <Grid Margin="0 0 0 8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Width="70" Height="70"
+                                                       Source="{Binding ImgUrl}" Stretch="UniformToFill"/>
+                                        <Grid Grid.Column="1" Margin="8 0 0 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0" Text="{Binding VideoTitle}"
+                                                               FontWeight="Bold" TextWrapping="Wrap"
+                                                               Foreground="#494949" FontSize="16"/>
+                                            <TextBlock Grid.Row="1" Text="{Binding DateAdded}" FontStyle="Italic"
+                                                               TextWrapping="Wrap" Foreground="#494949" FontSize="12">
+
+                                            </TextBlock>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

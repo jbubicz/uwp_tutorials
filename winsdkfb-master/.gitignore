@@ -1,0 +1,22 @@
+.nuget
+*.csproj.user
+*.vcxproj.user
+*.opendb
+*.opensdf
+*.sdf
+*.suo
+*.VC.db
+*.vs
+AppPackages
+bin
+Debug
+Doxygen
+*.githash.txt
+Generated
+Generated Files
+ipch
+packages
+Packages.dgml
+Release
+sdk-build.log
+project.lock.json

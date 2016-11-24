@@ -7,9 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <MediaElement Name="Player" Height="500" Width="800"/>
-        <Button Name="btn1" Content="Play" Margin="438,322,155,6" HorizontalAlignment="Center" Click="btn1_Click"/>
-        <Button Name="pause" Content="Pause" HorizontalAlignment="Center" Click="pause_Click" Margin="488,322,94,6" />
-    </Grid>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mygrid">
+        <TextBlock Name="dupa" FontSize="100" Text="dupa" Visibility="Collapsed"/>
+        <MediaElement AutoPlay="False" Name="Player" Height="500" Width="800" Source="http://178.162.214.232/vod/movies/english/thedarkknight.MKV" BufferingProgressChanged="Player_BufferingProgressChanged" Loading="Player_Loading"/>
+       
+        <Button Name="btn1" Content="Play" HorizontalAlignment="Center" Click="btn1_Click"/>
+        <Button Name="pause" Content="Pause" HorizontalAlignment="Center" Click="pause_Click" />
+    </StackPanel>
 </Page>

@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="Serwisy.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Serwisy"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="5">
+        <TextBlock Name="temp" />
+        <Button Click="Button_Click">Temperatura z internetu w C i F</Button>
+        <TextBlock Name="textblock1" Text="Wpisz temperaturę:" Margin="0,20,0,0" FontWeight="Bold"/>
+        
+        <TextBox Name="textbox" InputScope="Number" />
+        <StackPanel Orientation="Horizontal">
+            <Button Name="TempCButton" Content="C -> F" Click="TempCButton_Click" Margin="0,5,0,0"/>
+            <TextBlock Name="tempf" Margin="10,5,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Name="TempFButton" Content="F -> C" Click="TempFButton_Click" Margin="0,5,0,0" />
+            <TextBlock Name="tempc" Margin="10,5,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
+        </StackPanel>
+    </StackPanel>
+</Page>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,6 +26,8 @@ namespace TrainingPlatform
         public MainPage()
         {
             this.InitializeComponent();
+            MyFrame.Navigate(typeof(CoursesList));
+            Back.Visibility = Visibility.Collapsed;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -44,44 +47,12 @@ namespace TrainingPlatform
             }
         }
 
-        private void MainPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if (MainPivot.SelectedIndex == 0)
+            if (MyFrame.CanGoBack)
             {
-                //List<Words> lstsource = Database.getAllWords("Favorites");
-                //lstFavorites.ItemsSource = lstsource;
-                //if (lstFavorites.Items.Count > 0)
-                //    btnMulti.Visibility = Visibility.Visible;
-                //btnRemind.Visibility = Visibility.Visible;
-                List<Course> lstsource = Database.getAllCourses("courses");
-                lstGroup.ItemsSource = lstsource;
+                MyFrame.GoBack();
             }
-            else if (MainPivot.SelectedIndex == 1)
-            {
-                //List<Course> lstsource = Database.getAllCourses("courses");
-                //lstAlphaBetic.ItemsSource = lstsource;                
-            }
-            else { return; }
-        }
-
-        private void lstGroup_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void lstAlphaBetic_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void lstAlphaBetic_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void lstVideo_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
         }
     }
 }

@@ -10,7 +10,16 @@ xmlns:udi="using:winsdkfb.winsdkfb_uwp_XamlTypeInfo"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <fb:FBLoginButton x:Name="login" Click="login_Click"></fb:FBLoginButton>
-
+        
+        <StackPanel Grid.Row="1" x:Name="StackPanel2" Orientation="Vertical" Margin="19,0,19,0">
+            <StackPanel MaxWidth="362" HorizontalAlignment="Left" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,0,0,12">
+                <fb:ProfilePictureControl Grid.Column="0" CropMode="Square" x:Name="SquarePicture" Width="100" Height="100" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <Button x:Name="UserLikesButton" Content="Show Likes..." HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="UserLikesButton_Click" MaxWidth="362" Height="68" Width="{Binding ActualWidth, ElementName=StackPanel2}"/>
+            <Button Content="Back" x:Name="BackButton" Height="73" MaxWidth="362" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,10,0,0" Click="OnGet"/>
+            <fb:FBLoginButton x:Name="login" Margin="10" Click="login_Click"></fb:FBLoginButton>
+            <TextBlock Name="IsLogged"/>
+            <Button Name="logout" Content="Logout" Click="logout_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
