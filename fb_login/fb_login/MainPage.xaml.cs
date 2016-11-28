@@ -95,15 +95,15 @@ namespace fb_login
             string endpoint = "/me/friends";
 
             PropertySet parameters = new PropertySet();
-            parameters.Add("fields", "name");
+            parameters.Add("limit", "10");
 
-            FBSingleValue value = new FBSingleValue(endpoint, parameters, UserProfile.FromJson);
+            FBSingleValue value = new FBSingleValue(endpoint, parameters, Rootobject.FromJson);
             FBResult graphResult = await value.GetAsync();
 
             if (graphResult.Succeeded)
             {
-                UserProfile profile = graphResult.Object as UserProfile;
-                string name = profile?.name;
+                Rootobject profile = graphResult.Object as Rootobject;
+                string name = profile.data[0]?.name;
                 MessageDialog dialog = new MessageDialog(name);
                 await dialog.ShowAsync();
             }
