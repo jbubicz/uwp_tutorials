@@ -64,6 +64,7 @@
                     <TextBox Name="price_box" InputScope="CurrencyAmountAndSymbol"/>
                     <TextBlock Name="img_label" Text="Upload image for Your course:"/>
                     <Button Name="Upload" Click="Upload_Click" Content="Upload"/>
+                    <Button Name="add_course_button" Content="Add course" Margin="20" Click="add_course_button_Click"/>
                     <!--<Image Name="imageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
                 </StackPanel>
             </SplitView.Content>

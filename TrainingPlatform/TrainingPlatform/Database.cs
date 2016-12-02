@@ -45,11 +45,11 @@ namespace TrainingPlatform
                                 course.UserId = reader.GetInt32("user_id");
                                 course.Category = reader.GetInt32("category_id");
                                 course.Title = reader.GetString("title");
-                                course.Price = reader.GetFloat("price");
+                                course.Price = reader.GetString("price");
                                 course.ImgUrl = reader.GetString("img");
                                 course.ShortDescription = reader.GetString("short_description");
                                 course.Description = reader.GetString("description");
-                                course.IsEnabled = reader.GetBoolean("is_enabled");
+                                course.IsEnabled = reader.GetInt32("is_enabled");
                                 course.Created = reader.GetDateTime("created");
                                 course.Modified = reader.GetDateTime("modified");
                                 result.Add(course);
@@ -92,11 +92,11 @@ namespace TrainingPlatform
                                 course.UserId = reader.GetInt32("user_id");
                                 course.Category = reader.GetInt32("category_id");
                                 course.Title = reader.GetString("title");
-                                course.Price = reader.GetFloat("price");
+                                course.Price = reader.GetString("price");
                                 course.ImgUrl = reader.GetString("img");
                                 course.ShortDescription = reader.GetString("short_description");
                                 course.Description = reader.GetString("description");
-                                course.IsEnabled = reader.GetBoolean("is_enabled");
+                                course.IsEnabled = reader.GetInt32("is_enabled");
                                 course.Created = reader.GetDateTime("created");
                                 course.Modified = reader.GetDateTime("modified");
                                 result.Add(course);
@@ -149,7 +149,7 @@ namespace TrainingPlatform
             }
         }
 
-        public static void insertCourse(string tableName, int user_id, int cat_id, string title, float price, string img, string short_desc, string desc)
+        public static bool insertCourse(string tableName, int user_id, int cat_id, string title, string price, string img, string short_desc, string desc)
         {
             string connectionString = getConnectionString();
             try
@@ -168,14 +168,16 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@img", img);
                     getCommand.Parameters.AddWithValue("@short_description", short_desc);
                     getCommand.Parameters.AddWithValue("@description", desc);
-
-                    getCommand.ExecuteNonQuery();
+                    Debug.Write(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();                    
                     connection.Close();
+                    return true;
                 }
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);                
+                Debug.Write(e.Message);
+                return false;             
             }
         }
 
