@@ -91,68 +91,12 @@
             </SplitView.Pane>
 
             <SplitView.Content>
-                <Grid>
-                    <ListView x:Name="lstGroup" Margin="8"
-                                      ItemClick="lstGroup_ItemClick"
-                                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                      IsItemClickEnabled="True">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
-                                    <Grid >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="100"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="3*" />
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" />
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                        <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ListView x:Name="lstAlphaBetic" Margin="8"
-                                      Visibility="Collapsed"
-                                      ItemClick="lstAlphaBetic_ItemClick"
-                                      IsItemClickEnabled="True"
-                                      SelectionChanged="lstAlphaBetic_SelectionChanged"
-                                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                      ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
-                                    <Grid Margin="8">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0" Text="{Binding}" FontWeight="Bold"
-                                                           TextWrapping="Wrap" Foreground="#494949" FontSize="16"/>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-
-                    </ListView>
-                </Grid>
+                <StackPanel Name="lstGroup">
+                    <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"/>
+                </StackPanel>
             </SplitView.Content>
         </SplitView>
     </Grid>

@@ -39,11 +39,11 @@ namespace TrainingPlatform
         {
             if (Link1.IsSelected)
             {
-
+                MyFrame.Navigate(typeof(CoursesList));
             }
             if (Link2.IsSelected)
             {
-
+                MyFrame.Navigate(typeof(AddPage));
             }
         }
 

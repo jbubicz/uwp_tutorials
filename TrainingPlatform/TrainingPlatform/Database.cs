@@ -11,10 +11,14 @@ namespace TrainingPlatform
 {
     class Database
     {
-        static string server = "127.0.0.1";
-        static string database = "mydb";
-        static string user = "root";
-        static string pswd = "";
+        //static string server = "127.0.0.1";
+        //static string database = "mydb";
+        //static string user = "root";
+        //static string pswd = "";
+        static string server = "188.116.20.191";
+        static string database = "brecowww_szkolenia";
+        static string user = "brecowww_szkolus";
+        static string pswd = "szkolenia123";
 
         public static ObservableCollection<Course> getAllActiveCourses(string tableName)
         {
@@ -110,39 +114,27 @@ namespace TrainingPlatform
             }
         }
 
-            public static ObservableCollection<Course> getCourseDetails(string tableName)
+        public static ObservableCollection<CategoriesList> getCategories(string tableName)
         {
-            ObservableCollection<Course> result = new ObservableCollection<Course>();
-            EncodingProvider ppp;
-            ppp = CodePagesEncodingProvider.Instance;
-            Encoding.RegisterProvider(ppp);
-            string connectionString = "Server = " + server + ";database = " + database + ";uid = " + user + ";password = " + pswd + ";SslMode=None;charset=utf8";
+            ObservableCollection<CategoriesList> result = new ObservableCollection<CategoriesList>();
+            string connectionString = getConnectionString();
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled` =0";
+                    getCommand.CommandText = "SELECT * FROM " + tableName;
                     using (MySqlDataReader reader = getCommand.ExecuteReader())
                     {
                         if (reader != null)
                         {
                             while (reader.Read())
                             {
-                                Course course = new Course();
-                                course.Id = reader.GetInt32("id");
-                                course.UserId = reader.GetInt32("user_id");
-                                course.Category = reader.GetInt32("category_id");
-                                course.Title = reader.GetString("title");
-                                course.Price = reader.GetFloat("price");
-                                course.ImgUrl = reader.GetString("img");
-                                course.ShortDescription = reader.GetString("short_description");
-                                course.Description = reader.GetString("description");
-                                course.IsEnabled = reader.GetBoolean("is_enabled");
-                                course.Created = reader.GetDateTime("created");
-                                course.Modified = reader.GetDateTime("modified");
-                                result.Add(course);
+                                CategoriesList category = new CategoriesList();
+                                category.Id = reader.GetInt32("id");                               
+                                category.Title = reader.GetString("title");                                
+                                result.Add(category);
                             }
                         }
                     }
@@ -156,6 +148,46 @@ namespace TrainingPlatform
                 return null;
             }
         }
+
+        public static void insertCourse(string tableName, int user_id, int cat_id, string title, float price, string img, string short_desc, string desc)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "INSERT INTO " + tableName +
+                        "(`user_id`, `category_id`, `title`, `price`, `img`, `short_description`, `description`) "
+                        + "VALUES(@user_id, @category_id, @title, @price, @img, @short_description, @description)";
+                    getCommand.Parameters.AddWithValue("@user_id", user_id);
+                    getCommand.Parameters.AddWithValue("@category_id", cat_id);
+                    getCommand.Parameters.AddWithValue("@title", title);
+                    getCommand.Parameters.AddWithValue("@price", price);
+                    getCommand.Parameters.AddWithValue("@img", img);
+                    getCommand.Parameters.AddWithValue("@short_description", short_desc);
+                    getCommand.Parameters.AddWithValue("@description", desc);
+
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);                
+            }
+        }
+
+        private static string getConnectionString()
+        {
+            EncodingProvider ppp;
+            ppp = CodePagesEncodingProvider.Instance;
+            Encoding.RegisterProvider(ppp);
+            string connectionString = "Server = " + server + ";database = " + database + ";uid = " + user + ";password = " + pswd + ";SslMode=None;charset=utf8";
+            return connectionString;
+        }
+
     }
 }
 

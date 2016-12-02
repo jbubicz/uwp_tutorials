@@ -44,7 +44,8 @@
                     Height="45"
                     HorizontalAlignment="Center"
                     Click="HamburgerButton_Click"/>
-            <Button Name="Back" 
+            <Button Name="Back"
+                    Visibility="Visible"
                     Click="Back_Click" 
                     RelativePanel.RightOf="HamburgerButton" 
                     FontFamily="Segoe MDL2 Assets" 

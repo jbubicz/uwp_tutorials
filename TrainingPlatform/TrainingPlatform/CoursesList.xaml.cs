@@ -20,8 +20,9 @@ namespace TrainingPlatform
     {
         public CoursesList()
         {
-            this.InitializeComponent();
-        }
+            this.InitializeComponent();            
+        }        
+
         private void MainPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MainPivot.SelectedIndex == 0)
@@ -40,7 +41,7 @@ namespace TrainingPlatform
         private void lstGroup_ItemClick(object sender, ItemClickEventArgs e)
         {
             Course course = e.ClickedItem as Course;
-            Frame.Navigate(typeof(ViewCourse), e);
+            Frame.Navigate(typeof(ViewCourse), course);
         }
 
         private void lstAlphaBetic_ItemClick(object sender, ItemClickEventArgs e)

@@ -26,9 +26,14 @@ namespace TrainingPlatform
         public ViewCourse()
         {
             this.InitializeComponent();
-            //Back.Visibility = Visibility.Visible;
-            ObservableCollection<Course> lstsource = Database.getAllActiveCourses("courses");
-            lstGroup.ItemsSource = lstsource;
+                  
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var parameters = (Course)e.Parameter;
+            lstGroup.DataContext = parameters;
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
