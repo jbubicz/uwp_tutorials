@@ -105,6 +105,8 @@
     </Compile>
     <Compile Include="CourseView.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="FtpClient.cs" />
+    <Compile Include="FtpResponse.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

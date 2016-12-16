@@ -15,6 +15,7 @@ namespace TrainingPlatform
         //static string database = "mydb";
         //static string user = "root";
         //static string pswd = "";
+        //http://breko.eu/phpmyadmin/
         static string server = "188.116.20.191";
         static string database = "brecowww_szkolenia";
         static string user = "brecowww_szkolus";
@@ -23,10 +24,7 @@ namespace TrainingPlatform
         public static ObservableCollection<Course> getAllActiveCourses(string tableName)
         {
             ObservableCollection<Course> result = new ObservableCollection<Course>();
-            EncodingProvider ppp;
-            ppp = CodePagesEncodingProvider.Instance;
-            Encoding.RegisterProvider(ppp);
-            string connectionString = "Server = " + server + ";database = " + database + ";uid = " + user + ";password = " + pswd + ";SslMode=None;charset=utf8";
+            string connectionString = getConnectionString();
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -70,10 +68,7 @@ namespace TrainingPlatform
         public static ObservableCollection<Course> getAllDisabledCourses(string tableName)
         {
             ObservableCollection<Course> result = new ObservableCollection<Course>();
-            EncodingProvider ppp;
-            ppp = CodePagesEncodingProvider.Instance;
-            Encoding.RegisterProvider(ppp);
-            string connectionString = "Server = " + server + ";database = " + database + ";uid = " + user + ";password = " + pswd + ";SslMode=None;charset=utf8";
+            string connectionString = getConnectionString();
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -178,6 +173,64 @@ namespace TrainingPlatform
             {
                 Debug.Write(e.Message);
                 return false;             
+            }
+        }
+
+        public static bool updateCourse(string tableName, int course_id, int cat_id, string title, string price, string img, string short_desc, string desc)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "UPDATE" + tableName +
+                        "SET `category_id`=@category_id,`title`=@title,`price`=@price,`img`=@img,`short_description`=@short_description,`description`=@description" +
+                        "WHERE `id`=@course_id";
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    getCommand.Parameters.AddWithValue("@category_id", cat_id);
+                    getCommand.Parameters.AddWithValue("@title", title);
+                    getCommand.Parameters.AddWithValue("@price", price);
+                    getCommand.Parameters.AddWithValue("@img", img);
+                    getCommand.Parameters.AddWithValue("@short_description", short_desc);
+                    getCommand.Parameters.AddWithValue("@description", desc);
+                    Debug.Write(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
+            }
+        }
+
+        public static bool deleteCourse(string tableName, int course_id)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "UPDATE" + tableName +
+                        "SET `is_enabled`=0" +
+                        "WHERE `id`=@course_id";
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    Debug.Write(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
             }
         }
 

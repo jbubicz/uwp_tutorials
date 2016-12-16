@@ -43,7 +43,7 @@ namespace TrainingPlatform
             }
             if (Link2.IsSelected)
             {
-                MyFrame.Navigate(typeof(AddPage));
+                MyFrame.Navigate(typeof(AddCourse));
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="TrainingPlatform.AddPage"
+    x:Class="TrainingPlatform.AddCourse"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TrainingPlatform"
@@ -64,6 +64,14 @@
                     <TextBox Name="price_box" InputScope="CurrencyAmountAndSymbol"/>
                     <TextBlock Name="img_label" Text="Upload image for Your course:"/>
                     <Button Name="Upload" Click="Upload_Click" Content="Upload"/>
+                    <Button Name="Save" Click="Save_Click" Content="Save File"/>
+                    <TextBlock Name="OutputTextBlock" />
+                    <TextBlock Name="StatusBlock" />
+                    <TextBox x:Name="serverAddressField" Text="http://localhost/test" Width="500"/>
+                    <Button x:Name="StartUploadButton" Content="Start Upload" Margin="0,0,10,0" Click="StartUpload_Click"/>
+                    <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
+                    <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
+                    <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Button Name="add_course_button" Content="Add course" Margin="20" Click="add_course_button_Click"/>
                     <!--<Image Name="imageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
                 </StackPanel>
