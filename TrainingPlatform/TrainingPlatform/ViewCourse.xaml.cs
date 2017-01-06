@@ -33,8 +33,9 @@ namespace TrainingPlatform
         {
             base.OnNavigatedTo(e);
             var parameters = (Course)e.Parameter;
-            lstGroup.DataContext = parameters;
+            lstGroup.DataContext = parameters;            
         }
+
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
             MySpliView.IsPaneOpen = !MySpliView.IsPaneOpen;
@@ -42,7 +43,19 @@ namespace TrainingPlatform
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (Edit_link.IsSelected)
+            {
+                Course course = lstGroup.DataContext as Course;
+                Frame.Navigate(typeof(EditCourse), course);                
+            }
+            if (AllCourses_link.IsSelected)
+            {
+                Frame.Navigate(typeof(ViewCourse));
+            }
+            if (AddCourse_link.IsSelected)
+            {
+                Frame.Navigate(typeof(AddCourse));
+            }
         }
 
         private void lstGroup_ItemClick(object sender, ItemClickEventArgs e)
@@ -67,6 +80,34 @@ namespace TrainingPlatform
             {
                 Frame.GoBack();                
             }
+        }
+
+        private void StartUpload_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            StartUploadButton.Visibility = Visibility.Visible;
+            Title_textBlock.Visibility = Visibility.Collapsed;
+            Title_textBox.Visibility = Visibility.Visible;
+            ShortDesc_textBlock.Visibility = Visibility.Collapsed;
+            ShortDesc_textBox.Visibility = Visibility.Visible;
+            Price_textBlock.Visibility = Visibility.Collapsed;
+            Price_textBox.Visibility = Visibility.Visible;
+            Edit_button.Visibility = Visibility.Collapsed;
+            Save_button.Visibility = Visibility.Visible;
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -234,6 +234,37 @@ namespace TrainingPlatform
             }
         }
 
+        public static bool insertUser(string tableName, int fb_id, int role_id, string name, string email, string pass, string salt)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "INSERT INTO " + tableName +
+                        "(`fb_id`, `role_id`, `name`, `email`, `password`, `salt`) "
+                        + "VALUES(@fb_id, @role_id, @name, @email, @password, @salt)";
+                    getCommand.Parameters.AddWithValue("@fb_id", fb_id);
+                    getCommand.Parameters.AddWithValue("@role_id", role_id);
+                    getCommand.Parameters.AddWithValue("@name", name);
+                    getCommand.Parameters.AddWithValue("@email", email);
+                    getCommand.Parameters.AddWithValue("@password", pass);
+                    getCommand.Parameters.AddWithValue("@salt", salt);
+                    Debug.Write(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
+            }
+        }
+
         private static string getConnectionString()
         {
             EncodingProvider ppp;

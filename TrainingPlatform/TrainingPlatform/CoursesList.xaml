@@ -11,11 +11,12 @@
         <Pivot x:Name="MainPivot" SelectionChanged="MainPivot_SelectionChanged">
             <PivotItem Header="All Courses">
                 <Grid>
-                    <ListView x:Name="lstGroup" Margin="8"
-                                      ItemClick="lstGroup_ItemClick"
-                                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                      IsItemClickEnabled="True">
+                    <ListView x:Name="lstGroup" 
+                              Margin="8"
+                              ItemClick="lstGroup_ItemClick"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              IsItemClickEnabled="True">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

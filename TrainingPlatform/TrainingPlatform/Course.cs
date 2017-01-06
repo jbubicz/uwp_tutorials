@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrainingPlatform
 {
-    class Course
+    public class Course
     {
         public int Id { get; set; }
         public int UserId { get; set; }

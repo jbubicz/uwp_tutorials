@@ -34,7 +34,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <RelativePanel>
+        <RelativePanel HorizontalAlignment="Left" Width="360">
             <Button Name="HamburgerButton" 
                     RelativePanel.AlignLeftWithPanel="True"
                     FontFamily="Segoe MDL2 Assets" 
@@ -60,31 +60,48 @@
                             PlaceholderText="Search"
                             RelativePanel.AlignRightWithPanel="True"
                             Width="200"
+                            Height="45"
                             Margin="0,0,10,0"/>
+            <Button Name="LoginButton"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Content="Log In"
+                    Width="Auto"
+                    Height="45"
+                    Click="LoginButton_Click"/>
         </RelativePanel>
 
         <SplitView Name="MySpliView"
                    Grid.Row="1"
                    DisplayMode="Overlay"
-                   OpenPaneLength="150"
+                   OpenPaneLength="180"
                    CompactPaneLength="45">
             <SplitView.Pane>
                 <ListBox SelectionMode="Single"
                          SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="Link1">
+                    <ListBoxItem Name="Edit_link">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets"
                                        FontSize="20"/>
-                            <TextBlock Text="Link1" 
+                            <TextBlock Text="Edit this course" 
                                        FontSize="18"
                                        Margin="20,0,0,0" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="Link2">
+                    <ListBoxItem Name="AllCourses_link">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets"
                                        FontSize="20"/>
-                            <TextBlock Text="Link2" FontSize="18"
+                            <TextBlock Text="View all courses" 
+                                       FontSize="18"
+                                       Margin="20,0,0,0" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="AddCourse_link">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="20"/>
+                            <TextBlock Text="Add new course" 
+                                       FontSize="18"
                                        Margin="20,0,0,0" />
                         </StackPanel>
                     </ListBoxItem>

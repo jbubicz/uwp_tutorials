@@ -24,8 +24,6 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Web;
 using Windows.Web.Http;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace TrainingPlatform
 {
 
@@ -38,8 +36,6 @@ namespace TrainingPlatform
         private HttpClient httpClient;
         private Stream stream = new MemoryStream();
         private CancellationTokenSource cts;
-   
-
         
 
         private const int maxUploadFileSize = 100 * 1024 * 1024; // 100 MB (arbitrary limit chosen for this sample)
@@ -49,9 +45,6 @@ namespace TrainingPlatform
             this.InitializeComponent();
             CatCombo.ItemsSource = categories;
             CatCombo.SelectedItem = categories[0];
-
-           
-
         }
 
         private Course getCourseDetails()
@@ -132,7 +125,7 @@ namespace TrainingPlatform
 
         }
 
-        private void add_course_button_Click(object sender, RoutedEventArgs e)
+        private async void add_course_button_Click(object sender, RoutedEventArgs e)
         {
             Course course = getCourseDetails();
             int user_id = course.UserId;
@@ -147,7 +140,7 @@ namespace TrainingPlatform
             {
                 string success = "Course successfully added!";
                 MessageDialog dialog = new MessageDialog(success);
-                dialog.ShowAsync();
+                await dialog.ShowAsync();
             }
         }
 
@@ -234,7 +227,7 @@ namespace TrainingPlatform
             ErrorMessage
         };
 
-
+        
 
 
         public void Dispose()
@@ -502,7 +495,7 @@ namespace TrainingPlatform
         {
             try
             {
-                //LogStatus("Running: " + upload.Guid, NotifyType.StatusMessage);
+                LogStatus("Running: " + upload.Guid, NotifyType.StatusMessage);
 
                 Progress<UploadOperation> progressCallback = new Progress<UploadOperation>(UploadProgress);
                 if (start)

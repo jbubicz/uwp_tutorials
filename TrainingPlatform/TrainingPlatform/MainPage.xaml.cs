@@ -37,11 +37,15 @@ namespace TrainingPlatform
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Link1.IsSelected)
+            if (Edit_link.IsSelected)
+            {                              
+                MyFrame.Navigate(typeof(EditCourse));
+            }
+            if (AllCourses_link.IsSelected)
             {
                 MyFrame.Navigate(typeof(CoursesList));
             }
-            if (Link2.IsSelected)
+            if (AddCourse_link.IsSelected)
             {
                 MyFrame.Navigate(typeof(AddCourse));
             }
@@ -53,6 +57,11 @@ namespace TrainingPlatform
             {
                 MyFrame.GoBack();
             }
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            MyFrame.Navigate(typeof(LoginPage));
         }
     }
 }

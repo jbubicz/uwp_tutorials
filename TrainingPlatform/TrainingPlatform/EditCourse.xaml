@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="TrainingPlatform.ViewCourse"
+    x:Class="TrainingPlatform.EditCourse"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TrainingPlatform"
@@ -65,35 +65,25 @@
         <SplitView Name="MySpliView"
                    Grid.Row="1"
                    DisplayMode="Overlay"
-                   OpenPaneLength="180"
+                   OpenPaneLength="150"
                    CompactPaneLength="45">
             <SplitView.Pane>
                 <ListBox SelectionMode="Single"
                          SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="Edit_link">
+                    <ListBoxItem Name="Link1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets"
                                        FontSize="20"/>
-                            <TextBlock Text="Edit this course" 
+                            <TextBlock Text="Link1" 
                                        FontSize="18"
                                        Margin="20,0,0,0" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Name="AllCourses_link">
+                    <ListBoxItem Name="Link2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets"
                                        FontSize="20"/>
-                            <TextBlock Text="View all courses" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="AddCourse_link">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Add new course" 
-                                       FontSize="18"
+                            <TextBlock Text="Link2" FontSize="18"
                                        Margin="20,0,0,0" />
                         </StackPanel>
                     </ListBoxItem>
@@ -102,32 +92,10 @@
 
             <SplitView.Content>
                 <StackPanel Name="lstGroup">
-                    <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" Visibility="Visible"/>
-                    <Button x:Name="StartUploadButton" Content="Upload Image" Margin="0,0,10,0" Click="StartUpload_Click" Visibility="Collapsed"/>
-                    <TextBlock Name="Title_textBlock" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
-                               Visibility="Visible"/>
-                    <TextBox Name="Title_textBox" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
-                             Visibility="Collapsed"/>
-                    <TextBlock Name="ShortDesc_textBlock" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
-                               Visibility="Visible"/>
-                    <TextBox Name="ShortDesc_textBox" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
-                               Visibility="Collapsed"/>
-                    <TextBlock Name="Price_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
-                               Visibility="Visible"/>
-                    <TextBox Name="Price_textBox" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
-                               Visibility="Collapsed"/>
-                    <Button Name="Edit_button"
-                            Content="Edit course" 
-                            Click="Edit_Click"
-                            Visibility="Visible"/>
-                    <Button Name="Save_button" 
-                            Content="Save changes" 
-                            Click="Save_Click"
-                            Visibility="Collapsed"/>
-                    <Button Name="Cancel_button" 
-                            Content="Cancel" 
-                            Click="Cancel_Click"
-                            Visibility="Collapsed"/>
+                    <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"/>
                 </StackPanel>
             </SplitView.Content>
         </SplitView>
