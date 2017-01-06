@@ -131,5 +131,15 @@ namespace TrainingPlatform
                 }
             }
         }
+
+        private void SimpleLoginButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RegisterLink_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Register));
+        }
     }
 }

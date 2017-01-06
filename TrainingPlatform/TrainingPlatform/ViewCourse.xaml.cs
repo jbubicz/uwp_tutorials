@@ -25,8 +25,7 @@ namespace TrainingPlatform
     {
         public ViewCourse()
         {
-            this.InitializeComponent();
-                  
+            this.InitializeComponent();                  
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -36,27 +35,10 @@ namespace TrainingPlatform
             lstGroup.DataContext = parameters;            
         }
 
-        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
-        {
-            MySpliView.IsPaneOpen = !MySpliView.IsPaneOpen;
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (Edit_link.IsSelected)
-            {
-                Course course = lstGroup.DataContext as Course;
-                Frame.Navigate(typeof(EditCourse), course);                
-            }
-            if (AllCourses_link.IsSelected)
-            {
-                Frame.Navigate(typeof(ViewCourse));
-            }
-            if (AddCourse_link.IsSelected)
-            {
-                Frame.Navigate(typeof(AddCourse));
-            }
-        }
+        //private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MySpliView.IsPaneOpen = !MySpliView.IsPaneOpen;
+        //}
 
         private void lstGroup_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -74,13 +56,13 @@ namespace TrainingPlatform
 
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                Frame.GoBack();                
-            }
-        }
+        //private void Back_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Frame.CanGoBack)
+        //    {
+        //        Frame.GoBack();                
+        //    }
+        //}
 
         private void StartUpload_Click(object sender, RoutedEventArgs e)
         {
@@ -98,6 +80,7 @@ namespace TrainingPlatform
             Price_textBox.Visibility = Visibility.Visible;
             Edit_button.Visibility = Visibility.Collapsed;
             Save_button.Visibility = Visibility.Visible;
+            Cancel_button.Visibility = Visibility.Visible;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

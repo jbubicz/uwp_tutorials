@@ -34,72 +34,11 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <!--<RelativePanel>
-            <Button Name="HamburgerButton" 
-                    RelativePanel.AlignLeftWithPanel="True"
-                    FontFamily="Segoe MDL2 Assets" 
-                    Content="&#xE700;"
-                    FontSize="20"
-                    Width="45"
-                    Height="45"
-                    HorizontalAlignment="Center"
-                    Click="HamburgerButton_Click"/>
-            <Button Name="Back" 
-                    Click="Back_Click" 
-                    RelativePanel.RightOf="HamburgerButton" 
-                    FontFamily="Segoe MDL2 Assets" 
-                    FontSize="34" >&#xE0C4;</Button>
-            <TextBlock Name="TitleTexBlock"
-                       RelativePanel.RightOf="HamburgerButton"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       Margin="20,0,0,0"/>
-            <AutoSuggestBox Name="MyAutoSuggestBox"
-                            QueryIcon="Find"
-                            PlaceholderText="Search"
-                            RelativePanel.AlignRightWithPanel="True"
-                            Width="200"
-                            Margin="0,0,10,0"/>
-        </RelativePanel>-->
-
         <SplitView Name="MySpliView"
                    Grid.Row="1"
                    DisplayMode="Overlay"
                    OpenPaneLength="180"
                    CompactPaneLength="45">
-            <SplitView.Pane>
-                <ListBox SelectionMode="Single"
-                         SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="Edit_link">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Edit this course" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="AllCourses_link">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="View all courses" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="AddCourse_link">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Add new course" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
-            </SplitView.Pane>
-
             <SplitView.Content>
                 <StackPanel Name="lstGroup">
                     <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" Visibility="Visible"/>

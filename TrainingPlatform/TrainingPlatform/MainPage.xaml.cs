@@ -37,9 +37,9 @@ namespace TrainingPlatform
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Edit_link.IsSelected)
+            if (Login_link.IsSelected)
             {                              
-                MyFrame.Navigate(typeof(EditCourse));
+                MyFrame.Navigate(typeof(LoginPage));
             }
             if (AllCourses_link.IsSelected)
             {

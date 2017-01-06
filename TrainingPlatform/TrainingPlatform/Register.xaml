@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="TrainingPlatform.AddCourse"
+    x:Class="TrainingPlatform.Register"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TrainingPlatform"
@@ -11,7 +11,7 @@
 
         <SplitView Name="MySpliView"
                    Grid.Row="1"
-                   DisplayMode="Overlay"
+                   DisplayMode="CompactInline"
                    OpenPaneLength="150"
                    CompactPaneLength="45">
             <!--<SplitView.Pane>
@@ -40,12 +40,7 @@
             <SplitView.Content>
                 <StackPanel Name="addForm">
 
-                    <ComboBox Name="CatCombo" Header="Category" Height="Auto" Width="Auto" >
-                        <!--ItemsSource="{x:Bind categories}" 
-                              SelectedItem="{x:Bind Title}"
-                              SelectedValuePath="Title"
-                              DisplayMemberPath="Title">-->
-                        
+                    <ComboBox Name="RoleCombo" Header="Role" Height="Auto" Width="Auto" >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
@@ -54,15 +49,24 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Name="title_label" Text="Title:"/>
-                    <TextBox Name="title_box"/>
-                    <TextBlock Name="short_desc_label" Text="Type short description of Your course here:"/>
-                    <TextBox Name="short_desc_box" AcceptsReturn="True" AutomationProperties.IsRequiredForForm="True" />
-                    <TextBlock Name="desc_label" Text="Type detailed description of Your course here:"/>
-                    <TextBox Name="desc_box" AcceptsReturn="True" />
-                    <TextBlock Name="price_label" Text="Price:"/>
-                    <TextBox Name="price_box" InputScope="CurrencyAmountAndSymbol"/>
-                    <TextBlock Name="img_label" Text="Upload image for Your course:"/>
+                    <TextBlock Name="NameTextBlock" Text="Name:"/>
+                    <TextBox Name="NameTextBox" 
+                             AutomationProperties.IsRequiredForForm="True" />
+                    <TextBlock Name="PasswordTextBlock1" Text="Password:"/>
+                    <TextBox Name="PasswordTexBox1" 
+                             AcceptsReturn="True" 
+                             AutomationProperties.IsRequiredForForm="True" 
+                             InputScope="Password" 
+                             Width="Auto"/>
+                    <TextBlock Name="PasswordTextBlock2" Text="Password again:"/>
+                    <TextBox Name="PasswordTexBox2" 
+                             AcceptsReturn="True" 
+                             AutomationProperties.IsRequiredForForm="True" 
+                             InputScope="Password" 
+                             Width="Auto"/>
+                    <TextBlock Name="EmailTexBlock" Text="Email:"/>
+                    <TextBox Name="EmailTextBox" InputScope="EmailSmtpAddress"/>
+                    <!--<TextBlock Name="AvatarTextBlock" Text="Upload image for Your avatar:"/>
                     <Button Name="Upload" Click="Upload_Click" Content="Upload"/>
                     <Button Name="Save" Click="Save_Click" Content="Save File"/>
                     <TextBlock Name="OutputTextBlock" />
@@ -71,12 +75,11 @@
                     <Button x:Name="StartUploadButton" Content="Start Upload" Margin="0,0,10,0" Click="StartUpload_Click"/>
                     <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
                     <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
-                    <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <Button Name="add_course_button" Content="Add course" Margin="20" Click="add_course_button_Click"/>
-                    <!--<Image Name="imageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
+                    <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
+                    <Button Name="AddUserButton" Content="Add me" Margin="20" Click="AddUserButton_Click"/>
+                    <!--<Image Name="ImageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
                 </StackPanel>
             </SplitView.Content>
         </SplitView>
-
     </Grid>
 </Page>

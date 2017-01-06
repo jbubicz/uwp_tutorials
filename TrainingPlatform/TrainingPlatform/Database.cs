@@ -127,9 +127,44 @@ namespace TrainingPlatform
                             while (reader.Read())
                             {
                                 CategoriesList category = new CategoriesList();
-                                category.Id = reader.GetInt32("id");                               
-                                category.Title = reader.GetString("title");                                
+                                category.Id = reader.GetInt32("id");
+                                category.Title = reader.GetString("title");
                                 result.Add(category);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return null;
+            }
+        }
+
+        public static ObservableCollection<RolesList> getRoles(string tableName)
+        {
+            ObservableCollection<RolesList> result = new ObservableCollection<RolesList>();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT * FROM " + tableName;
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                RolesList role = new RolesList();
+                                role.Id = reader.GetInt32("id");
+                                role.Title = reader.GetString("title");
+                                result.Add(role);
                             }
                         }
                     }
@@ -164,7 +199,7 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@short_description", short_desc);
                     getCommand.Parameters.AddWithValue("@description", desc);
                     Debug.Write(getCommand.CommandText);
-                    getCommand.ExecuteNonQuery();                    
+                    getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
                 }
@@ -172,7 +207,7 @@ namespace TrainingPlatform
             catch (Exception e)
             {
                 Debug.Write(e.Message);
-                return false;             
+                return false;
             }
         }
 
@@ -237,6 +272,7 @@ namespace TrainingPlatform
         public static bool insertUser(string tableName, int fb_id, int role_id, string name, string email, string pass, string salt)
         {
             string connectionString = getConnectionString();
+            string nofb_id = "null";
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -246,7 +282,14 @@ namespace TrainingPlatform
                     getCommand.CommandText = "INSERT INTO " + tableName +
                         "(`fb_id`, `role_id`, `name`, `email`, `password`, `salt`) "
                         + "VALUES(@fb_id, @role_id, @name, @email, @password, @salt)";
-                    getCommand.Parameters.AddWithValue("@fb_id", fb_id);
+                    if (fb_id == 0)
+                    {
+                        getCommand.Parameters.AddWithValue("@fb_id", nofb_id);
+                    }
+                    else
+                    {
+                        getCommand.Parameters.AddWithValue("@fb_id", fb_id);
+                    }
                     getCommand.Parameters.AddWithValue("@role_id", role_id);
                     getCommand.Parameters.AddWithValue("@name", name);
                     getCommand.Parameters.AddWithValue("@email", email);
