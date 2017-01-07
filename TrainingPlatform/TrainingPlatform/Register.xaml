@@ -5,13 +5,13 @@
     xmlns:local="using:TrainingPlatform"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fb="using:winsdkfb"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Center">
 
         <SplitView Name="MySpliView"
-                   Grid.Row="1"
-                   DisplayMode="CompactInline"
+                   DisplayMode="Overlay"
                    OpenPaneLength="150"
                    CompactPaneLength="45">
             <!--<SplitView.Pane>
@@ -76,9 +76,13 @@
                     <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
                     <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
                     <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
-                    <Button Name="AddUserButton" Content="Add me" Margin="20" Click="AddUserButton_Click"/>
+                    <Button Name="AddUserButton" Content="Register" Margin="20" Click="AddUserButton_Click"/>
                     <!--<Image Name="ImageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
+                    <TextBlock Text="Or continue with Facebook:"/>
+                    <fb:FBLoginButton x:Name="FBRegisterButton" Margin="10" Visibility="Visible" Click="FBRegisterButton_Click"></fb:FBLoginButton>
+                    <Button Name="LogoutFBButton" Content="Logout FB" Margin="10,0" Click="LogoutFBButton_Click"/>
                 </StackPanel>
+               
             </SplitView.Content>
         </SplitView>
     </Grid>

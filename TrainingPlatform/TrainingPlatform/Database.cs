@@ -269,25 +269,26 @@ namespace TrainingPlatform
             }
         }
 
-        public static bool insertUser(string tableName, int fb_id, int role_id, string name, string email, string pass, string salt)
+        public static bool insertUser(string tableName, string fb_id, int role_id, string name, string email, string pass, string salt, string avatar)
         {
             string connectionString = getConnectionString();
-            string nofb_id = "null";
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "INSERT INTO " + tableName +
-                        "(`fb_id`, `role_id`, `name`, `email`, `password`, `salt`) "
-                        + "VALUES(@fb_id, @role_id, @name, @email, @password, @salt)";
-                    if (fb_id == 0)
+                    if (fb_id == "0")
                     {
-                        getCommand.Parameters.AddWithValue("@fb_id", nofb_id);
+                        getCommand.CommandText = "INSERT INTO " + tableName +
+                            "(`role_id`, `name`, `email`, `password`, `salt`, `avatar`) "
+                            + "VALUES(@role_id, @name, @email, @password, @salt, @avatar)";
                     }
                     else
                     {
+                        getCommand.CommandText = "INSERT INTO " + tableName +
+                        "(`fb_id`, `role_id`, `name`, `email`, `password`, `salt`, `avatar`) "
+                        + "VALUES(@fb_id, @role_id, @name, @email, @password, @salt, @avatar)";
                         getCommand.Parameters.AddWithValue("@fb_id", fb_id);
                     }
                     getCommand.Parameters.AddWithValue("@role_id", role_id);
@@ -295,6 +296,7 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@email", email);
                     getCommand.Parameters.AddWithValue("@password", pass);
                     getCommand.Parameters.AddWithValue("@salt", salt);
+                    getCommand.Parameters.AddWithValue("@avatar", avatar);
                     Debug.Write(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();

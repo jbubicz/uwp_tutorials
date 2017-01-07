@@ -109,6 +109,7 @@
       <DependentUpon>EditCourse.xaml</DependentUpon>
     </Compile>
     <Compile Include="FBReturnObject.cs" />
+    <Compile Include="FBUserProfile.cs" />
     <Compile Include="FtpClient.cs" />
     <Compile Include="FtpResponse.cs" />
     <Compile Include="LoginPage.xaml.cs">
@@ -123,7 +124,7 @@
     </Compile>
     <Compile Include="RolesList.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="UserProfile.cs" />
+    <Compile Include="FBFriendUserProfile.cs" />
     <Compile Include="ViewCourse.xaml.cs">
       <DependentUpon>ViewCourse.xaml</DependentUpon>
     </Compile>

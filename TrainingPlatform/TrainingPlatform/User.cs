@@ -8,10 +8,10 @@ namespace TrainingPlatform
 {
     class User
     {
-        private int fb_id = 0;
+        private string fb_id = "0";
 
         public int Id { get; set; }
-        public int Fb_id { get; set; }
+        public string Fb_id { get; set; }
         public int Role_id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
