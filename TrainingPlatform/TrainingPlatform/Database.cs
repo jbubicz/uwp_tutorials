@@ -179,6 +179,48 @@ namespace TrainingPlatform
             }
         }
 
+        public static User getFBUserInfo(string fb_id)
+        {
+            User user = new User();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT `id`, `role_id`, `name`, `email`, `avatar`, `about`, `points`, `created`, `modified` FROM `users`" +
+                        "WHERE `fb_id`=@fb_id";
+                    getCommand.Parameters.AddWithValue("@fb_id", fb_id);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                user.Id = reader.GetInt32("id");
+                                user.Role_id = reader.GetInt32("role_id");
+                                user.Name = reader.GetString("name");
+                                user.Email= reader.GetString("email");
+                                user.Avatar= reader.GetString("avatar");
+                               // user.About = reader.GetString("about");
+                                user.Points = reader.GetInt32("points");
+                                user.Created = reader.GetDateTime("created");
+                                user.Modified = reader.GetDateTime("modified");
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return user;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return null;
+            }
+        }
+
         public static bool insertCourse(string tableName, int user_id, int cat_id, string title, string price, string img, string short_desc, string desc)
         {
             string connectionString = getConnectionString();
@@ -297,6 +339,60 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@password", pass);
                     getCommand.Parameters.AddWithValue("@salt", salt);
                     getCommand.Parameters.AddWithValue("@avatar", avatar);
+                    Debug.Write(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
+            }
+        }
+
+        public static bool courseSignup(string tableName, int user_id, int course_id)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "INSERT INTO " + tableName +
+                        "(`user_id`, `course_id`) "
+                        + "VALUES(@user_id, @course_id)";                   
+                    getCommand.Parameters.AddWithValue("@user_id", user_id);
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    Debug.Write(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
+            }
+        }
+
+        public static bool courseSignoff(string tableName, int user_id, int course_id)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "UPDATE" + tableName +
+                        "SET `is_active`=0" +
+                        "WHERE `user_id`=@user_id` AND `course_id`=@course_id";
+                    getCommand.Parameters.AddWithValue("@user_id", user_id);
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
                     Debug.Write(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();

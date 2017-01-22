@@ -67,7 +67,7 @@
                     <Button Name="Save" Click="Save_Click" Content="Save File"/>
                     <TextBlock Name="OutputTextBlock" />
                     <TextBlock Name="StatusBlock" />
-                    <TextBox x:Name="serverAddressField" Text="http://localhost/test" Width="500"/>
+                    <TextBox x:Name="serverAddressField" Text="http://projekt.breko.eu/webroot/files/" Width="500"/>
                     <Button x:Name="StartUploadButton" Content="Start Upload" Margin="0,0,10,0" Click="StartUpload_Click"/>
                     <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
                     <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>

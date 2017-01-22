@@ -13,26 +13,40 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+using winsdkfb;
+using winsdkfb.Graph;
 
 namespace TrainingPlatform
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ViewCourse : Page
     {
+        static FBSession clicnt = FBSession.ActiveSession;
+        User user = getUserInfo(clicnt);
+
         public ViewCourse()
         {
-            this.InitializeComponent();                  
+            this.InitializeComponent();
+
+
+        }
+
+        private static User getUserInfo(FBSession clicnt)
+        {
+            if (clicnt.LoggedIn)
+            {
+                User user = new User();
+                user = user.fbUser(clicnt.User.Id);
+                return user;
+            }
+            else
+                return null;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             var parameters = (Course)e.Parameter;
-            lstGroup.DataContext = parameters;            
+            lstGroup.DataContext = parameters;
         }
 
         //private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -89,6 +103,20 @@ namespace TrainingPlatform
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SignupButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (clicnt.LoggedIn)
+            {
+                int course_id = Int32.Parse(CourseId.Text);
+                Database.courseSignup("courses_members", user.Id, course_id );
+            }
+        }
+
+        private void SignoffButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

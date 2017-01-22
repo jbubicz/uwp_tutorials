@@ -22,5 +22,16 @@ namespace TrainingPlatform
         public int Points { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
+
+        public User()
+        {
+
+        }
+
+        public User fbUser(string fb_id)
+        {
+            User user = Database.getFBUserInfo(fb_id);
+            return user;   
+        }
     }
 }

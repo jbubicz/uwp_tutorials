@@ -41,6 +41,7 @@
                    CompactPaneLength="45">
             <SplitView.Content>
                 <StackPanel Name="lstGroup">
+                    <TextBlock Name="CourseId" Text="{Binding Id}" Visibility="Collapsed"/>
                     <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" Visibility="Visible"/>
                     <Button x:Name="StartUploadButton" Content="Upload Image" Margin="0,0,10,0" Click="StartUpload_Click" Visibility="Collapsed"/>
                     <TextBlock Name="Title_textBlock" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
@@ -55,6 +56,18 @@
                                Visibility="Visible"/>
                     <TextBox Name="Price_textBox" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
                                Visibility="Collapsed"/>
+                    <Button Name="SignupButton" 
+                            Content="Sign up"
+                            Click="SignupButton_Click"
+                            Margin="20"
+                            HorizontalAlignment="Right"
+                            Visibility="Visible"/>
+                    <Button Name="SignoffButton" 
+                            Content="Sign off"
+                            Click="SignoffButton_Click"
+                            Margin="20"
+                            HorizontalAlignment="Right"
+                            Visibility="Collapsed"/>                    
                     <Button Name="Edit_button"
                             Content="Edit course" 
                             Click="Edit_Click"

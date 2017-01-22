@@ -98,9 +98,12 @@ namespace TrainingPlatform
 
         private async void DoDownloadOrUpload(bool isDownload)
         {
-            Uri uri = new Uri(serverAddressField.Text);
-            string Username = "FTP-User";
-            string Password = "123456789";
+            //Uri uri = new Uri(serverAddressField.Text);
+            Uri uri = new Uri("ftp://projekt.breko.eu/");
+            //string Username = "FTP-User";
+            //string Password = "123456789";
+            string Username = "projekt@breko.eu";
+            string Password = "wr77HxNLa";
 
             FtpClient client = new FtpClient();
             await client.ConnectAsync(
@@ -190,7 +193,7 @@ namespace TrainingPlatform
 #pragma warning restore CS0618 // Type or member is obsolete
             if (!unsnapped)
             {
-                NotifyUser("Cannot unsnap the sample.", NotifyType.StatusMessage);
+                //NotifyUser("Cannot unsnap the sample.", NotifyType.StatusMessage);
             }
 
             return unsnapped;
@@ -301,7 +304,7 @@ namespace TrainingPlatform
             Uri uri;
             if (!Uri.TryCreate(serverAddressField.Text.Trim(), UriKind.Absolute, out uri))
             {
-                NotifyUser("Invalid URI.", NotifyType.ErrorMessage);
+                //NotifyUser("Invalid URI.", NotifyType.ErrorMessage);
                 return;
             }
 
@@ -314,22 +317,22 @@ namespace TrainingPlatform
 #else
             StartSingleFileUpload(picker, uri);
 #endif
-        }
+       }
 
         private async void UploadSingleFile(Uri uri, StorageFile file)
         {
             if (file == null)
             {
-               NotifyUser("No file selected.", NotifyType.ErrorMessage);
+               //NotifyUser("No file selected.", NotifyType.ErrorMessage);
                 return;
             }
 
             BasicProperties properties = await file.GetBasicPropertiesAsync();
             if (properties.Size > maxUploadFileSize)
             {
-                NotifyUser(String.Format(CultureInfo.CurrentCulture,
-                    "Selected file exceeds max. upload file size ({0} MB).", maxUploadFileSize / (1024 * 1024)),
-                    NotifyType.ErrorMessage);
+                //NotifyUser(String.Format(CultureInfo.CurrentCulture,
+                    //"Selected file exceeds max. upload file size ({0} MB).", maxUploadFileSize / (1024 * 1024)),
+                    //NotifyType.ErrorMessage);
                 return;
             }
 
@@ -354,7 +357,7 @@ namespace TrainingPlatform
             Uri uri;
             if (!Uri.TryCreate(serverAddressField.Text.Trim(), UriKind.Absolute, out uri))
             {
-                NotifyUser("Invalid URI.", NotifyType.ErrorMessage);
+                //NotifyUser("Invalid URI.", NotifyType.ErrorMessage);
                 return;
             }
 
@@ -404,7 +407,7 @@ namespace TrainingPlatform
         {
             if (files.Count == 0)
             {
-                NotifyUser("No file selected.", NotifyType.ErrorMessage);
+                //NotifyUser("No file selected.", NotifyType.ErrorMessage);
                 return;
             }
 
@@ -416,9 +419,9 @@ namespace TrainingPlatform
 
                 if (totalFileSize > maxUploadFileSize)
                 {
-                    NotifyUser(String.Format(CultureInfo.CurrentCulture,
-                        "Size of selected files exceeds max. upload file size ({0} MB).",
-                        maxUploadFileSize / (1024 * 1024)), NotifyType.ErrorMessage);
+                    //NotifyUser(String.Format(CultureInfo.CurrentCulture,
+                    //    "Size of selected files exceeds max. upload file size ({0} MB).",
+                    //    maxUploadFileSize / (1024 * 1024)), NotifyType.ErrorMessage);
                     return;
                 }
             }
@@ -564,7 +567,7 @@ namespace TrainingPlatform
 
         private void LogStatus(string message, NotifyType type)
         {
-            NotifyUser(message, type);
+           // NotifyUser(message, type);
             Log(message);
         }
 

@@ -58,5 +58,10 @@ namespace TrainingPlatform
         {
 
         }
+
+        private void NewCoursesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }
