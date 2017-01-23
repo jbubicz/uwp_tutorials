@@ -201,9 +201,9 @@ namespace TrainingPlatform
                                 user.Id = reader.GetInt32("id");
                                 user.Role_id = reader.GetInt32("role_id");
                                 user.Name = reader.GetString("name");
-                                user.Email= reader.GetString("email");
-                                user.Avatar= reader.GetString("avatar");
-                               // user.About = reader.GetString("about");
+                                user.Email = reader.GetString("email");
+                                user.Avatar = reader.GetString("avatar");
+                                // user.About = reader.GetString("about");
                                 user.Points = reader.GetInt32("points");
                                 user.Created = reader.GetDateTime("created");
                                 user.Modified = reader.GetDateTime("modified");
@@ -218,6 +218,45 @@ namespace TrainingPlatform
             {
                 Debug.Write(e.Message);
                 return null;
+            }
+        }
+
+        public static bool checkIfFBUserIsSigned(string fb_id, int course_id)
+        {
+            bool isSigned = false;
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT `is_active` FROM `courses_members` AS cm " +
+                        "LEFT JOIN `users` AS u ON cm.user_id = u.id " +
+                        "WHERE `fb_id`=@fb_id AND `course_id`=@course_id " +
+                        "ORDER BY cm.created DESC " +
+                        "LIMIT 1;";
+                    getCommand.Parameters.AddWithValue("@fb_id", fb_id);
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                isSigned = reader.GetBoolean("is_active");
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return isSigned;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
             }
         }
 
@@ -363,7 +402,7 @@ namespace TrainingPlatform
                     MySqlCommand getCommand = connection.CreateCommand();
                     getCommand.CommandText = "INSERT INTO " + tableName +
                         "(`user_id`, `course_id`) "
-                        + "VALUES(@user_id, @course_id)";                   
+                        + "VALUES(@user_id, @course_id)";
                     getCommand.Parameters.AddWithValue("@user_id", user_id);
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
                     Debug.Write(getCommand.CommandText);

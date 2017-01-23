@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -20,14 +21,55 @@ namespace TrainingPlatform
 {
     public sealed partial class ViewCourse : Page
     {
+        private string resourceName = "My App";
         static FBSession clicnt = FBSession.ActiveSession;
         User user = getUserInfo(clicnt);
+        string fb_id;
+        public string Fb_id
+        {
+            get
+            {
+                return fb_id;
+            }
+
+            set
+            {
+                fb_id = user.Fb_id;
+            }
+        }
 
         public ViewCourse()
         {
             this.InitializeComponent();
+            GetCredentialFromLocker();      
+        }
 
+        private Windows.Security.Credentials.PasswordCredential GetCredentialFromLocker()
+        {
+            Windows.Security.Credentials.PasswordCredential credential = null;
 
+            var vault = new Windows.Security.Credentials.PasswordVault();
+            var credentialList = vault.FindAllByResource(resourceName);
+            if (credentialList.Count > 0)
+            {
+                if (credentialList.Count == 1)
+                {
+                    credential = credentialList[0];
+                }
+                else
+                {
+                    // When there are multiple usernames,
+                    // retrieve the default username. If one doesn't
+                    // exist, then display UI to have the user select
+                    // a default username.
+
+                   // defaultUserName = GetDefaultUserNameUI();
+
+                   // credential = vault.Retrieve(resourceName, defaultUserName);
+                }
+            }
+
+            return credential;
         }
 
         private static User getUserInfo(FBSession clicnt)
@@ -47,6 +89,21 @@ namespace TrainingPlatform
             base.OnNavigatedTo(e);
             var parameters = (Course)e.Parameter;
             lstGroup.DataContext = parameters;
+            int course_id = Int32.Parse(CourseId.Text);
+            setSignButtonsVisibility(course_id);
+        }
+
+        private void setSignButtonsVisibility(int course_id)
+        {
+            if (clicnt.LoggedIn)
+            {
+                bool isSigned = Database.checkIfFBUserIsSigned(clicnt.User.Id, course_id);
+                if (isSigned)
+                {
+                    SignupButton.Visibility = Visibility.Collapsed;
+                    SignoffButton.Visibility = Visibility.Visible;
+                }
+            }
         }
 
         //private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -112,7 +169,14 @@ namespace TrainingPlatform
             if (clicnt.LoggedIn)
             {
                 int course_id = Int32.Parse(CourseId.Text);
-                Database.courseSignup("courses_members", user.Id, course_id );
+                if (Database.courseSignup("courses_members", user.Id, course_id))
+                {
+                    Debug.Write(user.Name + "signed up for " + course_id);
+                }
+                else
+                {
+                    Debug.Write("Error signing up");
+                }
             }
         }
 

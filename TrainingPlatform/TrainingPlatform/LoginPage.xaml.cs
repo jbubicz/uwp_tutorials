@@ -50,7 +50,8 @@ namespace TrainingPlatform
             "publish_actions"
         };
 
-        
+        public string username { get; private set; }
+        public string fb_id { get; private set; }
 
         private async void login_Click(object sender, RoutedEventArgs e)
         {
@@ -76,7 +77,9 @@ namespace TrainingPlatform
             {
                 Debug.WriteLine(result.ErrorInfo);
             }
-
+            var vault = new Windows.Security.Credentials.PasswordVault();
+            vault.Add(new Windows.Security.Credentials.PasswordCredential(
+                "My App", clicnt.User.Name, clicnt.User.Id));
         }
 
         private void UserLikesButton_Click(object sender, RoutedEventArgs e)
