@@ -31,7 +31,7 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled` =1";
+                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled`=1";
                     using (MySqlDataReader reader = getCommand.ExecuteReader())
                     {
                         if (reader != null)
@@ -75,7 +75,7 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled` =0";
+                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled`=0";
                     using (MySqlDataReader reader = getCommand.ExecuteReader())
                     {
                         if (reader != null)
@@ -189,7 +189,7 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT `id`, `role_id`, `name`, `email`, `avatar`, `about`, `points`, `created`, `modified` FROM `users`" +
+                    getCommand.CommandText = "SELECT `id`, `role_id`, `name`, `email`, `avatar`, `about`, `points`, `created`, `modified` FROM `users` " +
                         "WHERE `fb_id`=@fb_id";
                     getCommand.Parameters.AddWithValue("@fb_id", fb_id);
                     using (MySqlDataReader reader = getCommand.ExecuteReader())
@@ -270,7 +270,7 @@ namespace TrainingPlatform
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
                     getCommand.CommandText = "INSERT INTO " + tableName +
-                        "(`user_id`, `category_id`, `title`, `price`, `img`, `short_description`, `description`) "
+                        " (`user_id`, `category_id`, `title`, `price`, `img`, `short_description`, `description`) "
                         + "VALUES(@user_id, @category_id, @title, @price, @img, @short_description, @description)";
                     getCommand.Parameters.AddWithValue("@user_id", user_id);
                     getCommand.Parameters.AddWithValue("@category_id", cat_id);
@@ -301,8 +301,8 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "UPDATE" + tableName +
-                        "SET `category_id`=@category_id,`title`=@title,`price`=@price,`img`=@img,`short_description`=@short_description,`description`=@description" +
+                    getCommand.CommandText = "UPDATE " + tableName +
+                        " SET `category_id`=@category_id,`title`=@title,`price`=@price,`img`=@img,`short_description`=@short_description,`description`=@description " +
                         "WHERE `id`=@course_id";
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
                     getCommand.Parameters.AddWithValue("@category_id", cat_id);
@@ -333,8 +333,8 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "UPDATE" + tableName +
-                        "SET `is_enabled`=0" +
+                    getCommand.CommandText = "UPDATE " + tableName +
+                        " SET `is_enabled`=0 " +
                         "WHERE `id`=@course_id";
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
                     Debug.Write(getCommand.CommandText);
@@ -362,13 +362,13 @@ namespace TrainingPlatform
                     if (fb_id == "0")
                     {
                         getCommand.CommandText = "INSERT INTO " + tableName +
-                            "(`role_id`, `name`, `email`, `password`, `salt`, `avatar`) "
+                            " (`role_id`, `name`, `email`, `password`, `salt`, `avatar`) "
                             + "VALUES(@role_id, @name, @email, @password, @salt, @avatar)";
                     }
                     else
                     {
                         getCommand.CommandText = "INSERT INTO " + tableName +
-                        "(`fb_id`, `role_id`, `name`, `email`, `password`, `salt`, `avatar`) "
+                        " (`fb_id`, `role_id`, `name`, `email`, `password`, `salt`, `avatar`) "
                         + "VALUES(@fb_id, @role_id, @name, @email, @password, @salt, @avatar)";
                         getCommand.Parameters.AddWithValue("@fb_id", fb_id);
                     }
@@ -401,7 +401,7 @@ namespace TrainingPlatform
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
                     getCommand.CommandText = "INSERT INTO " + tableName +
-                        "(`user_id`, `course_id`) "
+                        " (`user_id`, `course_id`) "
                         + "VALUES(@user_id, @course_id)";
                     getCommand.Parameters.AddWithValue("@user_id", user_id);
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
@@ -427,9 +427,12 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "UPDATE" + tableName +
-                        "SET `is_active`=0" +
-                        "WHERE `user_id`=@user_id` AND `course_id`=@course_id";
+                    getCommand.CommandText = "UPDATE " + tableName +
+                        " SET `is_active`=0 " +
+                        "WHERE `id` = (SELECT `id` " +
+                        "WHERE `user_id`=@user_id AND `course_id`=@course_id " +
+                        "ORDER BY created DESC " +
+                        "LIMIT 1)";
                     getCommand.Parameters.AddWithValue("@user_id", user_id);
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
                     Debug.Write(getCommand.CommandText);

@@ -64,11 +64,11 @@ namespace TrainingPlatform
             if (result.Succeeded && clicnt.LoggedIn)
             {
                 Debug.WriteLine(result.Object);
-               
+
                 // login.Content = "Logout";
                 IsLogged.Text = "Logged in";
                 Debug.WriteLine(clicnt.User.Id);
-                Debug.WriteLine(clicnt.User.Email);  
+                Debug.WriteLine(clicnt.User.Email);
                 Debug.WriteLine(clicnt.User.FirstName);
                 Debug.WriteLine(clicnt.User.LastName);
                 SquarePicture.UserId = clicnt.User.Id;
@@ -77,9 +77,16 @@ namespace TrainingPlatform
             {
                 Debug.WriteLine(result.ErrorInfo);
             }
-            var vault = new Windows.Security.Credentials.PasswordVault();
-            vault.Add(new Windows.Security.Credentials.PasswordCredential(
-                "My App", clicnt.User.Name, clicnt.User.Id));
+            try
+            {
+                var vault = new Windows.Security.Credentials.PasswordVault();
+                vault.Add(new Windows.Security.Credentials.PasswordCredential(
+                    "My App", clicnt.User.Name, clicnt.User.Id));
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);   
+            }
         }
 
         private void UserLikesButton_Click(object sender, RoutedEventArgs e)
@@ -103,7 +110,7 @@ namespace TrainingPlatform
 
         private async void OnGet(object sender, RoutedEventArgs e)
         {
-           
+
             FBSession clicnt = FBSession.ActiveSession;
             if (clicnt.LoggedIn)
             {
@@ -111,7 +118,7 @@ namespace TrainingPlatform
                 string endpoint = "/" + userId + "/friends?fields=id,name,email,picture";
 
                 PropertySet parameters = new PropertySet();
-               // parameters.Add("limit", "10");      
+                // parameters.Add("limit", "10");      
 
                 FBSingleValue value = new FBSingleValue(endpoint, parameters, Rootobject.FromJson);
                 FBResult graphResult = await value.GetAsync();

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -41,7 +42,8 @@ namespace TrainingPlatform
         public ViewCourse()
         {
             this.InitializeComponent();
-            GetCredentialFromLocker();      
+            GetCredentialFromLocker();
+            GetFriends();
         }
 
         private Windows.Security.Credentials.PasswordCredential GetCredentialFromLocker()
@@ -63,9 +65,9 @@ namespace TrainingPlatform
                     // exist, then display UI to have the user select
                     // a default username.
 
-                   // defaultUserName = GetDefaultUserNameUI();
+                    // defaultUserName = GetDefaultUserNameUI();
 
-                   // credential = vault.Retrieve(resourceName, defaultUserName);
+                    // credential = vault.Retrieve(resourceName, defaultUserName);
                 }
             }
 
@@ -171,18 +173,77 @@ namespace TrainingPlatform
                 int course_id = Int32.Parse(CourseId.Text);
                 if (Database.courseSignup("courses_members", user.Id, course_id))
                 {
-                    Debug.Write(user.Name + "signed up for " + course_id);
+                    Debug.Write("\n" + user.Name + " signed up for " + course_id);
+                    SignupButton.Visibility = Visibility.Collapsed;
+                    SignoffButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    Debug.Write("Error signing up");
+                    Debug.Write("\nError signing up");
                 }
             }
         }
 
         private void SignoffButton_Click(object sender, RoutedEventArgs e)
         {
+            if (clicnt.LoggedIn)
+            {
+                int course_id = Int32.Parse(CourseId.Text);
+                if (Database.courseSignoff("courses_members", user.Id, course_id))
+                {
+                    Debug.Write("\n" + user.Name + " signed off " + course_id);
+                    SignupButton.Visibility = Visibility.Visible;
+                    SignoffButton.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    Debug.Write("\nError signing off");
+                }
+            }
+        }
 
+        private async void GetFriends()
+        {
+
+            FBSession clicnt = FBSession.ActiveSession;
+            if (clicnt.LoggedIn)
+            {
+                var userId = clicnt.User.Id;
+                string endpoint = "/" + userId + "/friends?fields=id,name,email,picture";
+
+                PropertySet parameters = new PropertySet();
+                // parameters.Add("limit", "10");      
+
+                FBSingleValue value = new FBSingleValue(endpoint, parameters, Rootobject.FromJson);
+                FBResult graphResult = await value.GetAsync();
+
+                if (graphResult.Succeeded)
+                {
+                    try
+                    {
+                        Rootobject profile = graphResult.Object as Rootobject;
+                        if (Convert.ToBoolean(profile.summary.total_count))
+                        {
+                            TitleFbFriendsTextBlock.Visibility = Visibility.Visible;
+                            string name = profile.data[0]?.name;
+                            string email = profile.data[0]?.email;
+                            string friend_id = profile.data[0]?.id;
+                            SquarePicture.UserId = friend_id;
+                        }
+                        else
+                        {
+                            TitleFbFriendsTextBlock.Visibility = Visibility.Collapsed;
+                            SquarePicture.Visibility = Visibility.Collapsed;
+                            Debug.WriteLine("Brak znajomych");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageDialog dialog = new MessageDialog(ex.ToString());
+                        await dialog.ShowAsync();
+                    }
+                }
+            }
         }
     }
 }

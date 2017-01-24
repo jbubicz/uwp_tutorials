@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,4 +55,20 @@ namespace TrainingPlatform
         public bool is_silhouette { get; set; }
         public string url { get; set; }
     }
+
+    // nie wiem czy to bedzie potrzebne?
+    //public class FriendsManager
+    //{
+    //    public static void GetFriends(ObservableCollection<Rootobject> friendsList)
+    //    {
+    //        friendsList.Clear();
+    //        var allFriends = getFriendsList();
+    //    }
+
+    //    private static List<Rootobject> getFriendsList()
+    //    {
+    //        var friendsList = new List<Rootobject>();
+    //        return friendsList;
+    //    }
+    //}
 }

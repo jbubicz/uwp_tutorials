@@ -5,6 +5,7 @@
     xmlns:local="using:TrainingPlatform"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fb="using:winsdkfb" 
     mc:Ignorable="d">
 
     <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -40,7 +41,8 @@
                    OpenPaneLength="180"
                    CompactPaneLength="45">
             <SplitView.Content>
-                <StackPanel Name="lstGroup">
+                <StackPanel Name="lstGroup"
+                            Height="Auto">
                     <TextBlock Name="CourseId" Text="{Binding Id}" Visibility="Collapsed"/>
                     <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" Visibility="Visible"/>
                     <Button x:Name="StartUploadButton" Content="Upload Image" Margin="0,0,10,0" Click="StartUpload_Click" Visibility="Collapsed"/>
@@ -67,7 +69,7 @@
                             Click="SignoffButton_Click"
                             Margin="20"
                             HorizontalAlignment="Right"
-                            Visibility="Collapsed"/>                    
+                            Visibility="Collapsed"/>
                     <Button Name="Edit_button"
                             Content="Edit course" 
                             Click="Edit_Click"
@@ -80,6 +82,22 @@
                             Content="Cancel" 
                             Click="Cancel_Click"
                             Visibility="Collapsed"/>
+                    <TextBlock Name="TitleFbFriendsTextBlock"
+                               Margin="50,100,50,0"
+                               Text="Your friends watched this course!"
+                               Visibility="Visible"/>
+                    <StackPanel MaxWidth="100" 
+                                Height="Auto"
+                                HorizontalAlignment="Center"                                  
+                                Margin="0,50,0,12"
+                                VerticalAlignment="Bottom"
+                                Orientation="Vertical">
+                        <fb:ProfilePictureControl CropMode="Square" 
+                                                  x:Name="SquarePicture" 
+                                                  Width="100" 
+                                                  Height="100" 
+                                                  HorizontalAlignment="Center"/>
+                    </StackPanel>
                 </StackPanel>
             </SplitView.Content>
         </SplitView>
