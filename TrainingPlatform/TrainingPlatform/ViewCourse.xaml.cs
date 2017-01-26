@@ -25,7 +25,11 @@ namespace TrainingPlatform
         private string resourceName = "My App";
         static FBSession clicnt = FBSession.ActiveSession;
         User user = getUserInfo(clicnt);
-        string fb_id;
+        private string fb_id;
+        private int course_id;
+
+        //private ObservableCollection<FBUserRootobject> friendsList;
+
         public string Fb_id
         {
             get
@@ -42,8 +46,10 @@ namespace TrainingPlatform
         public ViewCourse()
         {
             this.InitializeComponent();
+            
             GetCredentialFromLocker();
             GetFriends();
+            //friendsList = new ObservableCollection<FBUserRootobject>();
         }
 
         private Windows.Security.Credentials.PasswordCredential GetCredentialFromLocker()
@@ -91,7 +97,7 @@ namespace TrainingPlatform
             base.OnNavigatedTo(e);
             var parameters = (Course)e.Parameter;
             lstGroup.DataContext = parameters;
-            int course_id = Int32.Parse(CourseId.Text);
+            course_id = Int32.Parse(CourseId.Text);
             setSignButtonsVisibility(course_id);
         }
 
@@ -170,7 +176,7 @@ namespace TrainingPlatform
         {
             if (clicnt.LoggedIn)
             {
-                int course_id = Int32.Parse(CourseId.Text);
+                //int course_id = Int32.Parse(CourseId.Text);
                 if (Database.courseSignup("courses_members", user.Id, course_id))
                 {
                     Debug.Write("\n" + user.Name + " signed up for " + course_id);
@@ -188,7 +194,7 @@ namespace TrainingPlatform
         {
             if (clicnt.LoggedIn)
             {
-                int course_id = Int32.Parse(CourseId.Text);
+                //int course_id = Int32.Parse(CourseId.Text);
                 if (Database.courseSignoff("courses_members", user.Id, course_id))
                 {
                     Debug.Write("\n" + user.Name + " signed off " + course_id);
@@ -212,7 +218,7 @@ namespace TrainingPlatform
                 string endpoint = "/" + userId + "/friends?fields=id,name,email,picture";
 
                 PropertySet parameters = new PropertySet();
-                // parameters.Add("limit", "10");      
+                parameters.Add("limit", "3");
 
                 FBSingleValue value = new FBSingleValue(endpoint, parameters, Rootobject.FromJson);
                 FBResult graphResult = await value.GetAsync();
@@ -222,18 +228,76 @@ namespace TrainingPlatform
                     try
                     {
                         Rootobject profile = graphResult.Object as Rootobject;
-                        if (Convert.ToBoolean(profile.summary.total_count))
+                        int friends_count = profile.summary.total_count;
+                        if (Convert.ToBoolean(friends_count))
                         {
-                            TitleFbFriendsTextBlock.Visibility = Visibility.Visible;
-                            string name = profile.data[0]?.name;
-                            string email = profile.data[0]?.email;
-                            string friend_id = profile.data[0]?.id;
-                            SquarePicture.UserId = friend_id;
+                            
+                            //var friendsList = new ObservableCollection<FBUserRootobject>();
+                            //for (int i = 0; i < friends_count; i++)
+                            //{
+                            //    friendsList.Add(new FBUserRootobject() { id = profile.data[i]?.id, name = profile.data[i]?.name, email = profile.data[i]?.email });
+                            //    Debug.WriteLine("Friend {0} added to friends list.", i + 1);
+                            //}
+                            string id1 = profile.data[0]?.id;
+                            string name1 = profile.data[0]?.name;
+                            if (Database.checkIfFBUserIsSigned(id1, course_id))
+                            {
+                                TitleFbFriendsTextBlock.Visibility = Visibility.Visible;
+                                FriendPicture1.UserId = id1;
+                                FriendPicture1.Visibility = Visibility.Visible;
+                                FriendName1.Text = name1;
+                                FriendName1.Visibility = Visibility.Visible;
+                            }
+
+                            switch (friends_count)
+                            {
+                                case 2:
+                                    string id2 = profile.data[1]?.id ?? "";
+                                    string name2 = profile.data[1]?.name ?? "";
+                                    if (Database.checkIfFBUserIsSigned(id2, course_id))
+                                    {
+                                        TitleFbFriendsTextBlock.Visibility = Visibility.Visible;
+                                        FriendPicture2.UserId = id2;
+                                        FriendPicture2.Visibility = Visibility.Visible;
+                                        FriendName2.Text = name2;
+                                        FriendName2.Visibility = Visibility.Visible;
+                                    }
+                                    break;
+                                case 3:
+                                    string id32 = profile.data[1]?.id ?? "";
+                                    string name32 = profile.data[1]?.name ?? "";
+                                    string id3 = profile.data[2]?.id ?? "";
+                                    string name3 = profile.data[2]?.name ?? "";
+                                    if (Database.checkIfFBUserIsSigned(id32, course_id))
+                                    {
+                                        TitleFbFriendsTextBlock.Visibility = Visibility.Visible;
+                                        FriendPicture2.UserId = id32;
+                                        FriendPicture2.Visibility = Visibility.Visible;
+                                        FriendName2.Text = name32;
+                                        FriendName2.Visibility = Visibility.Visible;
+                                    }
+                                    if (Database.checkIfFBUserIsSigned(id3, course_id))
+                                    {                                    
+                                        TitleFbFriendsTextBlock.Visibility = Visibility.Visible;
+                                        FriendPicture3.UserId = id3;
+                                        FriendPicture3.Visibility = Visibility.Visible;
+                                        FriendName3.Text = name3;
+                                        FriendName3.Visibility = Visibility.Visible;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         else
                         {
                             TitleFbFriendsTextBlock.Visibility = Visibility.Collapsed;
-                            SquarePicture.Visibility = Visibility.Collapsed;
+                            FriendPicture1.Visibility = Visibility.Collapsed;
+                            FriendName1.Visibility = Visibility.Collapsed;
+                            FriendPicture2.Visibility = Visibility.Collapsed;
+                            FriendName2.Visibility = Visibility.Collapsed;
+                            FriendPicture3.Visibility = Visibility.Collapsed;
+                            FriendName3.Visibility = Visibility.Collapsed;
                             Debug.WriteLine("Brak znajomych");
                         }
                     }

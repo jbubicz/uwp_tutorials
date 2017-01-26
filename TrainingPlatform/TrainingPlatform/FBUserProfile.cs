@@ -33,5 +33,8 @@ namespace TrainingPlatform
         public string url { get; set; }
     }
 
+    public class FBUserManager
+    {
 
+    }
 }

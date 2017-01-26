@@ -108,6 +108,9 @@
     <Compile Include="EditCourse.xaml.cs">
       <DependentUpon>EditCourse.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FBFriendControl.xaml.cs">
+      <DependentUpon>FBFriendControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FBReturnObject.cs" />
     <Compile Include="FBUserProfile.cs" />
     <Compile Include="FtpClient.cs" />
@@ -162,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditCourse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FBFriendControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

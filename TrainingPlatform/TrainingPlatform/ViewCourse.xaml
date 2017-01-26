@@ -5,7 +5,8 @@
     xmlns:local="using:TrainingPlatform"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:fb="using:winsdkfb" 
+    xmlns:fb="using:winsdkfb"
+    xmlns:data="using:TrainingPlatform"
     mc:Ignorable="d">
 
     <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -85,19 +86,54 @@
                     <TextBlock Name="TitleFbFriendsTextBlock"
                                Margin="50,100,50,0"
                                Text="Your friends watched this course!"
-                               Visibility="Visible"/>
-                    <StackPanel MaxWidth="100" 
-                                Height="Auto"
-                                HorizontalAlignment="Center"                                  
-                                Margin="0,50,0,12"
+                               Visibility="Collapsed"/>
+                    <StackPanel Height="Auto"
+                                HorizontalAlignment="Left"                                  
+                                Margin="30,50,0,12"
                                 VerticalAlignment="Bottom"
-                                Orientation="Vertical">
-                        <fb:ProfilePictureControl CropMode="Square" 
-                                                  x:Name="SquarePicture" 
+                                Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <fb:ProfilePictureControl CropMode="Square" 
+                                                  x:Name="FriendPicture3" 
                                                   Width="100" 
                                                   Height="100" 
-                                                  HorizontalAlignment="Center"/>
+                                                  HorizontalAlignment="Center"
+                                                  Visibility="Collapsed"/>
+                            <TextBlock Name="FriendName3"
+                                       Visibility="Collapsed"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <fb:ProfilePictureControl CropMode="Square" 
+                                                  x:Name="FriendPicture2" 
+                                                  Width="100" 
+                                                  Height="100" 
+                                                  HorizontalAlignment="Center"
+                                                  Visibility="Collapsed"/>
+                            <TextBlock Name="FriendName2"
+                                       Visibility="Collapsed"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <fb:ProfilePictureControl CropMode="Square" 
+                                                  x:Name="FriendPicture1" 
+                                                  Width="100" 
+                                                  Height="100" 
+                                                  HorizontalAlignment="Center"
+                                                  Visibility="Collapsed"/>
+                            <TextBlock Name="FriendName1"
+                                       Visibility="Collapsed"/>
+                        </StackPanel>
                     </StackPanel>
+
+                    <!--<GridView Name="FBFriends" 
+                              ItemsSource="{x:Bind friendsList}"
+                              HorizontalAlignment="Center"
+                              Margin="10,0,0,0">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="data:FBUserRootobject">
+                                <local:FBFriendControl/>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>-->
                 </StackPanel>
             </SplitView.Content>
         </SplitView>
