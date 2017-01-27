@@ -8,7 +8,8 @@
     xmlns:data="using:TrainingPlatform"
     mc:Ignorable="d">
 
-    <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

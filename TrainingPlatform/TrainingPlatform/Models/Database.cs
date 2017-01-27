@@ -260,6 +260,40 @@ namespace TrainingPlatform
             }
         }
 
+        public static bool checkIfFBUserExists(string fb_id)
+        {
+            bool exists = false;
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT COUNT(`fb_id`) as if_exists FROM `users` " +
+                        "WHERE `fb_id`=@fb_id";
+                    getCommand.Parameters.AddWithValue("@fb_id", fb_id);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                exists = reader.GetBoolean("if_exists");
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return exists;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return false;
+            }
+        }
+
         public static bool insertCourse(string tableName, int user_id, int cat_id, string title, string price, string img, string short_desc, string desc)
         {
             string connectionString = getConnectionString();

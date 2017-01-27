@@ -20,9 +20,6 @@ using winsdkfb.Graph;
 
 namespace TrainingPlatform
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class LoginPage : Page
     {
         public LoginPage()
@@ -32,17 +29,6 @@ namespace TrainingPlatform
             //Debug.WriteLine(SID);
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (AllCourses_link.IsSelected)
-            {
-                Frame.Navigate(typeof(ViewCourse));
-            }
-            if (AddCourse_link.IsSelected)
-            {
-                Frame.Navigate(typeof(AddCourse));
-            }
-        }
         private readonly string[] requested_permissions ={
             "public_profile",
             "email",
@@ -63,10 +49,7 @@ namespace TrainingPlatform
 
             if (result.Succeeded && clicnt.LoggedIn)
             {
-                Debug.WriteLine(result.Object);
-
-                // login.Content = "Logout";
-                IsLogged.Text = "Logged in";
+                IsLogged.Text = "Successfully logged in";
                 Debug.WriteLine(clicnt.User.Id);
                 Debug.WriteLine(clicnt.User.Email);
                 Debug.WriteLine(clicnt.User.FirstName);
@@ -85,7 +68,7 @@ namespace TrainingPlatform
             }
             catch (Exception ex)
             {
-                Debug.Write(ex);   
+                Debug.WriteLine(ex);   
             }
         }
 
@@ -110,7 +93,6 @@ namespace TrainingPlatform
 
         private async void OnGet(object sender, RoutedEventArgs e)
         {
-
             FBSession clicnt = FBSession.ActiveSession;
             if (clicnt.LoggedIn)
             {
@@ -118,7 +100,7 @@ namespace TrainingPlatform
                 string endpoint = "/" + userId + "/friends?fields=id,name,email,picture";
 
                 PropertySet parameters = new PropertySet();
-                // parameters.Add("limit", "10");      
+                // parameters.Add("limit", "10");     
 
                 FBSingleValue value = new FBSingleValue(endpoint, parameters, Rootobject.FromJson);
                 FBResult graphResult = await value.GetAsync();

@@ -8,123 +8,165 @@
     xmlns:fb="using:winsdkfb"
     xmlns:data="using:TrainingPlatform"
     mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-    <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState x:Name="Narrow">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0"/>
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <!--<Setter Target="MyAutoSuggestBox.Visibility" Value="Collapsed" />-->
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Wide">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="400"/>
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <!--<Setter Target="MyAutoSuggestBox.Visibility" Value="Visible" />-->
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
 
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="Narrow">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--<Setter Target="MyAutoSuggestBox.Visibility" Value="Collapsed" />-->
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="Wide">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="400"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--<Setter Target="MyAutoSuggestBox.Visibility" Value="Visible" />-->
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
-        <SplitView Name="MySpliView"
+            <SplitView Name="MySpliView"
                    Grid.Row="1"
                    DisplayMode="Overlay"
                    OpenPaneLength="180"
                    CompactPaneLength="45">
-            <SplitView.Content>
-                <StackPanel Name="lstGroup"
+                <SplitView.Content>
+                    <StackPanel Name="lstGroup"
                             Height="Auto">
-                    <TextBlock Name="CourseId" Text="{Binding Id}" Visibility="Collapsed"/>
-                    <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" Visibility="Visible"/>
-                    <Button x:Name="StartUploadButton" Content="Upload Image" Margin="0,0,10,0" Click="StartUpload_Click" Visibility="Collapsed"/>
-                    <TextBlock Name="Title_textBlock" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                        <TextBlock Name="CourseId" Text="{Binding Id}" Visibility="Collapsed"/>
+                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="None" Visibility="Visible"/>
+                        <Button x:Name="StartUploadButton" Content="Upload Image" Margin="0,0,10,0" Click="StartUpload_Click" Visibility="Collapsed"/>
+                        <TextBlock Name="Title_textBlock" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Visible"/>
-                    <TextBox Name="Title_textBox" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                        <TextBox Name="Title_textBox" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
                              Visibility="Collapsed"/>
-                    <TextBlock Name="ShortDesc_textBlock" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                        <TextBlock Name="ShortDesc_textBlock" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Visible"/>
-                    <TextBox Name="ShortDesc_textBox" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                        <TextBox Name="ShortDesc_textBox" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Collapsed"/>
-                    <TextBlock Name="Price_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
+                        <TextBlock Name="Price_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
                                Visibility="Visible"/>
-                    <TextBox Name="Price_textBox" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
+                        <TextBox Name="Price_textBox" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
                                Visibility="Collapsed"/>
-                    <Button Name="SignupButton" 
+                        <Button Name="SignupButton" 
                             Content="Sign up"
                             Click="SignupButton_Click"
                             Margin="20"
                             HorizontalAlignment="Right"
                             Visibility="Visible"/>
-                    <Button Name="SignoffButton" 
+                        <Button Name="SignoffButton" 
                             Content="Sign off"
                             Click="SignoffButton_Click"
                             Margin="20"
                             HorizontalAlignment="Right"
                             Visibility="Collapsed"/>
-                    <Button Name="Edit_button"
+                        <Button Name="Edit_button"
                             Content="Edit course" 
                             Click="Edit_Click"
                             Visibility="Visible"/>
-                    <Button Name="Save_button" 
+                        <Button Name="Save_button" 
                             Content="Save changes" 
                             Click="Save_Click"
                             Visibility="Collapsed"/>
-                    <Button Name="Cancel_button" 
+                        <Button Name="Cancel_button" 
                             Content="Cancel" 
                             Click="Cancel_Click"
                             Visibility="Collapsed"/>
-                    <TextBlock Name="TitleFbFriendsTextBlock"
+                        <TextBlock Name="TitleFbFriendsTextBlock"
                                Margin="50,100,50,0"
                                Text="Your friends watched this course!"
                                Visibility="Collapsed"/>
-                    <StackPanel Height="Auto"
+
+                        <ListView x:Name="FriendsList" Margin="8" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"                                  >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
+                                        <Grid Margin="0 0 0 8">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <fb:ProfilePictureControl CropMode="Square" 
+                                                  x:Name="FriendPicture" 
+                                                  Width="100" 
+                                                  Height="100" 
+                                                  HorizontalAlignment="Center"
+                                                  Visibility="Visible"
+                                                  UserId="{Binding id}"/>
+                                                <Grid Grid.Column="1" Margin="8 0 0 0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="auto"/>
+                                                        <RowDefinition Height="auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Text="{Binding name}"
+                                                               FontWeight="Bold" TextWrapping="Wrap"
+                                                               Foreground="#494949" FontSize="16"/>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <StackPanel Height="Auto"
                                 HorizontalAlignment="Left"                                  
                                 Margin="30,50,0,12"
                                 VerticalAlignment="Bottom"
                                 Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical">
-                            <fb:ProfilePictureControl CropMode="Square" 
+                            <StackPanel Orientation="Vertical">
+                                <fb:ProfilePictureControl CropMode="Square" 
                                                   x:Name="FriendPicture3" 
                                                   Width="100" 
                                                   Height="100" 
                                                   HorizontalAlignment="Center"
                                                   Visibility="Collapsed"/>
-                            <TextBlock Name="FriendName3"
+                                <TextBlock Name="FriendName3"
                                        Visibility="Collapsed"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <fb:ProfilePictureControl CropMode="Square" 
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <fb:ProfilePictureControl CropMode="Square" 
                                                   x:Name="FriendPicture2" 
                                                   Width="100" 
                                                   Height="100" 
                                                   HorizontalAlignment="Center"
                                                   Visibility="Collapsed"/>
-                            <TextBlock Name="FriendName2"
+                                <TextBlock Name="FriendName2"
                                        Visibility="Collapsed"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <fb:ProfilePictureControl CropMode="Square" 
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical">
+                                <fb:ProfilePictureControl CropMode="Square" 
                                                   x:Name="FriendPicture1" 
                                                   Width="100" 
                                                   Height="100" 
                                                   HorizontalAlignment="Center"
                                                   Visibility="Collapsed"/>
-                            <TextBlock Name="FriendName1"
+                                <TextBlock Name="FriendName1"
                                        Visibility="Collapsed"/>
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
 
-                    <!--<GridView Name="FBFriends" 
+                        <!--<GridView Name="FBFriends" 
                               ItemsSource="{x:Bind friendsList}"
                               HorizontalAlignment="Center"
                               Margin="10,0,0,0">
@@ -134,8 +176,9 @@
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>-->
-                </StackPanel>
-            </SplitView.Content>
-        </SplitView>
-    </Grid>
+                    </StackPanel>
+                </SplitView.Content>
+            </SplitView>
+        </Grid>
+    </ScrollViewer>
 </Page>

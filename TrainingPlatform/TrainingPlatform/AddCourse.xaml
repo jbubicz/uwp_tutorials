@@ -6,77 +6,48 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Center">
-
-        <SplitView Name="MySpliView"
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Center">
+            <SplitView Name="MySpliView"
                    Grid.Row="1"
                    DisplayMode="Overlay"
                    OpenPaneLength="150"
                    CompactPaneLength="45">
-            <!--<SplitView.Pane>
-                <ListBox SelectionMode="Single"
-                         SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="Link1">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Link1" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="Link2">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Link2" FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
-            </SplitView.Pane>-->
+                <SplitView.Content>
+                    <StackPanel Name="addForm">
 
-            <SplitView.Content>
-                <StackPanel Name="addForm">
-
-                    <ComboBox Name="CatCombo" Header="Category" Height="Auto" Width="Auto" >
-                        <!--ItemsSource="{x:Bind categories}" 
-                              SelectedItem="{x:Bind Title}"
-                              SelectedValuePath="Title"
-                              DisplayMemberPath="Title">-->
-                        
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
-                                    <TextBlock Text="{Binding Title}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <TextBlock Name="title_label" Text="Title:"/>
-                    <TextBox Name="title_box"/>
-                    <TextBlock Name="short_desc_label" Text="Type short description of Your course here:"/>
-                    <TextBox Name="short_desc_box" AcceptsReturn="True" AutomationProperties.IsRequiredForForm="True" />
-                    <TextBlock Name="desc_label" Text="Type detailed description of Your course here:"/>
-                    <TextBox Name="desc_box" AcceptsReturn="True" />
-                    <TextBlock Name="price_label" Text="Price:"/>
-                    <TextBox Name="price_box" InputScope="CurrencyAmountAndSymbol"/>
-                    <TextBlock Name="img_label" Text="Upload image for Your course:"/>
-                    <Button Name="Upload" Click="Upload_Click" Content="Upload"/>
-                    <Button Name="Save" Click="Save_Click" Content="Save File"/>
-                    <TextBlock Name="OutputTextBlock" />
-                    <TextBlock Name="StatusBlock" />
-                    <TextBox x:Name="serverAddressField" Text="http://projekt.breko.eu/webroot/files/" Width="500"/>
-                    <Button x:Name="StartUploadButton" Content="Start Upload" Margin="0,0,10,0" Click="StartUpload_Click"/>
-                    <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
-                    <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
-                    <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <Button Name="add_course_button" Content="Add course" Margin="20" Click="add_course_button_Click"/>
-                    <!--<Image Name="imageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
-                </StackPanel>
-            </SplitView.Content>
-        </SplitView>
-
-    </Grid>
+                        <ComboBox Name="CatCombo" Header="Category" Height="Auto" Width="Auto" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
+                                        <TextBlock Text="{Binding Title}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Name="title_label" Text="Title:"/>
+                        <TextBox Name="title_box"/>
+                        <TextBlock Name="short_desc_label" Text="Type short description of Your course here:"/>
+                        <TextBox Name="short_desc_box" AcceptsReturn="True" AutomationProperties.IsRequiredForForm="True" />
+                        <TextBlock Name="desc_label" Text="Type detailed description of Your course here:"/>
+                        <TextBox Name="desc_box" AcceptsReturn="True" />
+                        <TextBlock Name="price_label" Text="Price:"/>
+                        <TextBox Name="price_box" InputScope="CurrencyAmountAndSymbol"/>
+                        <TextBlock Name="img_label" Text="Upload image for Your course:"/>
+                        <Button Name="Upload" Click="Upload_Click" Content="Upload"/>
+                        <Button Name="Save" Click="Save_Click" Content="Save File"/>
+                        <TextBlock Name="OutputTextBlock" />
+                        <TextBlock Name="StatusBlock" />
+                        <TextBox x:Name="serverAddressField" Text="http://projekt.breko.eu/webroot/files/" Width="500"/>
+                        <Button x:Name="StartUploadButton" Content="Start Upload" Margin="0,0,10,0" Click="StartUpload_Click"/>
+                        <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
+                        <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
+                        <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button Name="add_course_button" Content="Add course" Margin="20" Click="add_course_button_Click"/>
+                        <!--<Image Name="imageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
+                    </StackPanel>
+                </SplitView.Content>
+            </SplitView>
+        </Grid>
+    </ScrollViewer>
 </Page>

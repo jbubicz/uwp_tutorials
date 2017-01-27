@@ -98,23 +98,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CategoriesList.cs" />
-    <Compile Include="Course.cs" />
+    <Compile Include="Models\CategoriesList.cs" />
+    <Compile Include="Models\Course.cs" />
     <Compile Include="CoursesList.xaml.cs">
       <DependentUpon>CoursesList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CourseView.cs" />
-    <Compile Include="Database.cs" />
-    <Compile Include="EditCourse.xaml.cs">
-      <DependentUpon>EditCourse.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Database.cs" />
     <Compile Include="FBFriendControl.xaml.cs">
       <DependentUpon>FBFriendControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FBReturnObject.cs" />
-    <Compile Include="FBUserProfile.cs" />
-    <Compile Include="FtpClient.cs" />
-    <Compile Include="FtpResponse.cs" />
+    <Compile Include="Models\FBReturnObject.cs" />
+    <Compile Include="Models\FBUserProfile.cs" />
+    <Compile Include="Models\FtpClient.cs" />
+    <Compile Include="Models\FtpResponse.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -125,9 +121,9 @@
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RolesList.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="FBFriendUserProfile.cs" />
+    <Compile Include="Models\RolesList.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\FBFriendUserProfile.cs" />
     <Compile Include="ViewCourse.xaml.cs">
       <DependentUpon>ViewCourse.xaml</DependentUpon>
     </Compile>
@@ -164,10 +160,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditCourse.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="FBFriendControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,9 +181,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="MySql.Data.RT">
       <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 6.7.9\Assemblies\RT\MySql.Data.RT.dll</HintPath>

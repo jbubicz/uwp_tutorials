@@ -36,7 +36,16 @@ namespace TrainingPlatform
         private void AddUserButton_Click(object sender, RoutedEventArgs e)
         {
             User user = getUserDetails();
-            addUser(user);
+            bool exists = Database.checkIfFBUserExists(user.Fb_id);
+            if (!exists)
+            {
+                addUser(user);
+            }
+            else
+            {
+                string message = "User is already registered!";
+                MessageDialog dialog = new MessageDialog(message);
+            }
         }
 
         private async void addUser(User user)
@@ -49,12 +58,25 @@ namespace TrainingPlatform
             string pass = user.Password;
             string salt = user.Salt;
             string avatar = user.Avatar;
-            bool inserted = Database.insertUser("users", fb_id, role_id, name, email, pass, salt, avatar);
-            if (inserted)
+            try
             {
-                string success = "User successfully added!";
-                MessageDialog dialog = new MessageDialog(success);
+                bool inserted = Database.insertUser("users", fb_id, role_id, name, email, pass, salt, avatar);
+                string message = "";
+
+                if (inserted)
+                {
+                    message = "User successfully added!";
+                }
+                else
+                {
+                    message = "User not added!";
+                }
+                MessageDialog dialog = new MessageDialog(message);
                 await dialog.ShowAsync();
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(e.ToString());
             }
         }
 
@@ -119,7 +141,7 @@ namespace TrainingPlatform
             }
         }
 
-        private void getFBUserDetails(FBUserRootobject fbuser)
+        private async void getFBUserDetails(FBUserRootobject fbuser)
         {
             string fb_id = fbuser.id;
             var role = RoleCombo.SelectedItem as RolesList;
@@ -130,8 +152,17 @@ namespace TrainingPlatform
             string pass = generateSHA256Hash("fbuser", salt);
             string avatar = fbuser.picture.data.url;
             User new_user = new User { Fb_id = fb_id, Role_id = role_id, Name = name, Email = email, Password = pass, Salt = salt, Avatar = avatar };
-            addUser(new_user);
-            //return new_user;
+            bool exists = Database.checkIfFBUserExists(new_user.Fb_id);
+            if (!exists)
+            {
+                addUser(new_user);
+            }
+            else
+            {
+                string message = "User is already registered!";
+                MessageDialog dialog = new MessageDialog(message);
+                await dialog.ShowAsync();
+            }
         }
 
         private async void getFBUserInfo()
@@ -144,8 +175,6 @@ namespace TrainingPlatform
                 string endpoint = "/" + userId + "?access_token=1819087251640431|n5eZecurPAfO37og6RphwZ04tb8&fields=id,name,email,picture";
 
                 PropertySet parameters = new PropertySet();
-                parameters.Add("limit", "10");
-
                 FBSingleValue value = new FBSingleValue(endpoint, parameters, FBUserRootobject.FromJson);
                 FBResult graphResult = await value.GetAsync();
 
@@ -154,9 +183,8 @@ namespace TrainingPlatform
                     try
                     {
                         FBUserRootobject profile = graphResult.Object as FBUserRootobject;
+                        FBPicture.UserId = userId;
                         getFBUserDetails(profile);
-                        //string name = profile.name;
-                        //string pic = profile.picture.data.url;                      
                     }
                     catch (Exception ex)
                     {
@@ -164,7 +192,7 @@ namespace TrainingPlatform
                     }
                 }
             }
-        
+
         }
 
         private async void LogoutFBButton_Click(object sender, RoutedEventArgs e)

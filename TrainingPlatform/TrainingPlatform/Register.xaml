@@ -7,83 +7,50 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:fb="using:winsdkfb"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Center">
-
-        <SplitView Name="MySpliView"
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Center">
+            <SplitView Name="MySpliView"
                    DisplayMode="Overlay"
                    OpenPaneLength="150"
                    CompactPaneLength="45">
-            <!--<SplitView.Pane>
-                <ListBox SelectionMode="Single"
-                         SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="Link1">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Link1" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="Link2">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Link2" FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
-            </SplitView.Pane>-->
-
-            <SplitView.Content>
-                <StackPanel Name="addForm">
-
-                    <ComboBox Name="RoleCombo" Header="Role" Height="Auto" Width="Auto" >
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
-                                    <TextBlock Text="{Binding Title}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <TextBlock Name="NameTextBlock" Text="Name:"/>
-                    <TextBox Name="NameTextBox" 
-                             AutomationProperties.IsRequiredForForm="True" />
-                    <TextBlock Name="PasswordTextBlock1" Text="Password:"/>
-                    <TextBox Name="PasswordTexBox1" 
+                <SplitView.Content>
+                    <StackPanel Name="addForm">
+                        <ComboBox Name="RoleCombo" Header="Role" Height="Auto" Width="Auto" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
+                                        <TextBlock Text="{Binding Title}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Name="NameTextBlock" Text="Name:"/>
+                        <TextBox Name="NameTextBox" 
+                             AutomationProperties.IsRequiredForForm="True" InputScope="PersonalFullName" />
+                        <TextBlock Name="PasswordTextBlock1" Text="Password:"/>
+                        <TextBox Name="PasswordTexBox1" 
                              AcceptsReturn="True" 
                              AutomationProperties.IsRequiredForForm="True" 
                              InputScope="Password" 
                              Width="Auto"/>
-                    <TextBlock Name="PasswordTextBlock2" Text="Password again:"/>
-                    <TextBox Name="PasswordTexBox2" 
+                        <TextBlock Name="PasswordTextBlock2" Text="Password again:"/>
+                        <TextBox Name="PasswordTexBox2" 
                              AcceptsReturn="True" 
                              AutomationProperties.IsRequiredForForm="True" 
                              InputScope="Password" 
                              Width="Auto"/>
-                    <TextBlock Name="EmailTexBlock" Text="Email:"/>
-                    <TextBox Name="EmailTextBox" InputScope="EmailSmtpAddress"/>
-                    <!--<TextBlock Name="AvatarTextBlock" Text="Upload image for Your avatar:"/>
-                    <Button Name="Upload" Click="Upload_Click" Content="Upload"/>
-                    <Button Name="Save" Click="Save_Click" Content="Save File"/>
-                    <TextBlock Name="OutputTextBlock" />
-                    <TextBlock Name="StatusBlock" />
-                    <TextBox x:Name="serverAddressField" Text="http://localhost/test" Width="500"/>
-                    <Button x:Name="StartUploadButton" Content="Start Upload" Margin="0,0,10,0" Click="StartUpload_Click"/>
-                    <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
-                    <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
-                    <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
-                    <Button Name="AddUserButton" Content="Register" Margin="20" Click="AddUserButton_Click"/>
-                    <!--<Image Name="ImageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
-                    <TextBlock Text="Or continue with Facebook:"/>
-                    <fb:FBLoginButton x:Name="FBRegisterButton" Margin="10" Visibility="Visible" Click="FBRegisterButton_Click"></fb:FBLoginButton>
-                    <Button Name="LogoutFBButton" Content="Logout FB" Margin="10,0" Click="LogoutFBButton_Click"/>
-                </StackPanel>
-               
-            </SplitView.Content>
-        </SplitView>
-    </Grid>
+                        <TextBlock Name="EmailTexBlock" Text="Email:"/>
+                        <TextBox Name="EmailTextBox" InputScope="EmailSmtpAddress" AutomationProperties.IsRequiredForForm="True"/>
+                        <Button Name="AddUserButton" Content="Register" Margin="20" Click="AddUserButton_Click"/>
+                        <TextBlock Text="Or continue with Facebook:"/>
+                        <StackPanel MaxWidth="362" HorizontalAlignment="Left" Margin="10,10,0,0">
+                            <fb:ProfilePictureControl CropMode="Square" x:Name="FBPicture" Width="100" Height="100" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <fb:FBLoginButton x:Name="FBRegisterButton" Margin="10" Visibility="Visible" Click="FBRegisterButton_Click"></fb:FBLoginButton>
+                        <Button Name="LogoutFBButton" Content="Logout FB" Margin="10,0" Click="LogoutFBButton_Click"/>
+                    </StackPanel>
+                </SplitView.Content>
+            </SplitView>
+        </Grid>
+    </ScrollViewer>
 </Page>

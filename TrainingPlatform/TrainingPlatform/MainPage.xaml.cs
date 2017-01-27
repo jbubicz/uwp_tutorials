@@ -36,16 +36,19 @@ namespace TrainingPlatform
             {                              
                 MyFrame.Navigate(typeof(LoginPage));
                 MySpliView.IsPaneOpen = !MySpliView.IsPaneOpen;
+                Login_link.IsSelected = false;
             }
             if (AllCourses_link.IsSelected)
             {
                 MyFrame.Navigate(typeof(CoursesList));
                 MySpliView.IsPaneOpen = !MySpliView.IsPaneOpen;
+                AllCourses_link.IsSelected = false;
             }
             if (AddCourse_link.IsSelected)
             {
                 MyFrame.Navigate(typeof(AddCourse));
                 MySpliView.IsPaneOpen = !MySpliView.IsPaneOpen;
+                AddCourse_link.IsSelected = false;
             }
         }
 

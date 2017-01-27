@@ -7,68 +7,45 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:fb="using:winsdkfb" 
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView Name="MySpliView"
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <SplitView Name="MySpliView"
                    Grid.Row="1"
                    DisplayMode="Overlay"
                    OpenPaneLength="180"
                    CompactPaneLength="45">
-            <SplitView.Pane>
-                <ListBox SelectionMode="Single"
-                         SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="AllCourses_link">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="View all courses" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem Name="AddCourse_link">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
-                            <TextBlock Text="Add new course" 
-                                       FontSize="18"
-                                       Margin="20,0,0,0" />
-                        </StackPanel>
-                    </ListBoxItem>
-                </ListBox>
-            </SplitView.Pane>
-
-            <SplitView.Content>
-                <StackPanel  x:Name="StackPanel2" Orientation="Vertical" Margin="19,20,19,0">
-                    <!--Simple login-->
-                    <TextBlock Name="LoginTextBlock"
+                <SplitView.Content>
+                    <StackPanel  x:Name="StackPanel2" Orientation="Vertical" Margin="19,20,19,0">
+                        <!--Simple login-->
+                        <TextBlock Name="LoginTextBlock"
                                Text="Login"/>
-                    <TextBox Name="LoginTextBox"
+                        <TextBox Name="LoginTextBox"
                              HorizontalAlignment="Left"
                              Width="200"/>
-                    <TextBlock Name="PassTextBlock"
+                        <TextBlock Name="PassTextBlock"
                                Margin="0,5,0,0"
                                Text="Password"/>
-                    <TextBox Name="PassTextBox"
+                        <TextBox Name="PassTextBox"
                              HorizontalAlignment="Left"
                              Width="200"/>
-                    <Button Name="SimpleLoginButton"
+                        <Button Name="SimpleLoginButton"
                             Margin="0,10,0,0"
                             Content="Log in"
                             Click="SimpleLoginButton_Click"/>
-                    <!--<TextBlock Name="RegisterTextBlock" Text=""/>-->
-                    <HyperlinkButton Name="RegisterLink" Content="Register" Click="RegisterLink_Click"/>
-                    <!--FB login-->
-                    <StackPanel MaxWidth="362" HorizontalAlignment="Left" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,50,0,12">
-                        <fb:ProfilePictureControl CropMode="Square" x:Name="SquarePicture" Width="100" Height="100" HorizontalAlignment="Center"/>
+                        <!--<TextBlock Name="RegisterTextBlock" Text=""/>-->
+                        <HyperlinkButton Name="RegisterLink" Content="Register" Click="RegisterLink_Click"/>
+                        <!--FB login-->
+                        <StackPanel MaxWidth="362" HorizontalAlignment="Left" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,50,0,12">
+                            <fb:ProfilePictureControl CropMode="Square" x:Name="SquarePicture" Width="100" Height="100" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <!--<Button x:Name="UserLikesButton" Content="Show Likes..." HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="UserLikesButton_Click" MaxWidth="362" Height="Auto" Width="{Binding ActualWidth, ElementName=StackPanel2}"/>-->
+                        <Button Content="Friends" x:Name="BackButton" Height="Auto" MaxWidth="362" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,10,0,0" Click="OnGet"/>
+                        <fb:FBLoginButton x:Name="login" Margin="10" Click="login_Click" Visibility="Visible"></fb:FBLoginButton>
+                        <TextBlock Name="IsLogged"/>
+                        <Button Name="logout" Content="Logout" Click="logout_Click"/>
                     </StackPanel>
-                    <Button x:Name="UserLikesButton" Content="Show Likes..." HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="UserLikesButton_Click" MaxWidth="362" Height="Auto" Width="{Binding ActualWidth, ElementName=StackPanel2}"/>
-                    <Button Content="Back" x:Name="BackButton" Height="Auto" MaxWidth="362" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,10,0,0" Click="OnGet"/>
-                    <fb:FBLoginButton x:Name="login" Margin="10" Click="login_Click" Visibility="Visible"></fb:FBLoginButton>
-                    <TextBlock Name="IsLogged"/>
-                    <Button Name="logout" Content="Logout" Click="logout_Click"/>
-                </StackPanel>
-            </SplitView.Content>
-        </SplitView>
-    </Grid>
+                </SplitView.Content>
+            </SplitView>
+        </Grid>
+    </ScrollViewer>
 </Page>

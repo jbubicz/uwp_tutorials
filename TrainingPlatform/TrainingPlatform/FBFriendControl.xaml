@@ -18,7 +18,8 @@
                              x:Name="FriendPicture" 
                               Width="100" 
                                 Height="100" 
-                                HorizontalAlignment="Center"/>        
+                                HorizontalAlignment="Center"
+                                  UserId="{x:Bind FBUserRootobject.id}"/>        
         
             <TextBlock Text="{x:Bind FBUserRootobject.id}" 
                        Name="Headline"
