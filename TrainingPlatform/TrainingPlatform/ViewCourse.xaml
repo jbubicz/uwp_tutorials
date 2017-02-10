@@ -45,7 +45,16 @@
                     <StackPanel Name="lstGroup"
                             Height="Auto">
                         <TextBlock Name="CourseId" Text="{Binding Id}" Visibility="Collapsed"/>
-                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="None" Visibility="Visible"/>
+                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" Visibility="Visible" MaxHeight="200" MaxWidth="200"/>
+                        <ComboBox Name="CatCombo" Header="Category" Height="Auto" Width="Auto" Visibility="Collapsed">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
+                                        <TextBlock Text="{Binding Title}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <Button x:Name="StartUploadButton" Content="Upload Image" Margin="0,0,10,0" Click="StartUpload_Click" Visibility="Collapsed"/>
                         <TextBlock Name="Title_textBlock" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Visible"/>
@@ -54,6 +63,10 @@
                         <TextBlock Name="ShortDesc_textBlock" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Visible"/>
                         <TextBox Name="ShortDesc_textBox" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                               Visibility="Collapsed"/>
+                        <TextBlock Name="Desc_textBlock" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                               Visibility="Visible"/>
+                        <TextBox Name="Desc_textBox" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Collapsed"/>
                         <TextBlock Name="Price_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
                                Visibility="Visible"/>
@@ -74,7 +87,7 @@
                         <Button Name="Edit_button"
                             Content="Edit course" 
                             Click="Edit_Click"
-                            Visibility="Visible"/>
+                            Visibility="Collapsed"/>
                         <Button Name="Save_button" 
                             Content="Save changes" 
                             Click="Save_Click"

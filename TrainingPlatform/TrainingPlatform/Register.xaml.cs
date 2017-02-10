@@ -86,7 +86,7 @@ namespace TrainingPlatform
             int role_id = role.Id;
             string name = NameTextBox.Text;
             string email = EmailTextBox.Text;
-            string salt = createSalt(6);
+            string salt = createSalt(8);
             string pass = generateSHA256Hash(PasswordTexBox2.Text, salt);
             string avatar = "Assets/1.jpg";
             User new_user = new User { Role_id = role_id, Name = name, Email = email, Password = pass, Salt = salt, Avatar = avatar };
@@ -167,7 +167,6 @@ namespace TrainingPlatform
 
         private async void getFBUserInfo()
         {
-
             FBSession clicnt = FBSession.ActiveSession;
             if (clicnt.LoggedIn)
             {

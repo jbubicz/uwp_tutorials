@@ -107,10 +107,7 @@
     <Compile Include="FBFriendControl.xaml.cs">
       <DependentUpon>FBFriendControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\FBReturnObject.cs" />
     <Compile Include="Models\FBUserProfile.cs" />
-    <Compile Include="Models\FtpClient.cs" />
-    <Compile Include="Models\FtpResponse.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -138,6 +135,7 @@
     <Content Include="Assets\1.jpg" />
     <Content Include="Assets\2.png" />
     <Content Include="Assets\3.png" />
+    <Content Include="Assets\course.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -55,7 +55,7 @@ namespace TrainingPlatform
             string short_desc = short_desc_box.Text;
             string desc = desc_box.Text;
             string price = price_box.Text;
-            string img = "Assets/1.jpg";
+            string img = "Assets/course.jpg";
             Course new_course = new Course { UserId = 1, Category = cat_id, Title = title, Price = price, ImgUrl = img, ShortDescription = short_desc, Description = desc, IsEnabled = 1 };
             return new_course;
         }
@@ -96,32 +96,32 @@ namespace TrainingPlatform
             Windows.Web.Http.HttpResponseMessage response = await client.PostAsync(uri, streamContent).AsTask(cts.Token);
         }
 
-        private async void DoDownloadOrUpload(bool isDownload)
-        {
-            //Uri uri = new Uri(serverAddressField.Text);
-            Uri uri = new Uri("ftp://projekt.breko.eu/");
-            //string Username = "FTP-User";
-            //string Password = "123456789";
-            string Username = "projekt@breko.eu";
-            string Password = "wr77HxNLa";
+        //private async void DoDownloadOrUpload(bool isDownload)
+        //{
+        //    //Uri uri = new Uri(serverAddressField.Text);
+        //    Uri uri = new Uri("ftp://projekt.breko.eu/");
+        //    //string Username = "FTP-User";
+        //    //string Password = "123456789";
+        //    string Username = "projekt@breko.eu";
+        //    string Password = "wr77HxNLa";
 
-            FtpClient client = new FtpClient();
-            await client.ConnectAsync(
-                new HostName(uri.Host),
-                uri.Port.ToString(),
-                Username,
-                Password);
+        //    FtpClient client = new FtpClient();
+        //    await client.ConnectAsync(
+        //        new HostName(uri.Host),
+        //        uri.Port.ToString(),
+        //        Username,
+        //        Password);
 
-            if (isDownload)
-            {    
-                byte[] data = await client.DownloadAsync(uri.AbsolutePath);              
-            }
-            else
-            {
-                byte[] data = Encoding.UTF8.GetBytes(serverAddressField.Text);
-                await client.UploadAsync(uri.AbsolutePath, data);
-            }          
-        }
+        //    if (isDownload)
+        //    {    
+        //        byte[] data = await client.DownloadAsync(uri.AbsolutePath);              
+        //    }
+        //    else
+        //    {
+        //        byte[] data = Encoding.UTF8.GetBytes(serverAddressField.Text);
+        //        await client.UploadAsync(uri.AbsolutePath, data);
+        //    }          
+        //}
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

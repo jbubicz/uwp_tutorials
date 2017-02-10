@@ -31,7 +31,101 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled`=1";
+                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled`=1 ORDER BY `modified` DESC";
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                Course course = new Course();
+                                course.Id = reader.GetInt32("id");
+                                course.UserId = reader.GetInt32("user_id");
+                                course.Category = reader.GetInt32("category_id");
+                                course.Title = reader.GetString("title");
+                                course.Price = reader.GetString("price");
+                                course.ImgUrl = reader.GetString("img");
+                                course.ShortDescription = reader.GetString("short_description");
+                                course.Description = reader.GetString("description");
+                                course.IsEnabled = reader.GetInt32("is_enabled");
+                                course.Created = reader.GetDateTime("created");
+                                course.Modified = reader.GetDateTime("modified");
+                                result.Add(course);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return null;
+            }
+        }
+
+        public static ObservableCollection<Course> getTopCourses(string tableName)
+        {
+            ObservableCollection<Course> result = new ObservableCollection<Course>();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT * FROM " + tableName +
+                        " c LEFT JOIN `courses_ratings` cr ON c.id = cr.course_id " +
+                        "WHERE c.`is_enabled`=1 " +
+                        "ORDER BY cr.rating, c.modified " +
+                        "LIMIT 10";
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                Course course = new Course();
+                                course.Id = reader.GetInt32("id");
+                                course.UserId = reader.GetInt32("user_id");
+                                course.Category = reader.GetInt32("category_id");
+                                course.Title = reader.GetString("title");
+                                course.Price = reader.GetString("price");
+                                course.ImgUrl = reader.GetString("img");
+                                course.ShortDescription = reader.GetString("short_description");
+                                course.Description = reader.GetString("description");
+                                course.IsEnabled = reader.GetInt32("is_enabled");
+                                course.Created = reader.GetDateTime("created");
+                                course.Modified = reader.GetDateTime("modified");
+                                result.Add(course);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return null;
+            }
+        }
+
+        public static ObservableCollection<Course> getNewestCourses(string tableName)
+        {
+            ObservableCollection<Course> result = new ObservableCollection<Course>();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT * FROM " + tableName + " WHERE `is_enabled`=1 " +
+                        "ORDER BY `created` DESC " +
+                        "LIMIT 10";
                     using (MySqlDataReader reader = getCommand.ExecuteReader())
                     {
                         if (reader != null)
@@ -326,7 +420,7 @@ namespace TrainingPlatform
             }
         }
 
-        public static bool updateCourse(string tableName, int course_id, int cat_id, string title, string price, string img, string short_desc, string desc)
+        public static bool updateCourse(string tableName, int course_id, int user_id, int cat_id, string title, string price, string img, string short_desc, string desc)
         {
             string connectionString = getConnectionString();
             try
@@ -336,8 +430,9 @@ namespace TrainingPlatform
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
                     getCommand.CommandText = "UPDATE " + tableName +
-                        " SET `category_id`=@category_id,`title`=@title,`price`=@price,`img`=@img,`short_description`=@short_description,`description`=@description " +
+                        " SET `user_id`=@user_id, `category_id`=@category_id,`title`=@title,`price`=@price,`img`=@img,`short_description`=@short_description,`description`=@description " +
                         "WHERE `id`=@course_id";
+                    getCommand.Parameters.AddWithValue("@user_id", user_id);
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
                     getCommand.Parameters.AddWithValue("@category_id", cat_id);
                     getCommand.Parameters.AddWithValue("@title", title);
@@ -487,7 +582,8 @@ namespace TrainingPlatform
             EncodingProvider ppp;
             ppp = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(ppp);
-            string connectionString = "Server = " + server + ";database = " + database + ";uid = " + user + ";password = " + pswd + ";SslMode=None;charset=utf8";
+            string connectionString = "Server = " + server + ";database = " + database + ";uid = " +
+                user + ";password = " + pswd + ";SslMode=None;charset=utf8";
             return connectionString;
         }
 

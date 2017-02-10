@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Margin="15">
+          Margin="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

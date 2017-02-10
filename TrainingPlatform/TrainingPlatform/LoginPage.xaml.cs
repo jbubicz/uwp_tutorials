@@ -29,15 +29,15 @@ namespace TrainingPlatform
             //Debug.WriteLine(SID);
         }
 
+        public string username { get; private set; }
+        public string fb_id { get; private set; }
+
         private readonly string[] requested_permissions ={
             "public_profile",
             "email",
             "user_friends",
             "publish_actions"
         };
-
-        public string username { get; private set; }
-        public string fb_id { get; private set; }
 
         private async void login_Click(object sender, RoutedEventArgs e)
         {
@@ -54,6 +54,7 @@ namespace TrainingPlatform
                 Debug.WriteLine(clicnt.User.Email);
                 Debug.WriteLine(clicnt.User.FirstName);
                 Debug.WriteLine(clicnt.User.LastName);
+                login.Visibility = Visibility.Collapsed;
                 SquarePicture.UserId = clicnt.User.Id;
             }
             else
@@ -89,6 +90,9 @@ namespace TrainingPlatform
             {
                 await clicnt.LogoutAsync();
             }
+            IsLogged.Text = "Successfully logged out";
+            SquarePicture.UserId = "";
+            login.Visibility = Visibility.Visible;
         }
 
         private async void OnGet(object sender, RoutedEventArgs e)

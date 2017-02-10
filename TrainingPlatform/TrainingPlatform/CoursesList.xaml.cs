@@ -32,10 +32,14 @@ namespace TrainingPlatform
             }
             else if (MainPivot.SelectedIndex == 1)
             {
-                //List<Course> lstsource = Database.getAllCourses("courses");
-                //lstAlphaBetic.ItemsSource = lstsource;                
+                ObservableCollection<Course> lstsource = Database.getTopCourses("courses");
+                TopCoursesListView.ItemsSource = lstsource;
             }
-            else { return; }
+            else if (MainPivot.SelectedIndex == 2)
+            {
+                ObservableCollection<Course> lstsource = Database.getNewestCourses("courses");
+                NewestCoursesListView.ItemsSource = lstsource;
+            }
         }
 
         private void lstGroup_ItemClick(object sender, ItemClickEventArgs e)
@@ -44,22 +48,12 @@ namespace TrainingPlatform
             Frame.Navigate(typeof(ViewCourse), course);
         }
 
-        private void lstAlphaBetic_ItemClick(object sender, ItemClickEventArgs e)
+        private void TopCoursesListView_ItemClick(object sender, ItemClickEventArgs e)
         {
 
         }
 
-        private void lstAlphaBetic_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void lstVideo_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
-
-        private void NewCoursesList_ItemClick(object sender, ItemClickEventArgs e)
+        private void NewestCoursesListView_ItemClick(object sender, ItemClickEventArgs e)
         {
 
         }

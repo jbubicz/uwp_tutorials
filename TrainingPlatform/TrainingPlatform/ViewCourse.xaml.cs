@@ -25,15 +25,17 @@ namespace TrainingPlatform
         private string resourceName = "My App";
         static FBSession clicnt = FBSession.ActiveSession;
         User user = getUserInfo(clicnt);
-        private string fb_id;
+        //private string fb_id;
         private int course_id;
+        ObservableCollection<CategoriesList> categories = Database.getCategories("courses_categories");
         private ObservableCollection<FBUserRootobject> friendsList;
 
         public ViewCourse()
         {
             this.InitializeComponent();
-
-            GetCredentialFromLocker();
+            CatCombo.ItemsSource = categories;
+            //CatCombo.SelectedItem = categories[0];
+            //GetCredentialFromLocker();
             GetFriends();
             friendsList = new ObservableCollection<FBUserRootobject>();
         }
@@ -84,16 +86,19 @@ namespace TrainingPlatform
             var parameters = (Course)e.Parameter;
             lstGroup.DataContext = parameters;
             course_id = Int32.Parse(CourseId.Text);
-            setSignButtonsVisibility(course_id);
+            int actual_category_id = parameters.Category;
+            CatCombo.SelectedItem = categories[actual_category_id-1];
+            setButtonsVisibility(course_id);
         }
 
-        private void setSignButtonsVisibility(int course_id)
+        private void setButtonsVisibility(int course_id)
         {
             if (clicnt.LoggedIn)
             {
+                Edit_button.Visibility = Visibility.Visible;
                 bool isSigned = Database.checkIfFBUserIsSigned(clicnt.User.Id, course_id);
                 if (isSigned)
-                {
+                {                    
                     SignupButton.Visibility = Visibility.Collapsed;
                     SignoffButton.Visibility = Visibility.Visible;
                 }
@@ -107,11 +112,14 @@ namespace TrainingPlatform
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
+            CatCombo.Visibility = Visibility.Visible;
             StartUploadButton.Visibility = Visibility.Visible;
             Title_textBlock.Visibility = Visibility.Collapsed;
             Title_textBox.Visibility = Visibility.Visible;
             ShortDesc_textBlock.Visibility = Visibility.Collapsed;
             ShortDesc_textBox.Visibility = Visibility.Visible;
+            Desc_textBlock.Visibility = Visibility.Collapsed;
+            Desc_textBox.Visibility = Visibility.Visible;
             Price_textBlock.Visibility = Visibility.Collapsed;
             Price_textBox.Visibility = Visibility.Visible;
             Edit_button.Visibility = Visibility.Collapsed;
@@ -119,14 +127,63 @@ namespace TrainingPlatform
             Cancel_button.Visibility = Visibility.Visible;
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
+            Course course = null;
+            course = getEditedCourseDetails();
+            int user_id = course.UserId;
+            int cat_id = course.Category;
+            string title = course.Title;
+            string price = course.Price;
+            string img = course.ImgUrl;
+            string short_desc = course.ShortDescription;
+            string desc = course.Description;
+            bool updated = Database.updateCourse("courses", course_id, user_id, cat_id, title, price, img, short_desc, desc);
+            if (updated)
+            {
+                string success = "Course successfully edited!";
+                MessageDialog dialog = new MessageDialog(success);
+                await dialog.ShowAsync();
+            }
+            Frame.Navigate(typeof(ViewCourse), course);
+            //setDefaultVisibility();
+        }
 
+        private Course getEditedCourseDetails()
+        {
+            //Course edited_course = null;
+
+            var cat = CatCombo.SelectedItem as CategoriesList;
+            int cat_id = cat.Id;
+            string title = Title_textBox.Text;
+            string short_desc = ShortDesc_textBox.Text;
+            string desc = Desc_textBox.Text;
+            string price = Price_textBox.Text;
+            string img = "Assets/course.jpg";
+            Course edited_course = new Course { UserId = user.Id, Category = cat_id, Title = title, Price = price, ImgUrl = img, ShortDescription = short_desc, Description = desc, IsEnabled = 1 };
+            return edited_course;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            setDefaultVisibility();
+        }
 
+        private void setDefaultVisibility()
+        {
+            CatCombo.Visibility = Visibility.Collapsed;
+            StartUploadButton.Visibility = Visibility.Collapsed;
+            Title_textBlock.Visibility = Visibility.Visible;
+            Title_textBox.Visibility = Visibility.Collapsed;
+            ShortDesc_textBlock.Visibility = Visibility.Visible;
+            ShortDesc_textBox.Visibility = Visibility.Collapsed;
+            Desc_textBlock.Visibility = Visibility.Visible;
+            Desc_textBox.Visibility = Visibility.Collapsed;
+            Price_textBlock.Visibility = Visibility.Visible;
+            Price_textBox.Visibility = Visibility.Collapsed;
+            Edit_button.Visibility = Visibility.Visible;
+            Save_button.Visibility = Visibility.Collapsed;
+            Cancel_button.Visibility = Visibility.Collapsed;
         }
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
@@ -167,16 +224,13 @@ namespace TrainingPlatform
 
         private async void GetFriends()
         {
-
             FBSession clicnt = FBSession.ActiveSession;
             if (clicnt.LoggedIn)
             {
                 var userId = clicnt.User.Id;
                 string endpoint = "/" + userId + "/friends?fields=id,name,email,picture";
-
                 PropertySet parameters = new PropertySet();
                 //parameters.Add("limit", "3");
-
                 FBSingleValue value = new FBSingleValue(endpoint, parameters, Rootobject.FromJson);
                 FBResult graphResult = await value.GetAsync();
 
@@ -203,7 +257,7 @@ namespace TrainingPlatform
                                 TitleFbFriendsTextBlock.Visibility = Visibility.Visible;
                                 FriendsList.ItemsSource = friendsList;
                             }
-                        }                            
+                        }
                     }
                     catch (Exception ex)
                     {
