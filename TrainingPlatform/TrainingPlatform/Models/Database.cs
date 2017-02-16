@@ -50,6 +50,7 @@ namespace TrainingPlatform
                                 course.IsEnabled = reader.GetInt32("is_enabled");
                                 course.Created = reader.GetDateTime("created");
                                 course.Modified = reader.GetDateTime("modified");
+                                course.Rate = getCourseRating(course.Id);
                                 result.Add(course);
                             }
                         }
@@ -98,6 +99,7 @@ namespace TrainingPlatform
                                 course.IsEnabled = reader.GetInt32("is_enabled");
                                 course.Created = reader.GetDateTime("created");
                                 course.Modified = reader.GetDateTime("modified");
+                                course.Rate = getCourseRating(course.Id);
                                 result.Add(course);
                             }
                         }
@@ -144,6 +146,7 @@ namespace TrainingPlatform
                                 course.IsEnabled = reader.GetInt32("is_enabled");
                                 course.Created = reader.GetDateTime("created");
                                 course.Modified = reader.GetDateTime("modified");
+                                course.Rate = getCourseRating(course.Id);
                                 result.Add(course);
                             }
                         }
@@ -188,6 +191,7 @@ namespace TrainingPlatform
                                 course.IsEnabled = reader.GetInt32("is_enabled");
                                 course.Created = reader.GetDateTime("created");
                                 course.Modified = reader.GetDateTime("modified");
+                                course.Rate = getCourseRating(course.Id);
                                 result.Add(course);
                             }
                         }
@@ -315,6 +319,46 @@ namespace TrainingPlatform
             }
         }
 
+        public static double getCourseRating(int course_id)
+        {
+            int rate = 0;
+            double average = 0.0;
+            List<int> result = new List<int>();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText =
+                        "SELECT `id`, `user_id`, `course_id`, `rating`, `created` " +
+                        "FROM `courses_ratings` " +
+                        "WHERE `course_id` = @course_id";
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                rate = reader.GetInt32("rating");
+                                result.Add(rate);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                average = result.Count > 0 ? result.Average() : 0.0;
+                return average;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.Message);
+                return 0.0;
+            }
+        }
+
         public static bool checkIfFBUserIsSigned(string fb_id, int course_id)
         {
             bool isSigned = false;
@@ -323,7 +367,6 @@ namespace TrainingPlatform
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
                     getCommand.CommandText = "SELECT `is_active` FROM `courses_members` AS cm " +

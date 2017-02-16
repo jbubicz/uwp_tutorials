@@ -29,6 +29,7 @@ namespace TrainingPlatform
         private int course_id;
         ObservableCollection<CategoriesList> categories = Database.getCategories("courses_categories");
         private ObservableCollection<FBUserRootobject> friendsList;
+        private double value;
 
         public ViewCourse()
         {
@@ -87,18 +88,30 @@ namespace TrainingPlatform
             lstGroup.DataContext = parameters;
             course_id = Int32.Parse(CourseId.Text);
             int actual_category_id = parameters.Category;
-            CatCombo.SelectedItem = categories[actual_category_id-1];
+            CatCombo.SelectedItem = categories[actual_category_id - 1];
             setButtonsVisibility(course_id);
         }
 
         private void setButtonsVisibility(int course_id)
         {
+            if (Double.TryParse(Price_textBlock.Text, out value))
+            {
+                Price_textBlock.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", value);
+            }
+            else
+            {
+                Price_textBlock.Text = String.Empty;
+            }
+            if (double.Parse(Rating_textBlock.Text) < 1)
+            {
+                Rating_textBlock.Visibility = Visibility.Collapsed;
+            }
             if (clicnt.LoggedIn)
             {
                 Edit_button.Visibility = Visibility.Visible;
                 bool isSigned = Database.checkIfFBUserIsSigned(clicnt.User.Id, course_id);
                 if (isSigned)
-                {                    
+                {
                     SignupButton.Visibility = Visibility.Collapsed;
                     SignoffButton.Visibility = Visibility.Visible;
                 }
@@ -266,6 +279,16 @@ namespace TrainingPlatform
                     }
                 }
             }
+        }
+
+        private void BGRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearRating_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -37,13 +37,15 @@
             </VisualStateManager.VisualStateGroups>
 
             <SplitView Name="MySpliView"
-                   Grid.Row="1"
-                   DisplayMode="Overlay"
-                   OpenPaneLength="180"
-                   CompactPaneLength="45">
+                       Grid.Row="1"
+                       DisplayMode="Overlay"
+                       OpenPaneLength="180"
+                       CompactPaneLength="45"
+                       Width="Auto">
                 <SplitView.Content>
                     <StackPanel Name="lstGroup"
-                            Height="Auto">
+                                Height="Auto"
+                                Width="Auto">
                         <TextBlock Name="CourseId" Text="{Binding Id}" Visibility="Collapsed"/>
                         <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" Visibility="Visible" MaxHeight="200" MaxWidth="200"/>
                         <ComboBox Name="CatCombo" Header="Category" Height="Auto" Width="Auto" Visibility="Collapsed">
@@ -72,6 +74,8 @@
                                Visibility="Visible"/>
                         <TextBox Name="Price_textBox" Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center"
                                Visibility="Collapsed"/>
+                        <TextBlock Name="Rating_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Rate}" VerticalAlignment="Center"
+                               Visibility="Visible"/>
                         <Button Name="SignupButton" 
                             Content="Sign up"
                             Click="SignupButton_Click"
@@ -93,14 +97,29 @@
                             Click="Save_Click"
                             Visibility="Collapsed"/>
                         <Button Name="Cancel_button" 
-                            Content="Cancel" 
-                            Click="Cancel_Click"
-                            Visibility="Collapsed"/>
+                                Content="Cancel" 
+                                Click="Cancel_Click"
+                                Visibility="Collapsed"/>
                         <TextBlock Name="TitleFbFriendsTextBlock"
-                               Margin="50,100,50,0"
-                               Text="Your friends watched this course!"
-                               Visibility="Collapsed"/>
-
+                                   Margin="50,100,50,0"
+                                   Text="Your friends watched this course!"
+                                   Visibility="Collapsed"/>
+                        <StackPanel Name="Rating"                                     
+                                    Width="Auto" 
+                                    Visibility="Visible">
+                            <TextBlock Text="Rate this course:"/>
+                            <StackPanel Orientation="Horizontal" Width="Auto">
+                                <RadioButton Content="1" Tag="1" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Content="2" Tag="2" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Content="3" Tag="3" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Content="4" Tag="4" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Content="5" Tag="5" Checked="BGRadioButton_Checked"/>
+                            </StackPanel>
+                            <Button Name="ClearRating"
+                                    Content="Clear"
+                                    Margin="5"
+                                    Click="ClearRating_Click"/>
+                        </StackPanel>
                         <ListView x:Name="FriendsList" Margin="8" 
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"                                  >
