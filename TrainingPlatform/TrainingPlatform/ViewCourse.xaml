@@ -100,26 +100,26 @@
                                 Content="Cancel" 
                                 Click="Cancel_Click"
                                 Visibility="Collapsed"/>
-                        <TextBlock Name="TitleFbFriendsTextBlock"
-                                   Margin="50,100,50,0"
-                                   Text="Your friends watched this course!"
-                                   Visibility="Collapsed"/>
                         <StackPanel Name="Rating"                                     
                                     Width="Auto" 
-                                    Visibility="Visible">
+                                    Visibility="Collapsed">
                             <TextBlock Text="Rate this course:"/>
                             <StackPanel Orientation="Horizontal" Width="Auto">
-                                <RadioButton Content="1" Tag="1" Checked="BGRadioButton_Checked"/>
-                                <RadioButton Content="2" Tag="2" Checked="BGRadioButton_Checked"/>
-                                <RadioButton Content="3" Tag="3" Checked="BGRadioButton_Checked"/>
-                                <RadioButton Content="4" Tag="4" Checked="BGRadioButton_Checked"/>
-                                <RadioButton Content="5" Tag="5" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Name="rb1" Content="1" Tag="1" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Name="rb2" Content="2" Tag="2" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Name="rb3" Content="3" Tag="3" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Name="rb4" Content="4" Tag="4" Checked="BGRadioButton_Checked"/>
+                                <RadioButton Name="rb5" Content="5" Tag="5" Checked="BGRadioButton_Checked"/>
                             </StackPanel>
                             <Button Name="ClearRating"
                                     Content="Clear"
                                     Margin="5"
                                     Click="ClearRating_Click"/>
                         </StackPanel>
+                        <TextBlock Name="TitleFbFriendsTextBlock"
+                                   Margin="50,100,50,0"
+                                   Text="Your friends watched this course!"
+                                   Visibility="Collapsed"/>
                         <ListView x:Name="FriendsList" Margin="8" 
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"                                  >
@@ -152,7 +152,6 @@
                                                     <TextBlock Grid.Row="0" Text="{Binding name}"
                                                                FontWeight="Bold" TextWrapping="Wrap"
                                                                Foreground="#494949" FontSize="16"/>
-
                                                 </Grid>
                                             </Grid>
                                         </Grid>

@@ -89,10 +89,10 @@ namespace TrainingPlatform
             course_id = Int32.Parse(CourseId.Text);
             int actual_category_id = parameters.Category;
             CatCombo.SelectedItem = categories[actual_category_id - 1];
-            setButtonsVisibility(course_id);
+            setControlsVisibility(course_id);
         }
 
-        private void setButtonsVisibility(int course_id)
+        private void setControlsVisibility(int course_id)
         {
             if (Double.TryParse(Price_textBlock.Text, out value))
             {
@@ -108,6 +108,30 @@ namespace TrainingPlatform
             }
             if (clicnt.LoggedIn)
             {
+                Rating.Visibility = Visibility.Visible;
+                int userRate = Database.getUserRate(user.Id, course_id);
+                switch (userRate)
+                {
+                    case 1:
+                        rb1.IsChecked = true;
+                        break;
+                    case 2:
+                        rb2.IsChecked = true;
+                        break;
+                    case 3:
+                        rb3.IsChecked = true;
+                        break;
+                    case 4:
+                        rb4.IsChecked = true;
+                        break;
+                    case 5:
+                        rb5.IsChecked = true;
+                        break;
+                    default:
+                        clearRating();
+                        break;
+                }
+
                 Edit_button.Visibility = Visibility.Visible;
                 bool isSigned = Database.checkIfFBUserIsSigned(clicnt.User.Id, course_id);
                 if (isSigned)
@@ -173,7 +197,8 @@ namespace TrainingPlatform
             string desc = Desc_textBox.Text;
             string price = Price_textBox.Text;
             string img = "Assets/course.jpg";
-            Course edited_course = new Course { UserId = user.Id, Category = cat_id, Title = title, Price = price, ImgUrl = img, ShortDescription = short_desc, Description = desc, IsEnabled = 1 };
+            Course edited_course =
+                new Course { UserId = user.Id, Category = cat_id, Title = title, Price = price, ImgUrl = img, ShortDescription = short_desc, Description = desc, IsEnabled = 1 };
             return edited_course;
         }
 
@@ -206,13 +231,13 @@ namespace TrainingPlatform
                 //int course_id = Int32.Parse(CourseId.Text);
                 if (Database.courseSignup("courses_members", user.Id, course_id))
                 {
-                    Debug.Write("\n" + user.Name + " signed up for " + course_id);
+                    Debug.WriteLine(user.Name + " signed up for " + course_id);
                     SignupButton.Visibility = Visibility.Collapsed;
                     SignoffButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    Debug.Write("\nError signing up");
+                    Debug.WriteLine("Error signing up");
                 }
             }
         }
@@ -224,13 +249,13 @@ namespace TrainingPlatform
                 //int course_id = Int32.Parse(CourseId.Text);
                 if (Database.courseSignoff("courses_members", user.Id, course_id))
                 {
-                    Debug.Write("\n" + user.Name + " signed off " + course_id);
+                    Debug.WriteLine(user.Name + " signed off " + course_id);
                     SignupButton.Visibility = Visibility.Visible;
                     SignoffButton.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    Debug.Write("\nError signing off");
+                    Debug.WriteLine("Error signing off");
                 }
             }
         }
@@ -283,12 +308,27 @@ namespace TrainingPlatform
 
         private void BGRadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            RadioButton rb = sender as RadioButton;
 
+            if (rb != null)
+            {
+                string rating = rb.Tag.ToString();
+                Database.rateCourse(user.Id, course_id, Int32.Parse(rating));
+            }
         }
 
         private void ClearRating_Click(object sender, RoutedEventArgs e)
         {
+            clearRating();
+        }
 
+        private void clearRating()
+        {
+            rb1.IsChecked = false;
+            rb2.IsChecked = false;
+            rb3.IsChecked = false;
+            rb4.IsChecked = false;
+            rb5.IsChecked = false;
         }
     }
 }

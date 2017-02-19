@@ -61,7 +61,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -110,7 +110,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -157,7 +157,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -202,7 +202,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -237,7 +237,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -272,7 +272,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -314,7 +314,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return null;
             }
         }
@@ -354,8 +354,46 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return 0.0;
+            }
+        }
+
+        public static int getUserRate(int user_id, int course_id)
+        {
+            int rate = 0;
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText =
+                        "SELECT `id`, `user_id`, `course_id`, `rating`, `created` " +
+                        "FROM `courses_ratings` " +
+                        "WHERE `user_id`=@user_id AND `course_id` = @course_id";
+                    getCommand.Parameters.AddWithValue("@user_id", user_id);
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    Debug.WriteLine(getCommand.CommandText);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                rate = reader.GetInt32("rating");                                                               
+                            }
+                        }
+                    }
+                    connection.Close();
+                    return rate;
+                }                
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return rate;
             }
         }
 
@@ -392,7 +430,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
@@ -426,7 +464,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
@@ -450,7 +488,7 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@img", img);
                     getCommand.Parameters.AddWithValue("@short_description", short_desc);
                     getCommand.Parameters.AddWithValue("@description", desc);
-                    Debug.Write(getCommand.CommandText);
+                    Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
@@ -458,7 +496,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
@@ -483,7 +521,7 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@img", img);
                     getCommand.Parameters.AddWithValue("@short_description", short_desc);
                     getCommand.Parameters.AddWithValue("@description", desc);
-                    Debug.Write(getCommand.CommandText);
+                    Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
@@ -491,7 +529,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
@@ -509,7 +547,7 @@ namespace TrainingPlatform
                         " SET `is_enabled`=0 " +
                         "WHERE `id`=@course_id";
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
-                    Debug.Write(getCommand.CommandText);
+                    Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
@@ -517,7 +555,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
@@ -550,7 +588,7 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@password", pass);
                     getCommand.Parameters.AddWithValue("@salt", salt);
                     getCommand.Parameters.AddWithValue("@avatar", avatar);
-                    Debug.Write(getCommand.CommandText);
+                    Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
@@ -558,7 +596,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
@@ -577,7 +615,7 @@ namespace TrainingPlatform
                         + "VALUES(@user_id, @course_id)";
                     getCommand.Parameters.AddWithValue("@user_id", user_id);
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
-                    Debug.Write(getCommand.CommandText);
+                    Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
@@ -585,7 +623,7 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
@@ -607,7 +645,7 @@ namespace TrainingPlatform
                         "LIMIT 1)";
                     getCommand.Parameters.AddWithValue("@user_id", user_id);
                     getCommand.Parameters.AddWithValue("@course_id", course_id);
-                    Debug.Write(getCommand.CommandText);
+                    Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
@@ -615,7 +653,46 @@ namespace TrainingPlatform
             }
             catch (Exception e)
             {
-                Debug.Write(e.Message);
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public static bool rateCourse(int user_id, int course_id, int rating)
+        {
+            int rate = getUserRate(user_id, course_id);                        
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    if (rate >0)
+                    {
+                        getCommand.CommandText =
+                        "UPDATE `courses_ratings` " +
+                        "SET `rating`=@rating " +
+                        "WHERE `user_id`=@user_id AND `course_id` = @course_id";
+                    }
+                    else
+                    {
+                        getCommand.CommandText =
+                        "INSERT INTO `courses_ratings`(`user_id`, `course_id`, `rating`) "+
+                        "VALUES(@user_id,@course_id,@rating)";
+                    }
+                    getCommand.Parameters.AddWithValue("@user_id", user_id);
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    getCommand.Parameters.AddWithValue("@rating", rating);
+                    Debug.WriteLine(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
                 return false;
             }
         }
