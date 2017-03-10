@@ -23,6 +23,7 @@ namespace TrainingPlatform
             this.InitializeComponent();
             MyFrame.Navigate(typeof(CoursesList));
             Back.Visibility = Visibility.Collapsed;
+            App.IsLogged = false;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)

@@ -22,10 +22,9 @@ namespace TrainingPlatform
 {
     public sealed partial class ViewCourse : Page
     {
-        private string resourceName = "My App";
         static FBSession clicnt = FBSession.ActiveSession;
+        
         User user = getUserInfo(clicnt);
-        //private string fb_id;
         private int course_id;
         ObservableCollection<CategoriesList> categories = Database.getCategories("courses_categories");
         private ObservableCollection<FBUserRootobject> friendsList;
@@ -36,37 +35,12 @@ namespace TrainingPlatform
             this.InitializeComponent();
             CatCombo.ItemsSource = categories;
             //CatCombo.SelectedItem = categories[0];
-            //GetCredentialFromLocker();
+            if (clicnt.LoggedIn)
+            {
+               App.IsLogged= true;
+            }
             GetFriends();
             friendsList = new ObservableCollection<FBUserRootobject>();
-        }
-
-        private Windows.Security.Credentials.PasswordCredential GetCredentialFromLocker()
-        {
-            Windows.Security.Credentials.PasswordCredential credential = null;
-
-            var vault = new Windows.Security.Credentials.PasswordVault();
-            var credentialList = vault.FindAllByResource(resourceName);
-            if (credentialList.Count > 0)
-            {
-                if (credentialList.Count == 1)
-                {
-                    credential = credentialList[0];
-                }
-                else
-                {
-                    // When there are multiple usernames,
-                    // retrieve the default username. If one doesn't
-                    // exist, then display UI to have the user select
-                    // a default username.
-
-                    // defaultUserName = GetDefaultUserNameUI();
-
-                    // credential = vault.Retrieve(resourceName, defaultUserName);
-                }
-            }
-
-            return credential;
         }
 
         private static User getUserInfo(FBSession clicnt)
@@ -94,6 +68,7 @@ namespace TrainingPlatform
 
         private void setControlsVisibility(int course_id)
         {
+            setDefaultVisibility();
             if (Double.TryParse(Price_textBlock.Text, out value))
             {
                 Price_textBlock.Text = String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:C2}", value);
@@ -162,6 +137,9 @@ namespace TrainingPlatform
             Edit_button.Visibility = Visibility.Collapsed;
             Save_button.Visibility = Visibility.Visible;
             Cancel_button.Visibility = Visibility.Visible;
+            SignupButton.Visibility = Visibility.Collapsed;
+            SignoffButton.Visibility = Visibility.Collapsed;
+            Rating.Visibility = Visibility.Collapsed;
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
@@ -204,7 +182,7 @@ namespace TrainingPlatform
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            setDefaultVisibility();
+            setControlsVisibility(course_id);
         }
 
         private void setDefaultVisibility()
@@ -222,6 +200,10 @@ namespace TrainingPlatform
             Edit_button.Visibility = Visibility.Visible;
             Save_button.Visibility = Visibility.Collapsed;
             Cancel_button.Visibility = Visibility.Collapsed;
+            if (App.IsLogged)
+            {
+                SignupButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void SignupButton_Click(object sender, RoutedEventArgs e)
