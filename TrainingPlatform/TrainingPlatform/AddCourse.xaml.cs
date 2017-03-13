@@ -33,7 +33,7 @@ namespace TrainingPlatform
 
         // A pointer back to the main page.  This is needed if you want to call methods in MainPage such
         // as NotifyUser()
-        private HttpClient httpClient;
+        //private HttpClient httpClient;
         private Stream stream = new MemoryStream();
         private CancellationTokenSource cts;
         

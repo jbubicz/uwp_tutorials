@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrainingPlatform.Models;
 
 namespace TrainingPlatform
 {
@@ -65,6 +66,7 @@ namespace TrainingPlatform
                 return null;
             }
         }
+
 
         public static ObservableCollection<Course> getTopCourses(string tableName)
         {
@@ -161,6 +163,8 @@ namespace TrainingPlatform
                 return null;
             }
         }
+
+
 
         public static ObservableCollection<Course> getAllDisabledCourses(string tableName)
         {
@@ -319,6 +323,49 @@ namespace TrainingPlatform
             }
         }
 
+        public static ObservableCollection<SectionsList> getSections(int course_id)
+        {
+            ObservableCollection<SectionsList> sections = new ObservableCollection<SectionsList>();
+            sections.Clear();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT `id`, `course_id`, `section_order`, `title` " +
+                        "FROM `courses_sections` " +
+                        "WHERE course_id=@course_id " +
+                        "ORDER BY section_order ASC";
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    Debug.WriteLine(getCommand.CommandText);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                SectionsList section = new SectionsList();
+                                section.Id = reader.GetInt32("id");
+                                section.Course_id = reader.GetInt32("course_id");
+                                section.Section_order = reader.GetInt32("section_order");
+                                section.Title = reader.GetString("title");
+                                sections.Add(section);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return sections;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public static double getCourseRating(int course_id)
         {
             int rate = 0;
@@ -350,7 +397,7 @@ namespace TrainingPlatform
                     connection.Close();
                 }
                 average = result.Count > 0 ? result.Average() : 0.0;
-                return average;
+                return Math.Round(average, 1);
             }
             catch (Exception e)
             {
@@ -361,7 +408,7 @@ namespace TrainingPlatform
 
         public static int getUserRate(int user_id, int course_id)
         {
-            int rate = 0;
+            int rate = -1;
             string connectionString = getConnectionString();
             try
             {
@@ -382,13 +429,13 @@ namespace TrainingPlatform
                         {
                             while (reader.Read())
                             {
-                                rate = reader.GetInt32("rating");                                                               
+                                rate = reader.GetInt32("rating");
                             }
                         }
                     }
                     connection.Close();
                     return rate;
-                }                
+                }
             }
             catch (Exception e)
             {
@@ -660,7 +707,7 @@ namespace TrainingPlatform
 
         public static bool rateCourse(int user_id, int course_id, int rating)
         {
-            int rate = getUserRate(user_id, course_id);                        
+            int rate = getUserRate(user_id, course_id);
             string connectionString = getConnectionString();
             try
             {
@@ -668,7 +715,7 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    if (rate >0)
+                    if (rate >= 0)
                     {
                         getCommand.CommandText =
                         "UPDATE `courses_ratings` " +
@@ -678,7 +725,7 @@ namespace TrainingPlatform
                     else
                     {
                         getCommand.CommandText =
-                        "INSERT INTO `courses_ratings`(`user_id`, `course_id`, `rating`) "+
+                        "INSERT INTO `courses_ratings`(`user_id`, `course_id`, `rating`) " +
                         "VALUES(@user_id,@course_id,@rating)";
                     }
                     getCommand.Parameters.AddWithValue("@user_id", user_id);
@@ -686,6 +733,44 @@ namespace TrainingPlatform
                     getCommand.Parameters.AddWithValue("@rating", rating);
                     Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public static bool insertSection(ObservableCollection<SectionsList> sections, int course_id)
+        {
+            int i = 0;
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "DELETE FROM `courses_sections` " +
+                           "WHERE course_id=@course_id";
+                    getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    Debug.WriteLine(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    foreach (var section in sections)
+                    {
+                        getCommand.CommandText = "INSERT INTO `courses_sections` " +
+                            "(`course_id`, `section_order`, `title`) " +
+                            "VALUES(@course_id" + i + ", @section_order" + i + ", @title" + i + ")";
+                        getCommand.Parameters.AddWithValue("@course_id" + i, section.Course_id);
+                        getCommand.Parameters.AddWithValue("@section_order" + i, section.Section_order);
+                        getCommand.Parameters.AddWithValue("@title" + i, section.Title);
+                        Debug.WriteLine(getCommand.CommandText);
+                        getCommand.ExecuteNonQuery();
+                        i++;
+                    }
                     connection.Close();
                     return true;
                 }

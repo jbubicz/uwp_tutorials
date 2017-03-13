@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--THIS FILE HAS LIST OF LOADING MODULES-->
+
+<modules> 
+  <module AssemblyName ="MainMenu"/>
+  <module AssemblyName ="GlobalMenu"/>
+</modules>
+
+

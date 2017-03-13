@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="BorderColor"
+                     Color="#ADDCAF" />
+    <SolidColorBrush x:Key="MainLight"
+                     Color="#84D28A" />
+    <SolidColorBrush x:Key="MainNormal"
+                     Color="#328F3B" />
+    <SolidColorBrush x:Key="MainDark"
+                     Color="#17441B" />
+    <SolidColorBrush x:Key="MainVeryDark"
+                     Color="#112C13" />
+    <SolidColorBrush x:Key="WorkAreaColor"
+                     Color="#D7D7D7" />
+    <SolidColorBrush x:Key="ButtonColor"
+                     Color="#5F1414" />
+    <SolidColorBrush x:Key="HighlightedButtonColor"
+                     Color="#350707" />
+    <SolidColorBrush x:Key="ErrorColor"
+                     Color="#B92929" />
+    <SolidColorBrush x:Key="EditAreaColor"
+                     Color="#FFFFFF" />
+    <SolidColorBrush x:Key="IconPathColor"
+                     Color="#FBD041" /><!--FFC814-->
+    <SolidColorBrush x:Key="FieldNameColor"
+                     Color="DarkSalmon" />
+</ResourceDictionary>

@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Geometry x:Key="Geometry">M197,476c0,14,6.833,21,20.5,21s20.5-7,20.5-21V282h21v194c0,14,6.833,21,20.5,21s20.5-7,20.5-21V149h10v121c0,7.334,2.5,12.667,7.5,16s10.167,3.333,15.5,0s8-8.667,8-16V145c0-14-4.667-25.5-14-34.5S305,97,289,97h-81c-15.333,0-27.833,4.333-37.5,13S156,130,156,144v127c0,6.667,2.667,11.333,8,14c5.333,2.667,10.5,2.667,15.5,0s7.5-7.334,7.5-14V149h10V476z M205,42.5c0,11.667,4.167,21.667,12.5,30s18.333,12.5,30,12.5S269,80.833,277,72.5s12-18.333,12-30s-4-21.667-12-30S259.167,0,247.5,0s-21.667,4.167-30,12.5S205,30.833,205,42.5z</Geometry>
+    <ImageSource x:Key="ImageSource">../Assets/LockScreenLogo.png</ImageSource>
+   
+</ResourceDictionary>

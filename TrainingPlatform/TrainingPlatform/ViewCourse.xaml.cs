@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TrainingPlatform.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -23,12 +24,13 @@ namespace TrainingPlatform
     public sealed partial class ViewCourse : Page
     {
         static FBSession clicnt = FBSession.ActiveSession;
-        
         User user = getUserInfo(clicnt);
         private int course_id;
         ObservableCollection<CategoriesList> categories = Database.getCategories("courses_categories");
+        ObservableCollection<SectionsList> sections;
         private ObservableCollection<FBUserRootobject> friendsList;
         private double value;
+        private int section_count = 0;
 
         public ViewCourse()
         {
@@ -37,7 +39,7 @@ namespace TrainingPlatform
             //CatCombo.SelectedItem = categories[0];
             if (clicnt.LoggedIn)
             {
-               App.IsLogged= true;
+                App.IsLogged = true;
             }
             GetFriends();
             friendsList = new ObservableCollection<FBUserRootobject>();
@@ -60,6 +62,7 @@ namespace TrainingPlatform
             base.OnNavigatedTo(e);
             var parameters = (Course)e.Parameter;
             lstGroup.DataContext = parameters;
+            //SectionList.DataContext = sections;
             course_id = Int32.Parse(CourseId.Text);
             int actual_category_id = parameters.Category;
             CatCombo.SelectedItem = categories[actual_category_id - 1];
@@ -77,16 +80,19 @@ namespace TrainingPlatform
             {
                 Price_textBlock.Text = String.Empty;
             }
-            if (double.Parse(Rating_textBlock.Text) < 1)
-            {
-                Rating_textBlock.Visibility = Visibility.Collapsed;
-            }
+            //if (double.Parse(Rating_textBlock.Text) < 1)
+            //{
+            //    Rating_textBlock.Visibility = Visibility.Collapsed;
+            //}
             if (clicnt.LoggedIn)
             {
                 Rating.Visibility = Visibility.Visible;
                 int userRate = Database.getUserRate(user.Id, course_id);
                 switch (userRate)
                 {
+                    case 0:
+                        clearRating();
+                        break;
                     case 1:
                         rb1.IsChecked = true;
                         break;
@@ -106,14 +112,18 @@ namespace TrainingPlatform
                         clearRating();
                         break;
                 }
-
                 Edit_button.Visibility = Visibility.Visible;
-                bool isSigned = Database.checkIfFBUserIsSigned(clicnt.User.Id, course_id);
-                if (isSigned)
-                {
-                    SignupButton.Visibility = Visibility.Collapsed;
-                    SignoffButton.Visibility = Visibility.Visible;
-                }
+                checkIfFBUserIsSigned();
+            }
+        }
+
+        private void checkIfFBUserIsSigned()
+        {
+            bool isSigned = Database.checkIfFBUserIsSigned(clicnt.User.Id, course_id);
+            if (isSigned)
+            {
+                SignupButton.Visibility = Visibility.Collapsed;
+                SignoffButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -134,12 +144,15 @@ namespace TrainingPlatform
             Desc_textBox.Visibility = Visibility.Visible;
             Price_textBlock.Visibility = Visibility.Collapsed;
             Price_textBox.Visibility = Visibility.Visible;
+            CourseSections.Visibility = Visibility.Visible;
             Edit_button.Visibility = Visibility.Collapsed;
             Save_button.Visibility = Visibility.Visible;
             Cancel_button.Visibility = Visibility.Visible;
             SignupButton.Visibility = Visibility.Collapsed;
             SignoffButton.Visibility = Visibility.Collapsed;
             Rating.Visibility = Visibility.Collapsed;
+            sections = getSections();
+            SectionList.ItemsSource = sections;
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
@@ -160,14 +173,31 @@ namespace TrainingPlatform
                 MessageDialog dialog = new MessageDialog(success);
                 await dialog.ShowAsync();
             }
+            if (sections!=null)
+            {
+                int i = 1;
+                foreach (var section in sections)
+                {
+                    section.Section_order = i;
+                    i++;
+                }
+                try
+                {
+                    Database.insertSection(sections, course_id);
+                }
+                catch (Exception)
+                {
+                    Debug.WriteLine("Error inserting course section");
+                }
+                
+            }
+            section_count = 0;
+
             Frame.Navigate(typeof(ViewCourse), course);
-            //setDefaultVisibility();
         }
 
         private Course getEditedCourseDetails()
         {
-            //Course edited_course = null;
-
             var cat = CatCombo.SelectedItem as CategoriesList;
             int cat_id = cat.Id;
             string title = Title_textBox.Text;
@@ -176,12 +206,18 @@ namespace TrainingPlatform
             string price = Price_textBox.Text;
             string img = "Assets/course.jpg";
             Course edited_course =
-                new Course { UserId = user.Id, Category = cat_id, Title = title, Price = price, ImgUrl = img, ShortDescription = short_desc, Description = desc, IsEnabled = 1 };
+                new Course { Id = course_id, UserId = user.Id, Category = cat_id, Title = title, Price = price, ImgUrl = img, ShortDescription = short_desc, Description = desc, IsEnabled = 1 };
             return edited_course;
+        }
+
+        private ObservableCollection<SectionsList> getSections()
+        {
+            return sections = Database.getSections(course_id);
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            sections.Clear();
             setControlsVisibility(course_id);
         }
 
@@ -197,11 +233,12 @@ namespace TrainingPlatform
             Desc_textBox.Visibility = Visibility.Collapsed;
             Price_textBlock.Visibility = Visibility.Visible;
             Price_textBox.Visibility = Visibility.Collapsed;
-            Edit_button.Visibility = Visibility.Visible;
+            CourseSections.Visibility = Visibility.Collapsed;
             Save_button.Visibility = Visibility.Collapsed;
             Cancel_button.Visibility = Visibility.Collapsed;
             if (App.IsLogged)
             {
+                Edit_button.Visibility = Visibility.Visible;
                 SignupButton.Visibility = Visibility.Visible;
             }
         }
@@ -302,6 +339,7 @@ namespace TrainingPlatform
         private void ClearRating_Click(object sender, RoutedEventArgs e)
         {
             clearRating();
+            Database.rateCourse(user.Id, course_id, 0);
         }
 
         private void clearRating()
@@ -311,6 +349,12 @@ namespace TrainingPlatform
             rb3.IsChecked = false;
             rb4.IsChecked = false;
             rb5.IsChecked = false;
+        }
+
+        private void AddSectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            SectionsList selection = new SectionsList(course_id);
+            sections.Add(selection);            
         }
     }
 }

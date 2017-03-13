@@ -76,12 +76,49 @@
                                Visibility="Collapsed"/>
                         <TextBlock Name="Rating_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Rate}" VerticalAlignment="Center"
                                Visibility="Visible"/>
+                        <StackPanel Name="CourseSections"
+                                    Orientation="Horizontal"
+                                    Visibility="Collapsed">
+                            <TextBlock Name="AddSection_textBox" Text="Add new section to course" VerticalAlignment="Center"
+                                   Visibility="Visible"/>
+                            <Button Name="AddSectionButton" 
+                                Content="+"
+                                Click="AddSectionButton_Click"
+                                Visibility="Visible"/>
+                            <StackPanel Name="AddNewCourseSection" 
+                                        Orientation="Vertical">
+                                <ListView x:Name="SectionList" Margin="8" 
+                                          CanReorderItems="True" 
+                                          CanDrag="True" 
+                                          AllowDrop="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
+                                                <Grid Margin="0 0 0 8">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBox Text="{Binding Title, Mode=TwoWay}"/>
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </StackPanel>
                         <Button Name="SignupButton" 
                             Content="Sign up"
                             Click="SignupButton_Click"
                             Margin="20"
                             HorizontalAlignment="Right"
-                            Visibility="Visible"/>
+                            Visibility="Collapsed"/>
                         <Button Name="SignoffButton" 
                             Content="Sign off"
                             Click="SignoffButton_Click"
@@ -122,7 +159,8 @@
                                    Visibility="Collapsed"/>
                         <ListView x:Name="FriendsList" Margin="8" 
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"                                  >
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto"     
+                                  CanReorderItems="True" CanDrag="True" AllowDrop="True">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
@@ -160,7 +198,7 @@
                             </ListView.ItemTemplate>
                         </ListView>
 
-                        <StackPanel Height="Auto"
+                        <!--<StackPanel Height="Auto"
                                 HorizontalAlignment="Left"                                  
                                 Margin="30,50,0,12"
                                 VerticalAlignment="Bottom"
@@ -195,7 +233,7 @@
                                 <TextBlock Name="FriendName1"
                                        Visibility="Collapsed"/>
                             </StackPanel>
-                        </StackPanel>
+                        </StackPanel>-->
 
                         <!--<GridView Name="FBFriends" 
                               ItemsSource="{x:Bind friendsList}"
@@ -208,6 +246,7 @@
                         </GridView.ItemTemplate>
                     </GridView>-->
                     </StackPanel>
+
                 </SplitView.Content>
             </SplitView>
         </Grid>

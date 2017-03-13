@@ -1,0 +1,54 @@
+﻿<Page x:Class="MainMenu.View.AditionalMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:mainmenu="using:Controls"
+      x:Name="root"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="MenuButtonTemplate">
+            <Grid Height="200"
+                  Width="200"
+                  Margin="5"
+                  IsHitTestVisible="True"
+                  Background="{StaticResource  ButtonColor}"
+                  BorderBrush="{StaticResource IconPathColor}"
+                  BorderThickness="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromHorizontalOffset="100" />
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
+
+                <TextBlock Grid.Row="0"
+                           Foreground="White"
+                           Text="{Binding Path= Title}" />
+                <Image Grid.Row="1"
+                       Margin="20"
+                       Source="{Binding Path=Image}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+            </Grid>
+
+        </DataTemplate>
+
+    </Page.Resources>
+    <Grid>
+        <mainmenu:TileMenu  ItemTemplate="{StaticResource MenuButtonTemplate}"
+                        ItemsSource="{Binding MainMenuPageButtonsList, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        CanReorderItems="True"
+                        CanDragItems="True"
+                        AllowDrop="True"
+                        SelectionMode="None"
+                        ItemClick="{Binding NavigateCurrentCommand}" />
+    </Grid>
+
+</Page>

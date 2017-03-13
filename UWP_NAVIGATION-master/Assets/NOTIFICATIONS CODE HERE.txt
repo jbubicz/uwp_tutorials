@@ -1,0 +1,60 @@
+﻿//#region Notifications
+        //private TileContent CreateTitleContent(string title, string captionSubtle1, string captionSubtle2)
+        //{
+        //    TileContent content = new TileContent()
+        //    {
+        //        Visual = new TileVisual()
+        //        {
+        //            TileWide = new TileBinding()
+        //            {
+        //                Content = new TileBindingContentAdaptive()
+        //                {
+        //                    Children =
+        //                    {
+        //                        new AdaptiveText()
+        //                        {
+        //                            Text = title,
+        //                            HintStyle = AdaptiveTextStyle.Subtitle
+        //                        },
+
+        //                        new AdaptiveText()
+        //                        {
+        //                            Text = captionSubtle1,
+        //                            HintStyle = AdaptiveTextStyle.CaptionSubtle
+        //                        },
+
+        //                        new AdaptiveText()
+        //                        {
+        //                            Text = captionSubtle2,
+        //                            HintStyle = AdaptiveTextStyle.CaptionSubtle
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    };
+
+        //    //TileNotification n = new TileNotification(content.GetXml());
+
+        //    //var a = n.Content.GetXml();
+
+        //    return content;
+        //}
+        //private void Algorithm(TileUpdater tileUpdater, TileContent content)
+        //{
+        //    var notification = new TileNotification(content.GetXml());
+        //    tileUpdater.Update(notification);
+        //}
+        //private void AddNotifications()
+        //{
+        //    var updater = TileUpdateManager.CreateTileUpdaterForApplication();
+        //    updater.EnableNotificationQueue(true);
+        //    updater.Clear();
+
+        //    this.Algorithm(updater, this.CreateTitleContent("Title1", "SubCaption", "Desctription..."));
+        //    this.Algorithm(updater, this.CreateTitleContent("Title2", "SubCaption", "Desctription..."));
+        //    this.Algorithm(updater, this.CreateTitleContent("Title3", "SubCaption", "Desctription..."));
+        //    this.Algorithm(updater, this.CreateTitleContent("Title4", "SubCaption", "Desctription..."));
+        //    this.Algorithm(updater, this.CreateTitleContent("Title5", "SubCaption", "Desctription..."));
+        //}
+        //#endregion

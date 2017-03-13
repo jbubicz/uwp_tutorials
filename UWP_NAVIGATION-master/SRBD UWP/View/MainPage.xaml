@@ -1,0 +1,147 @@
+﻿<Page x:Class="SRBD_UWP.View.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:SRBD_UWP.View"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+
+    <Page.Style>
+        <Style TargetType="Page">
+
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0"
+                                         EndPoint="0,1">
+                        <GradientStop Color="{Binding Source={StaticResource MainNormal},Path=Color}"
+                                      Offset="0" />
+                        <GradientStop Color="{Binding Source={StaticResource MainDark},Path=Color}"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Style>
+
+    
+       
+
+    
+    <Grid>
+        <!--LOGIN WINDOW-->
+        <Border
+                CornerRadius="2"
+                BorderThickness="1"
+                BorderBrush="{StaticResource BorderColor}"
+                Width="300"
+                Height="180"
+                Background="{StaticResource MainDark}">
+
+            <Grid VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="7" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="7" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="7" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 3"
+                           Foreground="{StaticResource MainLight}"
+                           Text="Login" />
+                <TextBlock Text="Username"
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           FontSize="16"
+                           VerticalAlignment="Center"
+                           Margin="0 0 0 3"
+                           Foreground="{StaticResource MainLight}" />
+                <PasswordBox Grid.Row="3"
+                             Grid.Column="2"
+                             FontSize="14"
+                             Height="24" />
+                <TextBlock Text="Password"
+                           Grid.Row="5"
+                           Grid.Column="0"
+                           FontSize="16"
+                           VerticalAlignment="Center"
+                           Margin="0 0 0 3"
+                           Foreground="{StaticResource MainLight}" />
+                <PasswordBox Name="TxtPassword"
+                             Grid.Row="5"
+                             Grid.Column="2"
+                             FontSize="14"
+                             Height="24" />
+
+                <Grid Grid.Column="2"
+                      Grid.Row="7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Width="60"
+                            Height="40"
+                            Grid.Column="1"
+                            Command="{Binding ExitAppCommand}"
+                            VerticalAlignment="Center"
+                            
+                           >
+                        <Path Data="m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z"
+                              Fill="{StaticResource IconPathColor}"
+                              Stretch="Uniform"
+                              Height="25" />
+                    </Button>
+                    <Button Width="60"
+                            Height="40"
+                            Grid.Column="3"
+                            Command="{Binding NavigateToGlobalMenuCommand}"
+                            VerticalAlignment="Center"
+                           
+                           >
+                        <Path Data="M346.087,154.619H115.665v-25.58c0-51.92,42.24-94.16,94.16-94.16c35.139,0,67.115,19.352,83.452,50.5
+                                    c4.473,8.531,15.015,11.818,23.544,7.346c8.53-4.475,11.817-15.016,7.345-23.545C301.787,26.508,257.973,0,209.825,0
+                                    C138.673,0,80.786,57.887,80.786,129.039v25.58h-7.224c-4.942,0-8.985,4.045-8.985,8.986v247.057c0,4.94,4.043,8.986,8.985,8.986
+                                    h272.525c4.941,0,8.985-4.045,8.985-8.986V163.605C355.073,158.664,351.029,154.619,346.087,154.619z M232.643,299.93
+                                    c0,5.674,0.021,37.701,0.021,37.701c0,12.614-10.227,22.842-22.841,22.842c-12.615,0-22.842-10.228-22.842-22.842
+                                    c0,0,0.024-32.027,0.024-37.701c0-12.114-23.276-11.385-23.276-40.043c0-25.457,20.638-46.095,46.094-46.095
+                                    s46.093,20.638,46.093,46.095C255.917,288.545,232.643,287.814,232.643,299.93z"
+                              Fill="{StaticResource IconPathColor}"
+                              Stretch="Uniform"
+                              Height="25" />
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+    
+</Page>
