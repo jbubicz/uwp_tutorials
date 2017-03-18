@@ -754,16 +754,26 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "DELETE FROM `courses_sections` " +
-                           "WHERE course_id=@course_id";
-                    getCommand.Parameters.AddWithValue("@course_id", course_id);
-                    Debug.WriteLine(getCommand.CommandText);
-                    getCommand.ExecuteNonQuery();
+                    //getCommand.CommandText = "DELETE FROM `courses_sections` " +
+                    //       "WHERE course_id=@course_id";
+                    //getCommand.Parameters.AddWithValue("@course_id", course_id);
+                    //Debug.WriteLine(getCommand.CommandText);
+                    //getCommand.ExecuteNonQuery();
                     foreach (var section in sections)
                     {
-                        getCommand.CommandText = "INSERT INTO `courses_sections` " +
-                            "(`course_id`, `section_order`, `title`) " +
-                            "VALUES(@course_id" + i + ", @section_order" + i + ", @title" + i + ")";
+                        if (section.Id == 0)
+                        {
+                            getCommand.CommandText = "INSERT INTO `courses_sections` " +
+                                "(`course_id`, `section_order`, `title`) " +
+                                "VALUES(@course_id" + i + ", @section_order" + i + ", @title" + i + ")";
+                        }
+                        else
+                        {
+                            getCommand.CommandText = "UPDATE `courses_sections` " +
+                                "SET `section_order`=@section_order" + i + ", title=@title" + i + " " +
+                                "WHERE `id`=@id" + i + " AND `course_id` = @course_id" + i;
+                        }
+                        getCommand.Parameters.AddWithValue("@id" + i, section.Id);
                         getCommand.Parameters.AddWithValue("@course_id" + i, section.Course_id);
                         getCommand.Parameters.AddWithValue("@section_order" + i, section.Section_order);
                         getCommand.Parameters.AddWithValue("@title" + i, section.Title);

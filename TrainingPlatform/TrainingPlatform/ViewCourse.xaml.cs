@@ -30,7 +30,6 @@ namespace TrainingPlatform
         ObservableCollection<SectionsList> sections;
         private ObservableCollection<FBUserRootobject> friendsList;
         private double value;
-        private int section_count = 0;
 
         public ViewCourse()
         {
@@ -165,7 +164,13 @@ namespace TrainingPlatform
             string price = course.Price;
             string img = course.ImgUrl;
             string short_desc = course.ShortDescription;
-            string desc = course.Description;
+            string desc = course.Description;            
+            if (!addSectionsToDatabase(sections))
+            {
+                string error = "Error adding sections!";
+                MessageDialog dialog = new MessageDialog(error);
+                await dialog.ShowAsync();
+            }
             bool updated = Database.updateCourse("courses", course_id, user_id, cat_id, title, price, img, short_desc, desc);
             if (updated)
             {
@@ -173,7 +178,12 @@ namespace TrainingPlatform
                 MessageDialog dialog = new MessageDialog(success);
                 await dialog.ShowAsync();
             }
-            if (sections!=null)
+            Frame.Navigate(typeof(ViewCourse), course);
+        }
+
+        private bool addSectionsToDatabase(ObservableCollection<SectionsList> sections)
+        {
+            if (sections != null)
             {
                 int i = 1;
                 foreach (var section in sections)
@@ -184,16 +194,15 @@ namespace TrainingPlatform
                 try
                 {
                     Database.insertSection(sections, course_id);
+                    return true;
                 }
                 catch (Exception)
                 {
                     Debug.WriteLine("Error inserting course section");
+                    return false;
                 }
-                
             }
-            section_count = 0;
-
-            Frame.Navigate(typeof(ViewCourse), course);
+            return false;
         }
 
         private Course getEditedCourseDetails()
@@ -355,6 +364,19 @@ namespace TrainingPlatform
         {
             SectionsList selection = new SectionsList(course_id);
             sections.Add(selection);            
+        }
+
+        private async void AddNewLesson_button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (!addSectionsToDatabase(sections))
+            {
+                string error = "Error adding sections!";
+                MessageDialog dialog = new MessageDialog(error);
+                await dialog.ShowAsync();
+            }
+            sections = getSections();
+            Frame.Navigate(typeof(AddLesson), sections);
         }
     }
 }

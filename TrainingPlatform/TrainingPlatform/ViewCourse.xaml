@@ -103,8 +103,10 @@
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="auto"/>
+                                                            <ColumnDefinition Width="auto"/>
                                                         </Grid.ColumnDefinitions>
                                                         <TextBox Text="{Binding Title, Mode=TwoWay}"/>
+                                                        <!--<Button Grid.Column="1" Name="AddNewLesson_button" Content="Add new lesson" DataContext="{Binding Title, Mode=TwoWay}" Click="AddNewLesson_button_Click"/>-->
                                                     </Grid>
                                                 </Grid>
                                             </Border>
@@ -112,6 +114,7 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                             </StackPanel>
+                            <Button Grid.Column="1" Name="AddNewLesson_button" Content="Add new lesson" Click="AddNewLesson_button_Click"/>
                         </StackPanel>
                         <Button Name="SignupButton" 
                             Content="Sign up"
