@@ -65,6 +65,9 @@ namespace TrainingPlatform
             course_id = Int32.Parse(CourseId.Text);
             int actual_category_id = parameters.Category;
             CatCombo.SelectedItem = categories[actual_category_id - 1];
+            sections = getSections();
+            SectionsList.ItemsSource = sections;
+            SectionList.ItemsSource = sections;
             setControlsVisibility(course_id);
         }
 
@@ -143,15 +146,14 @@ namespace TrainingPlatform
             Desc_textBox.Visibility = Visibility.Visible;
             Price_textBlock.Visibility = Visibility.Collapsed;
             Price_textBox.Visibility = Visibility.Visible;
-            CourseSections.Visibility = Visibility.Visible;
+            AddCourseSections.Visibility = Visibility.Visible;
             Edit_button.Visibility = Visibility.Collapsed;
             Save_button.Visibility = Visibility.Visible;
             Cancel_button.Visibility = Visibility.Visible;
             SignupButton.Visibility = Visibility.Collapsed;
             SignoffButton.Visibility = Visibility.Collapsed;
             Rating.Visibility = Visibility.Collapsed;
-            sections = getSections();
-            SectionList.ItemsSource = sections;
+
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
@@ -164,7 +166,7 @@ namespace TrainingPlatform
             string price = course.Price;
             string img = course.ImgUrl;
             string short_desc = course.ShortDescription;
-            string desc = course.Description;            
+            string desc = course.Description;
             if (!addSectionsToDatabase(sections))
             {
                 string error = "Error adding sections!";
@@ -242,7 +244,7 @@ namespace TrainingPlatform
             Desc_textBox.Visibility = Visibility.Collapsed;
             Price_textBlock.Visibility = Visibility.Visible;
             Price_textBox.Visibility = Visibility.Collapsed;
-            CourseSections.Visibility = Visibility.Collapsed;
+            AddCourseSections.Visibility = Visibility.Collapsed;
             Save_button.Visibility = Visibility.Collapsed;
             Cancel_button.Visibility = Visibility.Collapsed;
             if (App.IsLogged)
@@ -363,12 +365,12 @@ namespace TrainingPlatform
         private void AddSectionButton_Click(object sender, RoutedEventArgs e)
         {
             SectionsList selection = new SectionsList(course_id);
-            sections.Add(selection);            
+            sections.Add(selection);
         }
 
         private async void AddNewLesson_button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (!addSectionsToDatabase(sections))
             {
                 string error = "Error adding sections!";
@@ -377,6 +379,13 @@ namespace TrainingPlatform
             }
             sections = getSections();
             Frame.Navigate(typeof(AddLesson), sections);
+        }
+
+        private void SectionsList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            SectionsList section_selected = e.ClickedItem as SectionsList;
+            int section_id = section_selected.Id;
+            
         }
     }
 }

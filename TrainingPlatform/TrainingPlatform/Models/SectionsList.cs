@@ -15,7 +15,7 @@ namespace TrainingPlatform.Models
         public string Title { get; set; }
 
         public SectionsList()
-        {
+        {   
         }
 
         public SectionsList(int course_id)
