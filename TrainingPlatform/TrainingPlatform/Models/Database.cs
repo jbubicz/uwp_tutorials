@@ -366,6 +366,56 @@ namespace TrainingPlatform
             }
         }
 
+        public static ObservableCollection<Lesson> getLessons(int section_id)
+        {
+            ObservableCollection<Lesson> lessons = new ObservableCollection<Lesson>();
+            lessons.Clear();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT `id`, `user_id`, `section_id`, `video`, `title`, `free`, `description`, `lesson_order`, `is_enabled`, `created`, `modified` " +
+                        "FROM `lessons` " +
+                        "WHERE section_id=@section_id " +
+                        "ORDER BY lesson_order ASC";
+                    getCommand.Parameters.AddWithValue("@section_id", section_id);
+                    Debug.WriteLine(getCommand.CommandText);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                Lesson lesson = new Lesson();
+                                lesson.Id = reader.GetInt32("id");
+                                lesson.User_id = reader.GetInt32("user_id");
+                                lesson.Section_id = reader.GetInt32("section_id");
+                                lesson.Video= reader.GetString("video");
+                                lesson.Lesson_title = reader.GetString("title");
+                                lesson.Free= reader.GetInt32("free");
+                                lesson.Description= reader.GetString("description");
+                                lesson.Lesson_order = reader.GetInt32("lesson_order");
+                                lesson.IsEnabled= reader.GetInt32("is_enabled");
+                                lesson.Created = reader.GetDateTime("created");
+                                lesson.Modified = reader.GetDateTime("modified");
+                                lessons.Add(lesson);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return lessons;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public static double getCourseRating(int course_id)
         {
             int rate = 0;

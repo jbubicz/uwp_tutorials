@@ -24,10 +24,12 @@ namespace TrainingPlatform
     public sealed partial class ViewCourse : Page
     {
         static FBSession clicnt = FBSession.ActiveSession;
-        User user = getUserInfo(clicnt);
+        private User user = getUserInfo(clicnt);
         private int course_id;
-        ObservableCollection<CategoriesList> categories = Database.getCategories("courses_categories");
-        ObservableCollection<SectionsList> sections;
+        private ObservableCollection<CategoriesList> categories = Database.getCategories("courses_categories");
+        private ObservableCollection<SectionsList> sections;
+        private ObservableCollection<Section> sections_with_lessons = new ObservableCollection<Section>();
+        private ObservableCollection<Lesson> lessons;
         private ObservableCollection<FBUserRootobject> friendsList;
         private double value;
 
@@ -66,10 +68,23 @@ namespace TrainingPlatform
             int actual_category_id = parameters.Category;
             CatCombo.SelectedItem = categories[actual_category_id - 1];
             sections = getSections();
-            SectionsList.ItemsSource = sections;
+            getSectionsWithLesson(sections);
+            SectionsLessonsList.ItemsSource = sections_with_lessons;
             SectionList.ItemsSource = sections;
             setControlsVisibility(course_id);
         }
+
+        private void getSectionsWithLesson(ObservableCollection<SectionsList> sections)
+        {
+            foreach (var section in sections)
+            {
+                Section s = new Section();
+                s = section;
+                //s.lessons =  Database.getLessons(s.Id);
+                sections_with_lessons.Add(s);
+            }             
+        }
+
 
         private void setControlsVisibility(int course_id)
         {
@@ -383,8 +398,24 @@ namespace TrainingPlatform
 
         private void SectionsList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            SectionsList section_selected = e.ClickedItem as SectionsList;
+            Section section_selected = e.ClickedItem as Section;
             int section_id = section_selected.Id;
+            lessons = Database.getLessons(section_id);
+            //section_selected.lessons = lessons;
+            //int i = Int32.Parse(sections_with_lessons.Select((v, index) => new { Section = v, Index = index }).Where(x => x.Section.Id == section_id).Select(x => x.Index).ToString());
+            //int index = sections_with_lessons.IndexOf(from section in sections_with_lessons
+            //                                          //select sections_with_lessons.section
+            //                              where section.Id == section_id
+            //                              select section);
+            var parent = sender as DependencyObject;
+            while (!(parent is ListView))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            var innerListView = parent as ListView;
+            
+            
+            //Debug.WriteLine(innerListView.Name);
             
         }
     }

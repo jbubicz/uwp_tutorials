@@ -118,6 +118,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Lesson.cs" />
+    <Compile Include="Models\Section.cs" />
     <Compile Include="Models\SectionsList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.xaml.cs">

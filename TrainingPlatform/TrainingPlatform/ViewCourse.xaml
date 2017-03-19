@@ -159,7 +159,7 @@
 
                         <StackPanel Name="CourseSections" 
                                     Orientation="Vertical">
-                            <ListView x:Name="SectionsList" 
+                            <ListView Name="SectionsLessonsList" 
                                       Margin="8" 
                                       CanReorderItems="True"
                                       CanDrag="True"
@@ -189,12 +189,13 @@
                                                     <TextBlock Grid.Column="1" Text="{Binding Title, Mode=TwoWay}" />
                                                     <ListView Name="LessonsList" 
                                                               Grid.Column="1"
-                                                              Grid.Row="1">
+                                                              Grid.Row="1"
+                                                              ItemsSource="{Binding lessons}">
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel>
                                                                     <TextBlock Foreground="Red" Text="{Binding Lesson_order, Mode=TwoWay}"/>
-                                                                    <TextBlock Foreground="Red" Text="{Binding Title, Mode=TwoWay}"/>
+                                                                    <TextBlock Foreground="Red" Text="{Binding Lesson_title, Mode=TwoWay}"/>
                                                                     <TextBlock Foreground="Red" Text="{Binding Description, Mode=TwoWay}"/>
                                                                 </StackPanel>
                                                             </DataTemplate>

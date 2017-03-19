@@ -12,7 +12,7 @@ namespace TrainingPlatform.Models
         public int User_id { get; set; }
         public int Section_id { get; set; }
         public string Video { get; set; }
-        public string Title { get; set; }
+        public string Lesson_title { get; set; }
         public int Free { get; set; }
         public string Description { get; set; }
         public int Lesson_order { get; set; }

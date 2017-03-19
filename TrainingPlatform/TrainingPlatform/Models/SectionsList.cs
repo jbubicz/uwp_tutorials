@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 
 namespace TrainingPlatform.Models
 {
-    class SectionsList
+    class SectionsList : Section
     {
-        public int Id { get; set; }
-        public int Course_id { get; set; }
-        public int Section_order { get; set; }
-        public string Title { get; set; }
-
         public SectionsList()
         {   
         }
