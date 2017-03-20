@@ -202,7 +202,12 @@
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Orientation="Horizontal">
-                                                                    <Image Source="{Binding Img}" Stretch="UniformToFill" MaxHeight="80" MaxWidth="80"/>
+                                                                    <Ellipse MaxHeight="80" MaxWidth="80" Stretch="UniformToFill">
+                                                                        <Ellipse.Fill>
+                                                                            <ImageBrush ImageSource="{Binding Img}" />
+                                                                        </Ellipse.Fill>
+                                                                    </Ellipse>
+                                                                    <!--<Image Source="{Binding Img}" Stretch="UniformToFill" MaxHeight="80" MaxWidth="80"/>-->
                                                                     <StackPanel>
                                                                         <TextBlock Foreground="Red">
                                                                         <Run Text="Lesson "/>

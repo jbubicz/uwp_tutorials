@@ -7,6 +7,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using TrainingPlatform.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,6 +26,7 @@ namespace TrainingPlatform
         private ObservableCollection<SectionsList> sections;
         private Lesson lesson;
         private int course_id;
+        private DisplayRequest appDisplayRequest = null;
 
         public ViewLesson()
         {
@@ -45,14 +49,40 @@ namespace TrainingPlatform
             else
             {
                 SectionCombo.ItemsSource = sections;
-                //var course_id = (from section in sections
-                //                 select section.Course_id).FirstOrDefault();
             }
+            Uri pathUri = new Uri(lesson.Video);
+            Video.Source = MediaSource.CreateFromUri(pathUri);
             setControlsVisibility(lesson);
 
-            var currentView = SystemNavigationManager.GetForCurrentView();
-            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            currentView.BackRequested += buckButton_Tapped;
+            //Video.MediaPlayer.PlaybackSession.PlaybackStateChanged += MediaPlayerElement_CurrentStateChanged;
+            //base.OnNavigatedTo(e);
+        }
+
+        private void MediaPlayerElement_CurrentStateChanged(object sender, RoutedEventArgs e)
+        {
+            MediaPlaybackSession playbackSession = sender as MediaPlaybackSession;
+            if (playbackSession != null && playbackSession.NaturalVideoHeight != 0)
+            {
+                if (playbackSession.PlaybackState == MediaPlaybackState.Playing)
+                {
+                    if (appDisplayRequest == null)
+                    {
+                        // This call creates an instance of the DisplayRequest object
+                        appDisplayRequest = new DisplayRequest();
+                        appDisplayRequest.RequestActive();
+                    }
+                }
+                else // PlaybackState is Buffering, None, Opening or Paused
+                {
+                    if (appDisplayRequest != null)
+                    {
+                        // Deactivate the displayr request and set the var to null
+                        appDisplayRequest.RequestRelease();
+                        appDisplayRequest = null;
+                    }
+                }
+            }
+
         }
 
         private void buckButton_Tapped(object sender, BackRequestedEventArgs e)
@@ -105,6 +135,14 @@ namespace TrainingPlatform
             EditLessonForm.Visibility = visibility;
         }
 
+        private void FullWindow_Click(object sender, RoutedEventArgs e)
+        {
+            Video.IsFullWindow = !Video.IsFullWindow;
+        }
 
+        private void AddNewComment_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

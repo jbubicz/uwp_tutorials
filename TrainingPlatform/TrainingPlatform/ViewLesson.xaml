@@ -15,11 +15,38 @@
                 <SplitView.Content>
                     <StackPanel Name="LessonForm">
                         <StackPanel Name="ViewLessonForm">
-                            <Image Source="{Binding Img}" Stretch="UniformToFill" />
+                            <!--<Image Source="{Binding Img}" Stretch="Uniform" />-->
+                            <MediaPlayerElement x:Name="Video"
+                                                PosterSource="{Binding Img}"
+                                                Width="400"  AutoPlay="False"
+                                                AreTransportControlsEnabled="True"/>
+                            <!--<CommandBar>
+                                <AppBarButton Icon="FullScreen"
+                                          Label="Full Window"
+                                          Click="FullWindow_Click"/>
+                            </CommandBar>-->
                             <TextBlock Name="TitleView_label" Text="{Binding Lesson_title}"/>
                             <TextBlock Name="Modified_label" Text="{Binding Modified}"/>
                             <TextBlock Name="DescView_label" Text="{Binding Description}"/>
                             <TextBlock Name="IsFree_label" Text="This Lesson is for free!"/>
+                            <StackPanel Name="CommentsList" 
+                                        BorderBrush="Black"
+                                        BorderThickness="5">
+                                <TextBlock Name="CommentText_textBlock"
+                                           Text="{Binding Text}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Name="CommentAuthor_textBlock"
+                                               Text="{Binding Author}"/>
+                                    <TextBlock Name="CommentCreated_textBlock"
+                                               Text="{Binding Created}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Name="AddComment">
+                                <TextBox Name="AddNewComment_textBox"/>
+                                <Button Name="AddNewComment_button" 
+                                        Content="Add"
+                                        Click="AddNewComment_button_Click"/>
+                            </StackPanel>
                         </StackPanel>
 
                         <StackPanel Name="EditLessonForm">
@@ -36,8 +63,7 @@
                             <TextBox Name="title_box" Text="{Binding Lesson_title}"/>
                             <TextBlock Name="desc_label" Text="Type detailed description of Your course here:"/>
                             <TextBox Name="desc_box" AcceptsReturn="True"  Text="{Binding Description}"/>
-                            <TextBlock Name="free_label" Text="Lesson for free:"/>
-                            <CheckBox Name="Free_checkbox" Content="Lesson for free" />
+                            <CheckBox Name="Free_checkbox" Content="Lesson for FREE" />
                             <TextBlock Name="img_label" Text="Upload image for this lesson:"/>
                             <Button Name="Upload" Content="Upload"/>
                             <Button Name="Save" Content="Save File"/>
@@ -45,8 +71,15 @@
                             <Button x:Name="StartUploadButton" Content="Upload" Margin="0,0,10,0" />
                             <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0"/>
                             <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" />
-                            <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <TextBlock Name="Enable_label" Text="Make this lesson ACTIVE:"/>
+                            <TextBox x:Name="outputField" 
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                     AcceptsReturn="True" 
+                                     MaxHeight="200" 
+                                     Width="500" 
+                                     MaxWidth="700" 
+                                     HorizontalAlignment="Left" 
+                                     VerticalAlignment="Top"/>
                             <CheckBox Name="Enable_checkbox" Content="Make this lesson ACTIVE" />
                             <Button Name="SaveLesson_button" Content="Save lesson" Margin="20" Click="SaveLesson_button_Click"/>
                         </StackPanel>

@@ -20,8 +20,8 @@ namespace TrainingPlatform
     {
         public CoursesList()
         {
-            this.InitializeComponent();            
-        }        
+            this.InitializeComponent();
+        }
 
         private void MainPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
