@@ -95,8 +95,8 @@
     <Compile Include="AddCourse.xaml.cs">
       <DependentUpon>AddCourse.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddLesson.xaml.cs">
-      <DependentUpon>AddLesson.xaml</DependentUpon>
+    <Compile Include="ViewLesson.xaml.cs">
+      <DependentUpon>ViewLesson.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -160,7 +160,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddLesson.xaml">
+    <Page Include="ViewLesson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

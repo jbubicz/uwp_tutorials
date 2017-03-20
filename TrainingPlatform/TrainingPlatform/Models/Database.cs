@@ -377,7 +377,7 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT `id`, `user_id`, `section_id`,`course_id`, `video`, `title`, `free`, `description`, `lesson_order`, `is_enabled`, `created`, `modified` " +
+                    getCommand.CommandText = "SELECT `id`, `user_id`, `section_id`,`course_id`, `img`, `video`, `title`, `free`, `description`, `lesson_order`, `is_enabled`, `created`, `modified` " +
                         "FROM `lessons` " +
                         "WHERE course_id=@course_id AND section_id=0 " +
                         "ORDER BY lesson_order ASC";
@@ -394,6 +394,7 @@ namespace TrainingPlatform
                                 lesson.User_id = reader.GetInt32("user_id");
                                 lesson.Section_id = reader.GetInt32("section_id");
                                 lesson.Course_id = reader.GetInt32("course_id");
+                                lesson.Img = reader.GetString("img");
                                 lesson.Video= reader.GetString("video");
                                 lesson.Lesson_title = reader.GetString("title");
                                 lesson.Free= reader.GetInt32("free");
@@ -428,7 +429,7 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "SELECT `id`, `user_id`, `section_id`, `course_id`, `video`, `title`, `free`, `description`, `lesson_order`, `is_enabled`, `created`, `modified` " +
+                    getCommand.CommandText = "SELECT `id`, `user_id`, `section_id`, `course_id`, `img`, `video`, `title`, `free`, `description`, `lesson_order`, `is_enabled`, `created`, `modified` " +
                         "FROM `lessons` " +
                         "WHERE course_id=@course_id AND section_id=@section_id " +
                         "ORDER BY lesson_order ASC";
@@ -446,6 +447,7 @@ namespace TrainingPlatform
                                 lesson.User_id = reader.GetInt32("user_id");
                                 lesson.Section_id = reader.GetInt32("section_id");
                                 lesson.Course_id = reader.GetInt32("course_id");
+                                lesson.Img = reader.GetString("img");
                                 lesson.Video = reader.GetString("video");
                                 lesson.Lesson_title = reader.GetString("title");
                                 lesson.Free = reader.GetInt32("free");

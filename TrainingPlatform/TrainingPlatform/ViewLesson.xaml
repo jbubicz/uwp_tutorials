@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="TrainingPlatform.ViewLesson"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TrainingPlatform"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Center">
+            <SplitView Name="ViewLesson_splitView"
+                       DisplayMode="Overlay"
+                       OpenPaneLength="150"
+                       CompactPaneLength="45">
+                <SplitView.Content>
+                    <StackPanel Name="LessonForm">
+                        <StackPanel Name="ViewLessonForm">
+                            <Image Source="{Binding Img}" Stretch="UniformToFill" />
+                            <TextBlock Name="TitleView_label" Text="{Binding Lesson_title}"/>
+                            <TextBlock Name="Modified_label" Text="{Binding Modified}"/>
+                            <TextBlock Name="DescView_label" Text="{Binding Description}"/>
+                            <TextBlock Name="IsFree_label" Text="This Lesson is for free!"/>
+                        </StackPanel>
+
+                        <StackPanel Name="EditLessonForm">
+                            <ComboBox Name="SectionCombo" Header="Section:" Height="Auto" Width="Auto" >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
+                                            <TextBlock Text="{Binding Title}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Name="title_label" Text="Title:"/>
+                            <TextBox Name="title_box" Text="{Binding Lesson_title}"/>
+                            <TextBlock Name="desc_label" Text="Type detailed description of Your course here:"/>
+                            <TextBox Name="desc_box" AcceptsReturn="True"  Text="{Binding Description}"/>
+                            <TextBlock Name="free_label" Text="Lesson for free:"/>
+                            <CheckBox Name="Free_checkbox" Content="Lesson for free" />
+                            <TextBlock Name="img_label" Text="Upload image for this lesson:"/>
+                            <Button Name="Upload" Content="Upload"/>
+                            <Button Name="Save" Content="Save File"/>
+                            <TextBox x:Name="serverAddressField" Text="http://projekt.breko.eu/webroot/files/" Width="500"/>
+                            <Button x:Name="StartUploadButton" Content="Upload" Margin="0,0,10,0" />
+                            <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0"/>
+                            <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" />
+                            <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBlock Name="Enable_label" Text="Make this lesson ACTIVE:"/>
+                            <CheckBox Name="Enable_checkbox" Content="Make this lesson ACTIVE" />
+                            <Button Name="SaveLesson_button" Content="Save lesson" Margin="20" Click="SaveLesson_button_Click"/>
+                        </StackPanel>
+                        <Button Name="Back_button" Content="Back to Course edition" Margin="20" Click="Back_button_Click"/>
+                        <Button Name="Edit_button" Content="Edit" Margin="20" Click="Edit_button_Click"/>
+
+                    </StackPanel>
+                </SplitView.Content>
+            </SplitView>
+        </Grid>
+    </ScrollViewer>
+</Page>

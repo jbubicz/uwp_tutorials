@@ -190,16 +190,27 @@
                                                     <ListView Name="LessonsList" 
                                                               Grid.Column="1"
                                                               Grid.Row="1"
+                                                              Margin="8" 
+                                                              CanReorderItems="True"
+                                                              CanDrag="True"
+                                                              AllowDrop="True"
+                                                              ItemClick="LessonsList_ItemClick"   
+                                                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                              IsItemClickEnabled="True"
                                                               ItemsSource="{Binding lessons}">
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
-                                                                <StackPanel>
-                                                                    <TextBlock Foreground="Red">
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Image Source="{Binding Img}" Stretch="UniformToFill" MaxHeight="80" MaxWidth="80"/>
+                                                                    <StackPanel>
+                                                                        <TextBlock Foreground="Red">
                                                                         <Run Text="Lesson "/>
                                                                         <Run Text="{Binding Lesson_order, Mode=TwoWay}"/>
-                                                                    </TextBlock>
-                                                                    <TextBlock Foreground="Red" Text="{Binding Lesson_title, Mode=TwoWay}"/>
-                                                                    <TextBlock Foreground="Red" Text="{Binding Description, Mode=TwoWay}"/>
+                                                                        </TextBlock>
+                                                                        <TextBlock Foreground="Red" Text="{Binding Lesson_title, Mode=TwoWay}"/>
+                                                                        <TextBlock Foreground="Red" Text="{Binding Description, Mode=TwoWay}"/>
+                                                                    </StackPanel>
                                                                 </StackPanel>
                                                             </DataTemplate>
                                                         </ListView.ItemTemplate>

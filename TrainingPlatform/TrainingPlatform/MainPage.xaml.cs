@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,6 +23,8 @@ namespace TrainingPlatform
         {
             this.InitializeComponent();
             MyFrame.Navigate(typeof(CoursesList));
+            MyFrame.Navigated += myFrame_Navigated;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
             Back.Visibility = Visibility.Collapsed;
             App.IsLogged = false;
         }
@@ -50,6 +53,23 @@ namespace TrainingPlatform
                 MyFrame.Navigate(typeof(AddCourse));
                 MySpliView.IsPaneOpen = !MySpliView.IsPaneOpen;
                 AddCourse_link.IsSelected = false;
+            }
+        }
+
+        private void myFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ((Frame)sender).CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (MyFrame.CanGoBack)
+            {
+                e.Handled = true;
+                MyFrame.GoBack();
             }
         }
 

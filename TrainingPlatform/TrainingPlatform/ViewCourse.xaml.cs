@@ -409,7 +409,7 @@ namespace TrainingPlatform
                 await dialog.ShowAsync();
             }
             sections = getSections();
-            Frame.Navigate(typeof(AddLesson), course_id);
+            Frame.Navigate(typeof(ViewLesson), course_id);
         }
 
         private void SectionsList_ItemClick(object sender, ItemClickEventArgs e)
@@ -432,6 +432,13 @@ namespace TrainingPlatform
 
 
             //Debug.WriteLine(innerListView.Name);
+
+        }
+
+        private void LessonsList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Lesson lesson_selected = e.ClickedItem as Lesson;
+            Frame.Navigate(typeof(ViewLesson), lesson_selected);
 
         }
     }
