@@ -40,7 +40,7 @@
                         <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                         <Button Name="DeleteLesson_button" Content="Delete lesson" Click="DeleteLesson_button_Click" />
                         <Button Name="AddLesson_button" Content="Add lesson" Margin="20" Click="AddLesson_button_Click"/>
-                        <Button Name="Back_button" Content="Back to edit Course" Margin="20" Click="Back_button_Click"/>
+                        <Button Name="Back_button" Content="Back to Course edition" Margin="20" Click="Back_button_Click"/>
                     </StackPanel>
                 </SplitView.Content>
             </SplitView>

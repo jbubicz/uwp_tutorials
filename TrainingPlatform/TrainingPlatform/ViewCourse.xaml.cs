@@ -68,21 +68,38 @@ namespace TrainingPlatform
             int actual_category_id = parameters.Category;
             CatCombo.SelectedItem = categories[actual_category_id - 1];
             sections = getSections();
-            getSectionsWithLesson(sections);
+            //getLessons();
+            getSectionsWithLessons(sections);
             SectionsLessonsList.ItemsSource = sections_with_lessons;
             SectionList.ItemsSource = sections;
             setControlsVisibility(course_id);
         }
 
-        private void getSectionsWithLesson(ObservableCollection<SectionsList> sections)
+        private void getSectionsWithLessons(ObservableCollection<SectionsList> sections)
         {
-            foreach (var section in sections)
+            if (sections.Count != 0)
             {
-                Section s = new Section();
-                s = section;
-                //s.lessons =  Database.getLessons(s.Id);
+                Section s2 = new Section();
+                s2.lessons = Database.getLessons(course_id);
+                if (s2.Id==0 && s2.lessons.Count!=0)
+                {
+                    sections_with_lessons.Add(s2);
+                }
+                foreach (var section in sections)
+                {
+                    Section s = new Section();
+                    s = section;
+                    s.lessons = Database.getLessons(s.Course_id, s.Id);
+                    sections_with_lessons.Add(s);
+                }
+                
+            }
+            else
+            {
+                Section s = new Section();               
+                s.lessons = Database.getLessons(course_id);
                 sections_with_lessons.Add(s);
-            }             
+            }
         }
 
 
@@ -385,7 +402,6 @@ namespace TrainingPlatform
 
         private async void AddNewLesson_button_Click(object sender, RoutedEventArgs e)
         {
-
             if (!addSectionsToDatabase(sections))
             {
                 string error = "Error adding sections!";
@@ -393,15 +409,15 @@ namespace TrainingPlatform
                 await dialog.ShowAsync();
             }
             sections = getSections();
-            Frame.Navigate(typeof(AddLesson), sections);
+            Frame.Navigate(typeof(AddLesson), course_id);
         }
 
         private void SectionsList_ItemClick(object sender, ItemClickEventArgs e)
         {
             Section section_selected = e.ClickedItem as Section;
             int section_id = section_selected.Id;
-            lessons = Database.getLessons(section_id);
-            //section_selected.lessons = lessons;
+            //lessons = Database.getLessons(course_id, section_id);
+            //sections_with_lessons[section_selected.Section_order - 1].lessons = lessons;
             //int i = Int32.Parse(sections_with_lessons.Select((v, index) => new { Section = v, Index = index }).Where(x => x.Section.Id == section_id).Select(x => x.Index).ToString());
             //int index = sections_with_lessons.IndexOf(from section in sections_with_lessons
             //                                          //select sections_with_lessons.section
@@ -413,10 +429,10 @@ namespace TrainingPlatform
                 parent = VisualTreeHelper.GetParent(parent);
             }
             var innerListView = parent as ListView;
-            
-            
+
+
             //Debug.WriteLine(innerListView.Name);
-            
+
         }
     }
 }

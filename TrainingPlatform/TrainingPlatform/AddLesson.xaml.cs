@@ -19,25 +19,39 @@ namespace TrainingPlatform
 {
     public sealed partial class AddLesson : Page
     {
-        //ObservableCollection<CategoriesList> categories = Database.getSections(course_id);
+        private ObservableCollection<SectionsList> sections;
+        private int course_id;
+
         public AddLesson()
         {
             this.InitializeComponent();
-            
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);            
-            var sections = (ObservableCollection<SectionsList>)e.Parameter;
-            SectionCombo.ItemsSource = sections;
-            var course_id = (from section in sections
-                            select section.Course_id).FirstOrDefault();
+            base.OnNavigatedTo(e);
+            //var sections = (ObservableCollection<SectionsList>)e.Parameter;
+            course_id =(Int32)e.Parameter;
+            sections = getSections();
 
-                             
-           
+            if (sections == null || sections.Count == 0)
+            {
+
+                SectionCombo.Visibility = Visibility.Collapsed;
+
+
+            }
+            else
+            {
+                SectionCombo.ItemsSource = sections;
+                var course_id = (from section in sections
+                                 select section.Course_id).FirstOrDefault();
+            }
+
+
         }
-        
+
         private void DeleteLesson_button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -51,6 +65,11 @@ namespace TrainingPlatform
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private ObservableCollection<SectionsList> getSections()
+        {
+            return sections = Database.getSections(course_id);
         }
     }
 }

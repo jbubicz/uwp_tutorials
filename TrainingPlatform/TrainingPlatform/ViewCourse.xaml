@@ -156,7 +156,7 @@
                                     Margin="5"
                                     Click="ClearRating_Click"/>
                         </StackPanel>
-
+                        <TextBlock Name="LessonsList_textBlock" Text="Course's lessons: " />
                         <StackPanel Name="CourseSections" 
                                     Orientation="Vertical">
                             <ListView Name="SectionsLessonsList" 
@@ -194,7 +194,10 @@
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel>
-                                                                    <TextBlock Foreground="Red" Text="{Binding Lesson_order, Mode=TwoWay}"/>
+                                                                    <TextBlock Foreground="Red">
+                                                                        <Run Text="Lesson "/>
+                                                                        <Run Text="{Binding Lesson_order, Mode=TwoWay}"/>
+                                                                    </TextBlock>
                                                                     <TextBlock Foreground="Red" Text="{Binding Lesson_title, Mode=TwoWay}"/>
                                                                     <TextBlock Foreground="Red" Text="{Binding Description, Mode=TwoWay}"/>
                                                                 </StackPanel>
