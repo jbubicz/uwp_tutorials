@@ -210,8 +210,8 @@
                                                                     <!--<Image Source="{Binding Img}" Stretch="UniformToFill" MaxHeight="80" MaxWidth="80"/>-->
                                                                     <StackPanel>
                                                                         <TextBlock Foreground="Red">
-                                                                        <Run Text="Lesson "/>
-                                                                        <Run Text="{Binding Lesson_order, Mode=TwoWay}"/>
+                                                                            <Run Text="Lesson "/>
+                                                                            <Run Text="{Binding Lesson_order, Mode=TwoWay}"/>
                                                                         </TextBlock>
                                                                         <TextBlock Foreground="Red" Text="{Binding Lesson_title, Mode=TwoWay}"/>
                                                                         <TextBlock Foreground="Red" Text="{Binding Description, Mode=TwoWay}"/>
@@ -271,54 +271,6 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-
-                        <!--<StackPanel Height="Auto"
-                                HorizontalAlignment="Left"                                  
-                                Margin="30,50,0,12"
-                                VerticalAlignment="Bottom"
-                                Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical">
-                                <fb:ProfilePictureControl CropMode="Square" 
-                                                  x:Name="FriendPicture3" 
-                                                  Width="100" 
-                                                  Height="100" 
-                                                  HorizontalAlignment="Center"
-                                                  Visibility="Collapsed"/>
-                                <TextBlock Name="FriendName3"
-                                       Visibility="Collapsed"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical">
-                                <fb:ProfilePictureControl CropMode="Square" 
-                                                  x:Name="FriendPicture2" 
-                                                  Width="100" 
-                                                  Height="100" 
-                                                  HorizontalAlignment="Center"
-                                                  Visibility="Collapsed"/>
-                                <TextBlock Name="FriendName2"
-                                       Visibility="Collapsed"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical">
-                                <fb:ProfilePictureControl CropMode="Square" 
-                                                  x:Name="FriendPicture1" 
-                                                  Width="100" 
-                                                  Height="100" 
-                                                  HorizontalAlignment="Center"
-                                                  Visibility="Collapsed"/>
-                                <TextBlock Name="FriendName1"
-                                       Visibility="Collapsed"/>
-                            </StackPanel>
-                        </StackPanel>-->
-
-                        <!--<GridView Name="FBFriends" 
-                              ItemsSource="{x:Bind friendsList}"
-                              HorizontalAlignment="Center"
-                              Margin="10,0,0,0">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="data:FBUserRootobject">
-                                <local:FBFriendControl/>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>-->
                     </StackPanel>
 
                 </SplitView.Content>

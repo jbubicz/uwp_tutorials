@@ -408,8 +408,8 @@ namespace TrainingPlatform
                 MessageDialog dialog = new MessageDialog(error);
                 await dialog.ShowAsync();
             }
-            sections = getSections();
-            Frame.Navigate(typeof(ViewLesson), course_id);
+            getSections();
+            Frame.Navigate(typeof(AddLesson), course_id);
         }
 
         private void SectionsList_ItemClick(object sender, ItemClickEventArgs e)
@@ -423,23 +423,18 @@ namespace TrainingPlatform
             //                                          //select sections_with_lessons.section
             //                              where section.Id == section_id
             //                              select section);
-            var parent = sender as DependencyObject;
-            while (!(parent is ListView))
-            {
-                parent = VisualTreeHelper.GetParent(parent);
-            }
-            var innerListView = parent as ListView;
-
-
-            //Debug.WriteLine(innerListView.Name);
-
+            //var parent = sender as DependencyObject;
+            //while (!(parent is ListView))
+            //{
+            //    parent = VisualTreeHelper.GetParent(parent);
+            //}
+            //var innerListView = parent as ListView;
         }
 
         private void LessonsList_ItemClick(object sender, ItemClickEventArgs e)
         {
             Lesson lesson_selected = e.ClickedItem as Lesson;
             Frame.Navigate(typeof(ViewLesson), lesson_selected);
-
         }
     }
 }

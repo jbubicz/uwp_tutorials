@@ -67,7 +67,6 @@ namespace TrainingPlatform
             }
         }
 
-
         public static ObservableCollection<Course> getTopCourses(string tableName)
         {
             ObservableCollection<Course> result = new ObservableCollection<Course>();
@@ -930,6 +929,69 @@ namespace TrainingPlatform
                         getCommand.ExecuteNonQuery();
                         i++;
                     }
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public static bool insertLesson(Lesson lesson)
+        {
+            Lesson l = lesson;
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand1 = connection.CreateCommand();
+                    getCommand1.CommandText = "SELECT MAX(`lesson_order`) AS max_order FROM `lessons` " +
+                        "WHERE course_id =@course_id1 AND section_id=@section_id1";
+                    getCommand1.Parameters.AddWithValue("@section_id1", l.Section_id);
+                    getCommand1.Parameters.AddWithValue("@course_id1", l.Course_id);
+                    using (MySqlDataReader reader = getCommand1.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                int ordinal = reader.GetOrdinal("max_order");
+                                if (reader.IsDBNull(ordinal))
+                                {
+                                    l.Lesson_order = 1;
+                                }
+                                else
+                                {
+                                    l.Lesson_order = reader.GetInt32("max_order")+1;
+                                }                                
+                            }
+                        }
+                        else
+                        {
+                            l.Lesson_order = 1;
+                        }
+                    }
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "INSERT INTO `lessons` " +
+                        "(`user_id`, `section_id`, `course_id`, `img`, `video`, `title`, `free`, `description`, `lesson_order`, `is_enabled`) "
+                        + "VALUES(@user_id, @section_id2, @course_id2, @img, @video, @title, @free, @description, @lesson_order, @is_enabled)";
+                    getCommand.Parameters.AddWithValue("@user_id", l.User_id);
+                    getCommand.Parameters.AddWithValue("@section_id2", l.Section_id);
+                    getCommand.Parameters.AddWithValue("@course_id2", l.Course_id);
+                    getCommand.Parameters.AddWithValue("@img", l.Img);
+                    getCommand.Parameters.AddWithValue("@video", l.Video);
+                    getCommand.Parameters.AddWithValue("@title", l.Lesson_title);
+                    getCommand.Parameters.AddWithValue("@free", l.Free);
+                    getCommand.Parameters.AddWithValue("@description", l.Description);
+                    getCommand.Parameters.AddWithValue("@lesson_order", l.Lesson_order);
+                    getCommand.Parameters.AddWithValue("@is_enabled", l.IsEnabled);
+                    Debug.WriteLine(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
                 }

@@ -28,7 +28,7 @@ namespace TrainingPlatform
     public sealed partial class ViewLesson : Page
     {
         static FBSession clicnt = FBSession.ActiveSession;
-        private User user = getUserInfo(clicnt);
+        private User user = getUserInfo(clicnt);    
         private ObservableCollection<SectionsList> sections;
         private Lesson lesson;
         private int course_id;
