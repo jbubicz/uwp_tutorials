@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,5 +22,7 @@ namespace TrainingPlatform.Models
         public int IsEnabled { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
+
+        public ObservableCollection<Comment> comments { get; set; }
     }
 }

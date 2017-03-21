@@ -164,8 +164,6 @@ namespace TrainingPlatform
             }
         }
 
-
-
         public static ObservableCollection<Course> getAllDisabledCourses(string tableName)
         {
             ObservableCollection<Course> result = new ObservableCollection<Course>();
@@ -395,12 +393,12 @@ namespace TrainingPlatform
                                 lesson.Section_id = reader.GetInt32("section_id");
                                 lesson.Course_id = reader.GetInt32("course_id");
                                 lesson.Img = reader.GetString("img");
-                                lesson.Video= reader.GetString("video");
+                                lesson.Video = reader.GetString("video");
                                 lesson.Lesson_title = reader.GetString("title");
-                                lesson.Free= reader.GetInt32("free");
-                                lesson.Description= reader.GetString("description");
+                                lesson.Free = reader.GetInt32("free");
+                                lesson.Description = reader.GetString("description");
                                 lesson.Lesson_order = reader.GetInt32("lesson_order");
-                                lesson.IsEnabled= reader.GetInt32("is_enabled");
+                                lesson.IsEnabled = reader.GetInt32("is_enabled");
                                 lesson.Created = reader.GetDateTime("created");
                                 lesson.Modified = reader.GetDateTime("modified");
                                 lessons.Add(lesson);
@@ -463,6 +461,52 @@ namespace TrainingPlatform
                     connection.Close();
                 }
                 return lessons;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        public static ObservableCollection<Comment> getComments(int lesson_id)
+        {
+            ObservableCollection<Comment> comments = new ObservableCollection<Comment>();
+            comments.Clear();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT  comments.`id`,comments.`user_id`,users.name,comments.`lesson_id`,comments.`text`,comments.`created`,comments.`modified` " +
+                        "FROM `lessons_comments` AS comments LEFT JOIN `users` AS users ON comments.user_id = users.id " +
+                        "WHERE comments.`lesson_id`=@lesson_id " +
+                        "ORDER BY comments.modified DESC";
+                    getCommand.Parameters.AddWithValue("@lesson_id", lesson_id);
+                    Debug.WriteLine(getCommand.CommandText);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                Comment comment = new Comment();
+                                comment.Id = reader.GetInt32("id");
+                                comment.User_id = reader.GetInt32("user_id");
+                                comment.Author = reader.GetString("name");
+                                comment.Lesson_id = reader.GetInt32("lesson_id");
+                                comment.Value = reader.GetString("text");
+                                comment.Created = reader.GetDateTime("created");
+                                comment.Modified = reader.GetDateTime("modified");
+                                comments.Add(comment);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return comments;
             }
             catch (Exception e)
             {
@@ -886,6 +930,35 @@ namespace TrainingPlatform
                         getCommand.ExecuteNonQuery();
                         i++;
                     }
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+
+        public static bool insertComment(Comment comment)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "INSERT INTO `lessons_comments` "+
+                        " (`user_id`, `lesson_id`, `text`) "
+                        + "VALUES(@user_id, @lesson_id, @text)";
+                    getCommand.Parameters.AddWithValue("@user_id", comment.User_id);
+                    getCommand.Parameters.AddWithValue("@lesson_id", comment.Lesson_id);
+                    getCommand.Parameters.AddWithValue("@text", comment.Value);                    
+                    Debug.WriteLine(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
                     connection.Close();
                     return true;
                 }

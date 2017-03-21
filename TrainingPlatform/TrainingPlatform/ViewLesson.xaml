@@ -29,25 +29,48 @@
                             <TextBlock Name="Modified_label" Text="{Binding Modified}"/>
                             <TextBlock Name="DescView_label" Text="{Binding Description}"/>
                             <TextBlock Name="IsFree_label" Text="This Lesson is for free!"/>
-                            <StackPanel Name="CommentsList" 
+
+                            <ListView Name="CommentsList" 
+                                Margin="8" 
+                                CanReorderItems="True"
+                                CanDrag="True"
+                                AllowDrop="True"
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                IsItemClickEnabled="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Name="CommentsList" 
                                         BorderBrush="Black"
                                         BorderThickness="5">
-                                <TextBlock Name="CommentText_textBlock"
-                                           Text="{Binding Text}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Name="CommentAuthor_textBlock"
+                                            <TextBlock Name="CommentText_textBlock"
+                                           Text="{Binding Value}"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Name="CommentAuthor_textBlock"
                                                Text="{Binding Author}"/>
-                                    <TextBlock Name="CommentCreated_textBlock"
-                                               Text="{Binding Created}"/>
-                                </StackPanel>
-                            </StackPanel>
+                                                <TextBlock Name="CommentCreated_textBlock"
+                                               Text="{Binding Modified}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+
+
                             <StackPanel Name="AddComment">
-                                <TextBox Name="AddNewComment_textBox"/>
+                                <TextBox Name="AddNewComment_textBox" 
+                                         MaxHeight="172"
+                                             PlaceholderText="Type your comment here..."
+                                             Header="Comment" AcceptsReturn="True"
+                                             TextWrapping="Wrap"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                                 <Button Name="AddNewComment_button" 
                                         Content="Add"
                                         Click="AddNewComment_button_Click"/>
                             </StackPanel>
                         </StackPanel>
+
 
                         <StackPanel Name="EditLessonForm">
                             <ComboBox Name="SectionCombo" Header="Section:" Height="Auto" Width="Auto" >
@@ -83,8 +106,8 @@
                             <CheckBox Name="Enable_checkbox" Content="Make this lesson ACTIVE" />
                             <Button Name="SaveLesson_button" Content="Save lesson" Margin="20" Click="SaveLesson_button_Click"/>
                         </StackPanel>
-                        <Button Name="Back_button" Content="Back to Course edition" Margin="20" Click="Back_button_Click"/>
-                        <Button Name="Edit_button" Content="Edit" Margin="20" Click="Edit_button_Click"/>
+                        <!--<Button Name="Back_button" Content="Back to Course edition" Margin="20" Click="Back_button_Click"/>-->
+                        <Button Name="Edit_button" Content="Edit/View" Margin="20" Click="Edit_button_Click"/>
 
                     </StackPanel>
                 </SplitView.Content>

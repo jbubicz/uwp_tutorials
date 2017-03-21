@@ -95,6 +95,7 @@
     <Compile Include="AddCourse.xaml.cs">
       <DependentUpon>AddCourse.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="ViewLesson.xaml.cs">
       <DependentUpon>ViewLesson.xaml</DependentUpon>
     </Compile>
