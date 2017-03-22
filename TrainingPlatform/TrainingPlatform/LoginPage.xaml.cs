@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Security.Authentication.Web;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -130,7 +131,19 @@ namespace TrainingPlatform
 
         private void SimpleLoginButton_Click(object sender, RoutedEventArgs e)
         {
+            LoginTextBox.ClearValue(TextBox.BorderBrushProperty);
+            LoginTextBox.ClearValue(TextBox.PlaceholderTextProperty);
 
+            if (string.IsNullOrWhiteSpace(LoginTextBox.Text))
+            {
+                LoginTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                LoginTextBox.PlaceholderText = "Login is required";
+            }
+            else if (LoginTextBox.Text.Length <=3)
+            {
+                LoginTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                
+            }
         }
 
         private void RegisterLink_Click(object sender, RoutedEventArgs e)
