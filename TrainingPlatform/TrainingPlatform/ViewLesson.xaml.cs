@@ -28,12 +28,13 @@ namespace TrainingPlatform
     public sealed partial class ViewLesson : Page
     {
         static FBSession clicnt = FBSession.ActiveSession;
-        private User user = getUserInfo(clicnt);    
+        private User user = getUserInfo(clicnt);
         private ObservableCollection<SectionsList> sections;
         private Lesson lesson;
         private int course_id;
         private ObservableCollection<Comment> comments;
         private DisplayRequest appDisplayRequest = null;
+        private Database db = new Database();
 
         public ViewLesson()
         {
@@ -61,6 +62,11 @@ namespace TrainingPlatform
             else
             {
                 SectionCombo.ItemsSource = sections;
+                int actual_section_id = lesson.Section_id;
+                var actual_section_index = from section in sections
+                                      where section.Id == actual_section_id
+                                      select sections.IndexOf(section);
+                SectionCombo.SelectedItem = sections[actual_section_index.FirstOrDefault()];
             }
             getComments();
             lesson.comments = comments;
@@ -150,14 +156,26 @@ namespace TrainingPlatform
             ViewLessonForm.Visibility = Visibility.Collapsed;
         }
 
-        private void SaveLesson_button_Click(object sender, RoutedEventArgs e)
+        private async void SaveLesson_button_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Back_button_Click(object sender, RoutedEventArgs e)
-        {
-
+            lesson.Lesson_title = Title_box.Text;
+            lesson.Description = Desc_box.Text;
+            lesson.Free = Convert.ToInt32(Free_checkbox.IsChecked);
+            lesson.IsEnabled = Convert.ToInt32(Enable_checkbox.IsChecked);
+            var section_new = SectionCombo.SelectedItem as Section;
+            lesson.Section_id = section_new.Id;
+            string massage = "";
+            if (Database.updateLesson(lesson))
+            {
+                massage = "Lesson updated successfully!";
+            }
+            else
+            {
+                massage = "Error while updating lesson!";
+            }
+            MessageDialog dialog = new MessageDialog(massage);
+            await dialog.ShowAsync();
+            Frame.Navigate(typeof(ViewLesson), lesson);
         }
 
         private ObservableCollection<SectionsList> getSections()

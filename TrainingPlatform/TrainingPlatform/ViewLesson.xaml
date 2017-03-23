@@ -56,8 +56,6 @@
                                 </ListView.ItemTemplate>
                             </ListView>
 
-
-
                             <StackPanel Name="AddComment">
                                 <TextBox Name="AddNewComment_textBox" 
                                          MaxHeight="172"
@@ -71,7 +69,6 @@
                             </StackPanel>
                         </StackPanel>
 
-
                         <StackPanel Name="EditLessonForm">
                             <ComboBox Name="SectionCombo" Header="Section:" Height="Auto" Width="Auto" >
                                 <ComboBox.ItemTemplate>
@@ -81,11 +78,9 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <TextBlock Name="title_label" Text="Title:"/>
-                            <TextBox Name="title_box" Text="{Binding Lesson_title}"/>
-                            <TextBlock Name="desc_label" Text="Type detailed description of Your course here:"/>
-                            <TextBox Name="desc_box" AcceptsReturn="True"  Text="{Binding Description}"/>
+                            </ComboBox>                            
+                            <TextBox Name="Title_box" Header="Title:" Text="{Binding Lesson_title}"/>
+                            <TextBox Name="Desc_box" AcceptsReturn="True" Header="Type detailed description of Your course here:" Text="{Binding Description}"/>
                             <CheckBox Name="Free_checkbox" Content="Lesson for FREE" />
                             <TextBlock Name="img_label" Text="Upload image for this lesson:"/>
                             <Button Name="Upload" Content="Upload"/>
@@ -106,9 +101,7 @@
                             <CheckBox Name="Enable_checkbox" Content="Make this lesson ACTIVE" />
                             <Button Name="SaveLesson_button" Content="Save lesson" Margin="20" Click="SaveLesson_button_Click"/>
                         </StackPanel>
-                        <!--<Button Name="Back_button" Content="Back to Course edition" Margin="20" Click="Back_button_Click"/>-->
                         <Button Name="Edit_button" Content="Edit/View" Margin="20" Click="Edit_button_Click"/>
-
                     </StackPanel>
                 </SplitView.Content>
             </SplitView>

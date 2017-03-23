@@ -755,6 +755,41 @@ namespace TrainingPlatform
             }
         }
 
+        public static bool updateLesson(Lesson lesson)
+        {
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "UPDATE `lessons` " +
+                        "SET `user_id`=@user_id, `section_id`=@section_id,`img`=@img, `title`=@title,`video`=@video,`free`=@free,`description`=@description,`lesson_order`=@lesson_order, `is_enabled`=@is_enabled " +
+                        "WHERE `id`=@lesson_id";
+                    getCommand.Parameters.AddWithValue("@user_id", lesson.User_id);
+                    getCommand.Parameters.AddWithValue("@section_id", lesson.Section_id);
+                    getCommand.Parameters.AddWithValue("@img", lesson.Img);
+                    getCommand.Parameters.AddWithValue("@title", lesson.Lesson_title);
+                    getCommand.Parameters.AddWithValue("@video", lesson.Video);
+                    getCommand.Parameters.AddWithValue("@free", lesson.Free);
+                    getCommand.Parameters.AddWithValue("@description", lesson.Description);
+                    getCommand.Parameters.AddWithValue("@lesson_order", lesson.Lesson_order);
+                    getCommand.Parameters.AddWithValue("@is_enabled", lesson.IsEnabled);
+                    getCommand.Parameters.AddWithValue("@lesson_id", lesson.Id);
+                    Debug.WriteLine(getCommand.CommandText);
+                    getCommand.ExecuteNonQuery();
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+
         public static bool insertUser(string tableName, string fb_id, int role_id, string name, string email, string pass, string salt, string avatar)
         {
             string connectionString = getConnectionString();
