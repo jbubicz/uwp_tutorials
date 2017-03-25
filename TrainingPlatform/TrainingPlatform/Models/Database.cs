@@ -116,6 +116,56 @@ namespace TrainingPlatform
             }
         }
 
+        public static ObservableCollection<Course> getCourse(string suggestion)
+        {
+            ObservableCollection<Course> result = new ObservableCollection<Course>();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText = "SELECT `id`, `user_id`, `category_id`, `title`, `price`, `img`, `short_description`, `description`, `is_enabled`, `created`, `modified` " +
+                        "FROM `courses` " +
+                        "WHERE `title` LIKE @suggestion AND `is_enabled`=1 " +
+                        "ORDER BY `created` DESC ";
+                    getCommand.Parameters.AddWithValue("@suggestion", "%" + suggestion + "%");
+                    Debug.WriteLine(getCommand.CommandText);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                Course course = new Course();
+                                course.Id = reader.GetInt32("id");
+                                course.UserId = reader.GetInt32("user_id");
+                                course.Category = reader.GetInt32("category_id");
+                                course.Title = reader.GetString("title");
+                                course.Price = reader.GetString("price");
+                                course.ImgUrl = reader.GetString("img");
+                                course.ShortDescription = reader.GetString("short_description");
+                                course.Description = reader.GetString("description");
+                                course.IsEnabled = reader.GetInt32("is_enabled");
+                                course.Created = reader.GetDateTime("created");
+                                course.Modified = reader.GetDateTime("modified");
+                                course.Rate = getCourseRating(course.Id);
+                                result.Add(course);
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public static ObservableCollection<Course> getNewestCourses(string tableName)
         {
             ObservableCollection<Course> result = new ObservableCollection<Course>();
@@ -592,6 +642,44 @@ namespace TrainingPlatform
             }
         }
 
+        public static ObservableCollection<string> getSuggestions()
+        {
+            ObservableCollection<string> suggestions = new ObservableCollection<string>();
+            string connectionString = getConnectionString();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand getCommand = connection.CreateCommand();
+                    getCommand.CommandText =
+                        "SELECT `title` " +
+                        "FROM `courses` " +
+                        "WHERE `is_enabled`=1 " +
+                        "ORDER BY title ASC";
+                    Debug.WriteLine(getCommand.CommandText);
+                    using (MySqlDataReader reader = getCommand.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                string suggest = reader.GetString("title");
+                                suggestions.Add(suggest);
+                            }
+                        }
+                    }
+                    connection.Close();
+                    return suggestions;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return null;
+            }
+        }
+
         public static bool checkIfFBUserIsSigned(string fb_id, int course_id)
         {
             bool isSigned = false;
@@ -1002,8 +1090,8 @@ namespace TrainingPlatform
                                 }
                                 else
                                 {
-                                    l.Lesson_order = reader.GetInt32("max_order")+1;
-                                }                                
+                                    l.Lesson_order = reader.GetInt32("max_order") + 1;
+                                }
                             }
                         }
                         else
@@ -1048,12 +1136,12 @@ namespace TrainingPlatform
                 {
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
-                    getCommand.CommandText = "INSERT INTO `lessons_comments` "+
+                    getCommand.CommandText = "INSERT INTO `lessons_comments` " +
                         " (`user_id`, `lesson_id`, `text`) "
                         + "VALUES(@user_id, @lesson_id, @text)";
                     getCommand.Parameters.AddWithValue("@user_id", comment.User_id);
                     getCommand.Parameters.AddWithValue("@lesson_id", comment.Lesson_id);
-                    getCommand.Parameters.AddWithValue("@text", comment.Value);                    
+                    getCommand.Parameters.AddWithValue("@text", comment.Value);
                     Debug.WriteLine(getCommand.CommandText);
                     getCommand.ExecuteNonQuery();
                     connection.Close();

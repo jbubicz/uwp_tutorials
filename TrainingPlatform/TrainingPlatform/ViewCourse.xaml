@@ -7,7 +7,37 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:fb="using:winsdkfb"
     xmlns:data="using:TrainingPlatform"
+    xmlns:rules="using:WinUX.Data.Validation.Rules"
+    xmlns:validation="using:WinUX.Data.Validation"
+    xmlns:controls="using:WinUX.Xaml.Controls"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <validation:ValidationRules x:Key="DoubleSample">
+            <validation:ValidationRules.Rules>
+                <rules:DoubleValidationRule/>
+            </validation:ValidationRules.Rules>
+        </validation:ValidationRules>
+
+        <validation:ValidationRules x:Key="IntSample">
+            <validation:ValidationRules.Rules>
+                <rules:IntValidationRule />
+            </validation:ValidationRules.Rules>
+        </validation:ValidationRules>
+
+        <validation:ValidationRules x:Key="UrlSample">
+            <validation:ValidationRules.Rules>
+                <rules:UrlValidationRule />
+            </validation:ValidationRules.Rules>
+        </validation:ValidationRules>
+
+        <validation:ValidationRules x:Key="EmailSample">
+            <validation:ValidationRules.Rules>
+                <rules:EmailValidationRule />
+            </validation:ValidationRules.Rules>
+        </validation:ValidationRules>
+    </Page.Resources>
+    
     <ScrollViewer>
         <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
@@ -60,7 +90,7 @@
                         <Button x:Name="StartUploadButton" Content="Upload Image" Margin="0,0,10,0" Click="StartUpload_Click" Visibility="Collapsed"/>
                         <TextBlock Name="Title_textBlock" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Visible"/>
-                        <TextBox Name="Title_textBox" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                        <TextBox Name="Title_textBox" Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"
                              Visibility="Collapsed"/>
                         <TextBlock Name="ShortDesc_textBlock" Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center" 
                                Visibility="Visible"/>
@@ -254,7 +284,7 @@
                                                   Width="100" 
                                                   Height="100" 
                                                   HorizontalAlignment="Center"
-                                                  Visibility="Visible"
+                                                  Visibility="Visible" 
                                                   UserId="{Binding id}"/>
                                                 <Grid Grid.Column="1" Margin="8 0 0 0">
                                                     <Grid.RowDefinitions>
