@@ -23,13 +23,7 @@ namespace TrainingPlatform
 {
     public sealed partial class LoginPage : Page
     {
-        public LoginPage()
-        {
-            this.InitializeComponent();
-            //string SID = WebAuthenticationBroker.GetCurrentApplicationCallbackUri().ToString();
-            //Debug.WriteLine(SID);
-        }
-
+        static FBSession clicnt = FBSession.ActiveSession;
         public string username { get; private set; }
         public string fb_id { get; private set; }
 
@@ -39,6 +33,29 @@ namespace TrainingPlatform
             "user_friends",
             "publish_actions"
         };
+
+        public LoginPage()
+        {
+            this.InitializeComponent();
+            //string SID = WebAuthenticationBroker.GetCurrentApplicationCallbackUri().ToString();
+            //Debug.WriteLine(SID);           
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (clicnt.LoggedIn)
+            {
+                setSession();               
+            }
+            else
+            {
+                App.IsLogged = false;
+                logout.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
 
         private async void login_Click(object sender, RoutedEventArgs e)
         {
@@ -55,8 +72,7 @@ namespace TrainingPlatform
                 Debug.WriteLine(clicnt.User.Email);
                 Debug.WriteLine(clicnt.User.FirstName);
                 Debug.WriteLine(clicnt.User.LastName);
-                login.Visibility = Visibility.Collapsed;
-                SquarePicture.UserId = clicnt.User.Id;
+                setSession();
             }
             else
             {
@@ -72,6 +88,14 @@ namespace TrainingPlatform
             {
                 Debug.WriteLine(ex);   
             }
+        }
+
+        private void setSession()
+        {
+            App.IsLogged = true;
+            login.Visibility = Visibility.Collapsed;
+            logout.Visibility = Visibility.Visible;
+            SquarePicture.UserId = clicnt.User.Id;
         }
 
         private void UserLikesButton_Click(object sender, RoutedEventArgs e)
@@ -90,10 +114,12 @@ namespace TrainingPlatform
             if (clicnt.LoggedIn)
             {
                 await clicnt.LogoutAsync();
+                App.IsLogged = false;
             }
             IsLogged.Text = "Successfully logged out";
             SquarePicture.UserId = "";
             login.Visibility = Visibility.Visible;
+            logout.Visibility = Visibility.Collapsed;
         }
 
         private async void OnGet(object sender, RoutedEventArgs e)

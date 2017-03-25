@@ -99,6 +99,9 @@
       <DependentUpon>AddLesson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="SearchedCoursesList.xaml.cs">
+      <DependentUpon>SearchedCoursesList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewLesson.xaml.cs">
       <DependentUpon>ViewLesson.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddLesson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchedCoursesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

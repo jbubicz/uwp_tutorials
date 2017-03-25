@@ -133,25 +133,42 @@ namespace TrainingPlatform
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             // Set sender.Text. You can use args.SelectedItem to build your text string.
-            string suggestion = args.SelectedItem.ToString();
-            if (suggestion != null || suggestion != "")
-            {
-                ObservableCollection<Course> course = Database.getCourse(suggestion);
-
-            }
+            //string suggestion = args.SelectedItem.ToString();
+            //if (suggestion != null || suggestion != "")
+            //{
+            //    ObservableCollection<Course> courses = Database.getCourse(suggestion);
+            //    Frame.Navigate(typeof(SearchedCoursesList), courses);
+            //}
         }
 
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            string suggestion = "";
             if (args.ChosenSuggestion != null)
             {
-                // User selected an item from the suggestion list, take an action on it here.
+                suggestion = args.ChosenSuggestion.ToString().Trim();
+                if (suggestion.Length > 1)
+                {
+                    Course courses = Database.getCourse(suggestion);
+                    MyFrame.Navigate(typeof(ViewCourse), courses);
+                }
+                else
+                {
+
+                }
             }
             else
             {
-                // Use args.QueryText to determine what to do.
+                suggestion = args.QueryText.Trim().ToLower();
+                if (suggestion.Length > 1)
+                {
+                    ObservableCollection<Course> courses = Database.getCourses(suggestion);
+                    MyFrame.Navigate(typeof(SearchedCoursesList), courses);
+
+                }
             }
+
         }
     }
 }
