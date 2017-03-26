@@ -5,8 +5,12 @@
     xmlns:local="using:TrainingPlatform"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:TrainingPlatform.Models"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <converters:ListToStringConverter x:Key="ListToStringConverter" />
+    </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <!--<ProgressRing IsActive="True" Height="100" Width="100" Foreground="Red"/>-->
         <Pivot x:Name="MainPivot" SelectionChanged="MainPivot_SelectionChanged">
@@ -39,7 +43,7 @@
                                         <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" />
                                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                         <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" CharacterSpacing="3"/>
+                                        <TextBlock Name="Price_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Price, Converter={StaticResource ListToStringConverter}}" VerticalAlignment="Center" CharacterSpacing="3"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>

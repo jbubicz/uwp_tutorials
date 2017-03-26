@@ -52,7 +52,8 @@ namespace TrainingPlatform
             ViewLessonForm.DataContext = lesson;
             EditLessonForm.DataContext = lesson;
             Uri pathUri = new Uri(lesson.Video);
-            Video.Source = MediaSource.CreateFromUri(pathUri);
+            //Video.Source = MediaSource.CreateFromUri(pathUri);
+            Video.Source = pathUri;
             course_id = lesson.Course_id;
             getSections();
             if (sections == null || sections.Count == 0)

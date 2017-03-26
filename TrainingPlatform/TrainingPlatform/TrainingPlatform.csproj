@@ -99,6 +99,7 @@
       <DependentUpon>AddLesson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\ListToStringConverter.cs" />
     <Compile Include="SearchedCoursesList.xaml.cs">
       <DependentUpon>SearchedCoursesList.xaml</DependentUpon>
     </Compile>

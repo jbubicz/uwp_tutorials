@@ -23,6 +23,12 @@ namespace TrainingPlatform
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+
+        }
+
+
         private void MainPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MainPivot.SelectedIndex == 0)

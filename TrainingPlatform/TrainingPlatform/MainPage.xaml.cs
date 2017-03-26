@@ -29,7 +29,7 @@ namespace TrainingPlatform
             MyFrame.Navigate(typeof(CoursesList));
             MyFrame.Navigated += myFrame_Navigated;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-            Back.Visibility = Visibility.Collapsed;
+            //Back.Visibility = Visibility.Collapsed;
             App.IsLogged = false;
         }
 

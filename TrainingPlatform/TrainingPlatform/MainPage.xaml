@@ -22,7 +22,7 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MyAutoSuggestBox.Visibility" Value="Collapsed" />
+                        <!--<Setter Target="MyAutoSuggestBox.Visibility" Value="Collapsed" />-->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Wide">
@@ -46,12 +46,12 @@
                     Height="45"
                     HorizontalAlignment="Center"
                     Click="HamburgerButton_Click"/>
-            <Button Name="Back"
+            <!--<Button Name="Back"
                     Visibility="Visible"
                     Click="Back_Click" 
                     RelativePanel.RightOf="HamburgerButton" 
                     FontFamily="Segoe MDL2 Assets" 
-                    FontSize="34" >&#xE0C4;</Button>
+                    FontSize="34" >&#xE0C4;</Button>-->
             <AutoSuggestBox Name="MyAutoSuggestBox"
                             QueryIcon="Find"
                             PlaceholderText="Search"
@@ -60,7 +60,7 @@
                             SuggestionChosen="AutoSuggestBox_SuggestionChosen"
                             RelativePanel.LeftOf="LoginButton"
                             AutoMaximizeSuggestionArea="True"
-                            MaxSuggestionListHeight="50"                            
+                            MaxSuggestionListHeight="500"                            
                             IsSuggestionListOpen="True"
                             UpdateTextOnSelect="True"
                             Width="200" 

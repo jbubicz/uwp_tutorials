@@ -15,10 +15,10 @@
                 <SplitView.Content>
                     <StackPanel Name="LessonForm">
                         <StackPanel Name="ViewLessonForm">
-                            <!--<Image Source="{Binding Img}" Stretch="Uniform" />-->
-                            <MediaPlayerElement x:Name="Video"
+                            <MediaElement Name="Video"
                                                 PosterSource="{Binding Img}"
                                                 Width="400"  AutoPlay="False"
+                                             
                                                 AreTransportControlsEnabled="True"/>
                             <!--<CommandBar>
                                 <AppBarButton Icon="FullScreen"

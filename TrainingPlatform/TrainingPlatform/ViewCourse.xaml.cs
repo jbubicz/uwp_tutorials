@@ -339,7 +339,7 @@ namespace TrainingPlatform
                     try
                     {
                         Rootobject profile = graphResult.Object as Rootobject;
-                        int friends_count = profile.summary.total_count;
+                        int friends_count = profile.data.Count();                        
                         if (Convert.ToBoolean(friends_count))
                         {
                             var friendsList = new ObservableCollection<FBUserRootobject>();
