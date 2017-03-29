@@ -29,8 +29,21 @@ namespace TrainingPlatform
         {
             base.OnNavigatedTo(e);
             courses = (ObservableCollection<Course>)e.Parameter;
-            SearchedCourses_list.ItemsSource = courses;           
+            SearchedCourses_list.ItemsSource = courses;
+            setControlsVisibility(courses);
         }
+
+        private void setControlsVisibility(ObservableCollection<Course> courses)
+        {
+            if (courses.Count==0)
+            {
+                NoResults.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                NoResults.Visibility = Visibility.Collapsed;
+            }
+        }       
 
         private void SearchedCoursesList_ItemClick(object sender, ItemClickEventArgs e)
         {

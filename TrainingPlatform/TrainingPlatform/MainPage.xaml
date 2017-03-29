@@ -36,7 +36,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <RelativePanel HorizontalAlignment="Left" Width="360">
+        <RelativePanel HorizontalAlignment="Stretch" Width="Auto">
             <Button Name="HamburgerButton" 
                     RelativePanel.AlignLeftWithPanel="True"
                     FontFamily="Segoe MDL2 Assets" 
@@ -46,12 +46,13 @@
                     Height="45"
                     HorizontalAlignment="Center"
                     Click="HamburgerButton_Click"/>
-            <!--<Button Name="Back"
-                    Visibility="Visible"
-                    Click="Back_Click" 
-                    RelativePanel.RightOf="HamburgerButton" 
-                    FontFamily="Segoe MDL2 Assets" 
-                    FontSize="34" >&#xE0C4;</Button>-->
+            <Image Name="Logo_img" 
+                   Source="Assets\Logo.png"
+                   Stretch="None"
+                   RelativePanel.LeftOf="MyAutoSuggestBox"
+                   RelativePanel.RightOf="HamburgerButton"
+                   HorizontalAlignment="Center"
+                   />
             <AutoSuggestBox Name="MyAutoSuggestBox"
                             QueryIcon="Find"
                             PlaceholderText="Search"
@@ -64,8 +65,7 @@
                             IsSuggestionListOpen="True"
                             UpdateTextOnSelect="True"
                             Width="200" 
-                            Height="45"
-                            Margin="0,0,10,0"/>
+                            Height="45"                            />
             <Button Name="LoginButton"
                     RelativePanel.AlignRightWithPanel="True"
                     Content="Log In"
@@ -78,15 +78,55 @@
                    Grid.Row="1"
                    DisplayMode="Overlay"
                    OpenPaneLength="180"
-                   CompactPaneLength="45">
+                   CompactPaneLength="0">
             <SplitView.Pane>
                 <ListBox SelectionMode="Single"
                          SelectionChanged="ListBox_SelectionChanged">
+                    <ListBoxItem Name="Avatar_link">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Name="Avatar" 
+                                   Source="Assets\2.png"
+                                   Stretch="UniformToFill"
+                                   MaxHeight="60"
+                                   HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="Home_link">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="20"
+                                       Text="&#xE10F;"/>
+                            <TextBlock Text="Home" 
+                                       FontSize="18"
+                                       Margin="20,0,0,0" />
+                        </StackPanel>
+                    </ListBoxItem>
                     <ListBoxItem Name="Login_link">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
+                                       FontSize="20"
+                                       Text="&#xE13D;"/>
                             <TextBlock Text="Log in" 
+                                       FontSize="18"
+                                       Margin="20,0,0,0" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="Logout_link">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="20"
+                                       Text="&#xE748;"/>
+                            <TextBlock Text="Log out" 
+                                       FontSize="18"
+                                       Margin="20,0,0,0" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="MyCourses_link">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="20"
+                                       Text="&#xE136;"/>
+                            <TextBlock Text="My courses" 
                                        FontSize="18"
                                        Margin="20,0,0,0" />
                         </StackPanel>
@@ -94,7 +134,8 @@
                     <ListBoxItem Name="AllCourses_link">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
+                                       FontSize="20"
+                                       Text="&#xE14C;"/>
                             <TextBlock Text="View all courses" 
                                        FontSize="18"
                                        Margin="20,0,0,0" />
@@ -103,8 +144,19 @@
                     <ListBoxItem Name="AddCourse_link">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets"
-                                       FontSize="20"/>
+                                       FontSize="20"
+                                       Text="&#xECC8;"/>
                             <TextBlock Text="Add new course" 
+                                       FontSize="18"
+                                       Margin="20,0,0,0" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Name="Settings_link">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets"
+                                       FontSize="20"
+                                       Text="&#xE115;"/>
+                            <TextBlock Text="Settings" 
                                        FontSize="18"
                                        Margin="20,0,0,0" />
                         </StackPanel>

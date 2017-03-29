@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace TrainingPlatform
-{    
+{
     public sealed partial class CoursesList : Page
     {
         public CoursesList()
@@ -28,11 +28,10 @@ namespace TrainingPlatform
 
         }
 
-
         private void MainPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MainPivot.SelectedIndex == 0)
-            {               
+            {
                 ObservableCollection<Course> lstsource = Database.getAllActiveCourses("courses");
                 lstGroup.ItemsSource = lstsource;
             }

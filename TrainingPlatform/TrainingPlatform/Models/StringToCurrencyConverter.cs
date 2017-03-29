@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Data;
 
 namespace TrainingPlatform.Models
 {
-    public class ListToStringConverter : IValueConverter
+    public class StringToCurrencyConverter : IValueConverter
     {
         private double p;
 

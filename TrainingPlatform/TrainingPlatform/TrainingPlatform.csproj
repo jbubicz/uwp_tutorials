@@ -99,7 +99,7 @@
       <DependentUpon>AddLesson.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\ListToStringConverter.cs" />
+    <Compile Include="Models\StringToCurrencyConverter.cs" />
     <Compile Include="SearchedCoursesList.xaml.cs">
       <DependentUpon>SearchedCoursesList.xaml</DependentUpon>
     </Compile>
@@ -150,6 +150,7 @@
     <Content Include="Assets\2.png" />
     <Content Include="Assets\3.png" />
     <Content Include="Assets\course.jpg" />
+    <Content Include="Assets\Logo.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

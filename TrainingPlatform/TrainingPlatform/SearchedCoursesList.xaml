@@ -41,7 +41,13 @@
                        CompactPaneLength="45"
                        Width="Auto">
                 <SplitView.Content>
+                   
                     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <StackPanel Name="NoResults" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                            <TextBlock Name="NoResults_textBlock" 
+                                       Text="No results found"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
                         <ListView x:Name="SearchedCourses_list" 
                               Margin="8"
                               ItemClick="SearchedCoursesList_ItemClick"
