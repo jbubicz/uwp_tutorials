@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <Grid Name="MainPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-          Margin="1">
+          Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -46,26 +46,32 @@
                     Height="45"
                     HorizontalAlignment="Center"
                     Click="HamburgerButton_Click"/>
-            <Image Name="Logo_img" 
+            <Grid Name="LogoAndSearch_panel"                 
+                  RelativePanel.RightOf="HamburgerButton"
+                  RelativePanel.LeftOf="LoginButton">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*" MinWidth="200"/>
+                </Grid.ColumnDefinitions>
+                <Image Name="Logo_img" 
+                       Grid.Column="0"
                    Source="Assets\Logo.png"
-                   Stretch="None"
-                   RelativePanel.LeftOf="MyAutoSuggestBox"
-                   RelativePanel.RightOf="HamburgerButton"
-                   HorizontalAlignment="Center"
-                   />
-            <AutoSuggestBox Name="MyAutoSuggestBox"
+                   Stretch="None"/>
+                <AutoSuggestBox Name="MyAutoSuggestBox"
+                                Grid.Column="1"
                             QueryIcon="Find"
                             PlaceholderText="Search"
                             TextChanged="AutoSuggestBox_TextChanged"
                             QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                             SuggestionChosen="AutoSuggestBox_SuggestionChosen"
-                            RelativePanel.LeftOf="LoginButton"
+                            HorizontalAlignment="Center"
                             AutoMaximizeSuggestionArea="True"
                             MaxSuggestionListHeight="500"                            
                             IsSuggestionListOpen="True"
                             UpdateTextOnSelect="True"
                             Width="200" 
-                            Height="45"                            />
+                            Height="45"/>
+            </Grid>
             <Button Name="LoginButton"
                     RelativePanel.AlignRightWithPanel="True"
                     Content="Log In"
@@ -79,10 +85,11 @@
                    DisplayMode="Overlay"
                    OpenPaneLength="180"
                    CompactPaneLength="0">
-            <SplitView.Pane>
+            <SplitView.Pane >
                 <ListBox SelectionMode="Single"
                          SelectionChanged="ListBox_SelectionChanged">
-                    <ListBoxItem Name="Avatar_link">
+                    <ListBoxItem Name="Avatar_link"
+                                 HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
                             <Image Name="Avatar" 
                                    Source="Assets\2.png"
