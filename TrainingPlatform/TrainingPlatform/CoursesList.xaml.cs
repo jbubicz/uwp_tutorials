@@ -1,31 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace TrainingPlatform
 {
     public sealed partial class CoursesList : Page
-    {
+    {        
         public CoursesList()
         {
-            this.InitializeComponent();
+            this.InitializeComponent();            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
+            
         }
 
         private void MainPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)

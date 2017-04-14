@@ -12,6 +12,9 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ProgressRing Foreground="White" IsEnabled="True" IsActive="True"
+                      VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible"
+			Width="480" />
         <Pivot x:Name="MainPivot" SelectionChanged="MainPivot_SelectionChanged">
             <PivotItem Header="All Courses">
                 <Grid BorderBrush="Black"

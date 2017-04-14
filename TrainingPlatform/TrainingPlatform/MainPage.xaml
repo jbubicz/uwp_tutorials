@@ -48,7 +48,8 @@
                     Click="HamburgerButton_Click"/>
             <Grid Name="LogoAndSearch_panel"                 
                   RelativePanel.RightOf="HamburgerButton"
-                  RelativePanel.LeftOf="LoginButton">
+                  RelativePanel.LeftOf="LoginButton"
+                  Height="45">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*" MinWidth="200"/>
@@ -56,7 +57,8 @@
                 <Image Name="Logo_img" 
                        Grid.Column="0"
                    Source="Assets\Logo.png"
-                   Stretch="None"/>
+                   Stretch="Uniform"
+                       Height="45"/>
                 <AutoSuggestBox Name="MyAutoSuggestBox"
                                 Grid.Column="1"
                             QueryIcon="Find"
