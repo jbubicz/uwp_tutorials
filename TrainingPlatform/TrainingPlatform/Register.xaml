@@ -15,7 +15,8 @@
                    CompactPaneLength="45">
                 <SplitView.Content>
                     <StackPanel Name="addForm">
-                        <ComboBox Name="RoleCombo" Header="Role" Height="Auto" Width="Auto" >
+                        <ComboBox Name="RoleCombo" Header="Role" Height="Auto" Width="Auto" 
+                                  Visibility="Collapsed">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
@@ -23,31 +24,34 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <TextBlock Name="NameTextBlock" Text="Name:"/>
-                        <TextBox Name="NameTextBox" 
-                             AutomationProperties.IsRequiredForForm="True" InputScope="PersonalFullName" />
-                        <TextBlock Name="PasswordTextBlock1" Text="Password:"/>
+                        </ComboBox>                        
+                        <TextBox Name="NameTextBox" Header="Imię"
+                             AutomationProperties.IsRequiredForForm="True" InputScope="PersonalFullName" 
+                                 Margin="0 2"/>                        
                         <TextBox Name="PasswordTexBox1" 
+                                 Header="Hasło"
                              AcceptsReturn="True" 
                              AutomationProperties.IsRequiredForForm="True" 
                              InputScope="Password" 
-                             Width="Auto"/>
-                        <TextBlock Name="PasswordTextBlock2" Text="Password again:"/>
+                             Width="Auto"
+                                 Margin="0 2 "/>                        
                         <TextBox Name="PasswordTexBox2" 
+                                 Header="Ponów hasło"
                              AcceptsReturn="True" 
                              AutomationProperties.IsRequiredForForm="True" 
                              InputScope="Password" 
-                             Width="Auto"/>
-                        <TextBlock Name="EmailTexBlock" Text="Email:"/>
-                        <TextBox Name="EmailTextBox" InputScope="EmailSmtpAddress" AutomationProperties.IsRequiredForForm="True"/>
-                        <Button Name="AddUserButton" Content="Register" Margin="20" Click="AddUserButton_Click"/>
-                        <TextBlock Text="Or continue with Facebook:"/>
+                             Width="Auto"
+                                 Margin="0 2"/>                        
+                        <TextBox Name="EmailTextBox" 
+                                 Header="Email"   InputScope="EmailSmtpAddress" AutomationProperties.IsRequiredForForm="True"
+                                 Margin="0 2"/>
+                        <Button Name="AddUserButton" Content="Zarejestruj" Margin="20" Click="AddUserButton_Click"/>
+                        <TextBlock Text="Albo kontynuuj z Facebookiem:"/>
                         <StackPanel MaxWidth="362" HorizontalAlignment="Left" Margin="10,10,0,0">
                             <fb:ProfilePictureControl CropMode="Square" x:Name="FBPicture" Width="100" Height="100" HorizontalAlignment="Center"/>
                         </StackPanel>
                         <fb:FBLoginButton x:Name="FBRegisterButton" Margin="10" Visibility="Visible" Click="FBRegisterButton_Click"></fb:FBLoginButton>
-                        <Button Name="LogoutFBButton" Content="Logout FB" Margin="10,0" Click="LogoutFBButton_Click"/>
+                        <!--<Button Name="LogoutFBButton" Content="Logout FB" Margin="10,0" Click="LogoutFBButton_Click"/>-->
                     </StackPanel>
                 </SplitView.Content>
             </SplitView>

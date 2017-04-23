@@ -16,7 +16,7 @@
                 <SplitView.Content>
                     <StackPanel Name="addForm">
 
-                        <ComboBox Name="CatCombo" Header="Category" Height="Auto" Width="Auto" >
+                        <ComboBox Name="CatCombo" Header="Kategoria" Height="Auto" Width="Auto" Margin="0 2" >
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Width="Auto" Height="Auto">
@@ -24,26 +24,31 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <TextBlock Name="title_label" Text="Title:"/>
-                        <TextBox Name="title_box"/>
-                        <TextBlock Name="short_desc_label" Text="Type short description of Your course here:"/>
-                        <TextBox Name="short_desc_box" AcceptsReturn="True" AutomationProperties.IsRequiredForForm="True" />
-                        <TextBlock Name="desc_label" Text="Type detailed description of Your course here:"/>
-                        <TextBox Name="desc_box" AcceptsReturn="True" />
-                        <TextBlock Name="price_label" Text="Price:"/>
-                        <TextBox Name="price_box" InputScope="CurrencyAmountAndSymbol"/>
+                        </ComboBox>                        
+                        <TextBox Name="title_box" Header="Tytuł" Margin="0 2"/>                        
+                        <TextBox Name="short_desc_box" 
+                                 Header="Krótki opis" AcceptsReturn="True" AutomationProperties.IsRequiredForForm="True" 
+                                 Margin="0 2"/>                        
+                        <TextBox Name="desc_box" AcceptsReturn="True" 
+                                 Header="Szczegółowy opis"
+                                 Margin="0 2"/>                        
+                        <TextBox Name="price_box" InputScope="CurrencyAmountAndSymbol"
+                                 Header="Cena"
+                                 Margin="0 2"/>
                         <TextBlock Name="img_label" Text="Upload image for Your course:"/>
-                        <Button Name="Upload" Click="Upload_Click" Content="Upload"/>
-                        <Button Name="Save" Click="Save_Click" Content="Save File"/>
-                        <TextBlock Name="OutputTextBlock" />
-                        <TextBlock Name="StatusBlock" />
-                        <TextBox x:Name="serverAddressField" Text="http://projekt.breko.eu/webroot/files/" Width="500"/>
-                        <Button x:Name="StartUploadButton" Content="Start Upload" Margin="0,0,10,0" Click="StartUpload_Click"/>
-                        <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click"/>
-                        <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
-                        <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Button Name="add_course_button" Content="Add course" Margin="20" Click="add_course_button_Click"/>
+                        <Button Name="Upload" Click="Upload_Click" Content="Upload Image"/>
+                        <StackPanel Visibility="Collapsed">
+                            <Button Name="Save" Click="Save_Click" Content="Save File" Visibility="Collapsed"/>
+                            <TextBlock Name="OutputTextBlock" Visibility="Collapsed"/>
+                            <TextBlock Name="StatusBlock" />
+                            <TextBox x:Name="serverAddressField" Text="http://projekt.breko.eu/webroot/files/" Width="500"/>
+                            <Button x:Name="StartUploadButton" Content="Upload Video" Margin="0,0,10,0" Click="StartUpload_Click"/>
+                            <Button x:Name="StartMultipartUploadButton" Content="Start Multipart Upload" Margin="0,0,10,0" Click="StartMultipartUpload_Click" Visibility="Collapsed"/>
+                            <Button x:Name="CancelAllButton" Content="Cancel All" Margin="0,0,10,0" Click="CancelAll_Click"/>
+                            <TextBox x:Name="outputField" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" MaxHeight="200" Width="500" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        </StackPanel>
+                        <CheckBox Name="Enable_checkbox" Content="Opublikuj kurs" />
+                        <Button Name="add_course_button" Content="Dodaj kurs" Margin="20" Click="add_course_button_Click"/>
                         <!--<Image Name="imageView" Stretch="UniformToFill" Width="Auto" Height="Auto"/>-->
                     </StackPanel>
                 </SplitView.Content>

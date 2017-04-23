@@ -16,17 +16,17 @@
                       VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible"
 			Width="480" />
         <Pivot x:Name="MainPivot" SelectionChanged="MainPivot_SelectionChanged">
-            <PivotItem Header="All Courses">
+            <PivotItem Header="Wszystkie kursy">
                 <Grid BorderBrush="Black"
-                      BorderThickness="1">
+                      BorderThickness="0">
                     <ListView x:Name="lstGroup" 
-                              Margin="8"
+                              Margin="0,0,0,0"
                               CanDrag="True"
                               AllowDrop="True"
                               ItemClick="lstGroup_ItemClick"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                              IsItemClickEnabled="True">
+                              IsItemClickEnabled="True" HorizontalAlignment="Stretch" Width="Auto">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -34,7 +34,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
+                                <Border BorderBrush="#F0EDE4" BorderThickness="0 1 0 1">
                                     <Grid >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="100"/>
@@ -42,11 +42,11 @@
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="2*" />                                            
+                                            <ColumnDefinition Width="2*" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="{Binding ImgUrl}" Stretch="UniformToFill"/>
+                                        <Image Grid.Column="0" Source="{Binding ImgUrl}" Stretch="Uniform" Margin="0 0 2 0"/>
                                         <StackPanel Grid.Column="1">
-                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"/>
                                             <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                             <TextBlock Name="Price_textBlock" Grid.Row="1" Grid.Column="2" Text="{Binding Price, Converter={StaticResource StringToCurrencyConverter}}" VerticalAlignment="Center" CharacterSpacing="3"/>
                                         </StackPanel>
@@ -57,7 +57,7 @@
                     </ListView>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Top Courses">
+            <PivotItem Header="Najczęściej oglądane">
                 <Grid>
                     <ListView x:Name="TopCoursesListView" 
                               Margin="8"
@@ -83,7 +83,7 @@
                                             <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" />
+                                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="Uniform" />
                                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                         <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" CharacterSpacing="3"/>
@@ -94,7 +94,7 @@
                     </ListView>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Newest Courses">
+            <PivotItem Header="Najnowsze kursy">
                 <Grid>
                     <ListView x:Name="NewestCoursesListView" 
                               Margin="8"
@@ -109,7 +109,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="#F0EDE4" BorderThickness="0 0 0 1">
+                                <Border BorderBrush="#F0EDE4" BorderThickness="0 1 0 1">
                                     <Grid >
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="100"/>
@@ -120,8 +120,8 @@
                                             <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="UniformToFill" />
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                        <Image Grid.Column="1" Source="{Binding ImgUrl}" Stretch="Uniform" />
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Title}" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"/>
                                         <TextBlock Margin="0,5,0,5" Grid.Row="1" Grid.Column="1" Text="{Binding ShortDescription}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" CharacterSpacing="3"/>
                                     </Grid>

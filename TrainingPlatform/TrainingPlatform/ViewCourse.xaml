@@ -109,7 +109,8 @@
                         <StackPanel Name="AddCourseSections"
                                     Orientation="Horizontal"
                                     Visibility="Collapsed">
-                            <TextBlock Name="AddSection_textBox" Text="Add new section to course" VerticalAlignment="Center"
+                            <TextBlock Name="AddSection_textBox" Text="Dodaj nową sekcję do kursu" VerticalAlignment="Center"
+                                       Margin="2"
                                    Visibility="Visible"/>
                             <Button Name="AddSectionButton" 
                                 Content="+"
@@ -144,7 +145,7 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                             </StackPanel>
-                            <Button Grid.Column="1" Name="AddNewLesson_button" Content="Add new lesson" Click="AddNewLesson_button_Click"/>
+                            <Button Grid.Column="1" Name="AddNewLesson_button" Content="Dodaj nową lekcję" Click="AddNewLesson_button_Click"/>
                         </StackPanel>
                         <Button Name="SignupButton" 
                             Content="Sign up"
@@ -182,11 +183,12 @@
                                 <RadioButton Name="rb5" Content="5" Tag="5" Checked="BGRadioButton_Checked"/>
                             </StackPanel>
                             <Button Name="ClearRating"
-                                    Content="Clear"
+                                    Content="Wyczyść"
                                     Margin="5"
                                     Click="ClearRating_Click"/>
                         </StackPanel>
-                        <TextBlock Name="LessonsList_textBlock" Text="Course's lessons: " />
+                        <TextBlock Name="LessonsList_textBlock" Text="Lekcje kursu: " 
+                                   FontWeight="Bold"/>
                         <StackPanel Name="CourseSections" 
                                     Orientation="Vertical">
                             <ListView Name="SectionsLessonsList" 
@@ -216,11 +218,12 @@
                                                         <RowDefinition Height="Auto"/>
                                                         <RowDefinition Height="Auto"/>
                                                     </Grid.RowDefinitions>
-                                                    <TextBlock Grid.Column="1" Text="{Binding Title, Mode=TwoWay}" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding Title, Mode=TwoWay}"
+                                                               FontWeight="Bold"/>
                                                     <ListView Name="LessonsList" 
                                                               Grid.Column="1"
                                                               Grid.Row="1"
-                                                              Margin="8" 
+                                                              Margin="1" 
                                                               CanReorderItems="True"
                                                               CanDrag="True"
                                                               AllowDrop="True"
@@ -231,7 +234,7 @@
                                                               ItemsSource="{Binding lessons}">
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
-                                                                <StackPanel Orientation="Horizontal">
+                                                                <StackPanel Orientation="Horizontal" BorderThickness="0 1">
                                                                     <Ellipse MaxHeight="80" MaxWidth="80" Stretch="UniformToFill">
                                                                         <Ellipse.Fill>
                                                                             <ImageBrush ImageSource="{Binding Img}" />

@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\1.jpg" />
+    <Content Include="Assets\2.jpg" />
     <Content Include="Assets\2.png" />
     <Content Include="Assets\3.png" />
     <Content Include="Assets\course.jpg" />

@@ -23,25 +23,25 @@
                              Width="200" InputScope="EmailSmtpAddress"
                                  AutomationProperties.IsRequiredForForm="True"/>                        
                         <TextBox Name="PassTextBox"
-                                 Header="Password"
+                                 Header="Hasło"
                              HorizontalAlignment="Left"
                              Width="200" InputScope="Password"
                                  AutomationProperties.IsRequiredForForm="True"/>
                         <Button Name="SimpleLoginButton"
                             Margin="0,10,0,0"
-                            Content="Log in"
+                            Content="Zaloguj"
                             Click="SimpleLoginButton_Click"/>
                         <!--<TextBlock Name="RegisterTextBlock" Text=""/>-->
-                        <HyperlinkButton Name="RegisterLink" Content="Register" Click="RegisterLink_Click"/>
+                        <HyperlinkButton Name="RegisterLink" Content="Zarejestruj" Click="RegisterLink_Click"/>
                         <!--FB login-->
                         <StackPanel MaxWidth="362" HorizontalAlignment="Left" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,50,0,12">
                             <fb:ProfilePictureControl CropMode="Square" x:Name="SquarePicture" Width="100" Height="100" HorizontalAlignment="Center"/>
                         </StackPanel>
                         <!--<Button x:Name="UserLikesButton" Content="Show Likes..." HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="UserLikesButton_Click" MaxWidth="362" Height="Auto" Width="{Binding ActualWidth, ElementName=StackPanel2}"/>-->
                         <!--<Button Content="Friends" x:Name="BackButton" Height="Auto" MaxWidth="362" Width="{Binding ActualWidth, ElementName=StackPanel2}" Margin="0,10,0,0" Click="OnGet"/>-->
-                        <fb:FBLoginButton x:Name="login" Margin="10" Click="login_Click" Visibility="Visible"></fb:FBLoginButton>
-                        <TextBlock Name="IsLogged"/>
-                        <Button Name="logout" Content="Logout" Click="logout_Click"/>
+                        <fb:FBLoginButton x:Name="login" Margin="5" Click="login_Click" Visibility="Visible" HorizontalAlignment="Center"></fb:FBLoginButton>
+                        <TextBlock Name="IsLogged" HorizontalAlignment="Center" Margin="5"/>
+                        <Button Name="logout" Content="Wyloguj z Facebooka" Click="logout_Click" HorizontalAlignment="Center" Margin="5"/>
                     </StackPanel>
                 </SplitView.Content>
             </SplitView>

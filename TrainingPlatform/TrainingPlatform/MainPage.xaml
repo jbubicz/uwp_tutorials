@@ -45,14 +45,14 @@
                     Width="45"
                     Height="45"
                     HorizontalAlignment="Center"
-                    Click="HamburgerButton_Click"/>
+                    Click="HamburgerButton_Click" VerticalAlignment="Bottom"/>
             <Grid Name="LogoAndSearch_panel"                 
                   RelativePanel.RightOf="HamburgerButton"
                   RelativePanel.LeftOf="LoginButton"
                   Height="45">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*" MinWidth="200"/>
+                    <ColumnDefinition Width="*" MinWidth="180"/>
                 </Grid.ColumnDefinitions>
                 <Image Name="Logo_img" 
                        Grid.Column="0"
@@ -71,7 +71,7 @@
                             MaxSuggestionListHeight="500"                            
                             IsSuggestionListOpen="True"
                             UpdateTextOnSelect="True"
-                            Width="200" 
+                            MinWidth="180" 
                             Height="45"/>
             </Grid>
             <Button Name="LoginButton"
@@ -85,7 +85,7 @@
         <SplitView Name="MySpliView"
                    Grid.Row="1"
                    DisplayMode="Overlay"
-                   OpenPaneLength="180"
+                   OpenPaneLength="195"
                    CompactPaneLength="0">
             <SplitView.Pane >
                 <ListBox SelectionMode="Single"
@@ -94,9 +94,9 @@
                                  HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
                             <Image Name="Avatar" 
-                                   Source="Assets\2.png"
+                                   Source="Assets\2.jpg"
                                    Stretch="UniformToFill"
-                                   MaxHeight="60"
+                                   MaxHeight="100"
                                    HorizontalAlignment="Center"/>
                         </StackPanel>
                     </ListBoxItem>
